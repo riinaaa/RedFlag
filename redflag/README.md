@@ -1,6 +1,11 @@
 # redflag
 
 A new Flutter project.
+BY:
+Rina Alfarsi
+Atheer Alghamdi
+Maha Benaider
+Ghada Alsulami
 
 ## Getting Started
 
