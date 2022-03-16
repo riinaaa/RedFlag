@@ -128,21 +128,55 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    SizedBox(height: 10),
                     SizedBox(
-                        height: 150,
+                        height: 200,
                         child: Image.asset(
-                          "assets/logo.png",
+                          "assets/login_welcome.png",
                           fit: BoxFit.contain,
                         )),
-                    SizedBox(height: 45),
+                    SizedBox(height: 20),
+                    Text(
+                      "Welcome Back",
+                      style: TextStyle(color: Colors.black, fontSize: 30),
+                    ),
+                    SizedBox(height: 35),
                     emailField,
                     SizedBox(height: 25),
                     passwordField,
+                    SizedBox(height: 2),
+
+                    //forgot password
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Text("Forgot password? "),
+
+                          // to know when the user clicks on it
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          //change the router here!
+                                          RegistrationScreen()));
+                            },
+                            child: Text(
+                              "click here",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15),
+                            ),
+                          )
+                        ]),
                     SizedBox(height: 35),
+
                     loginButton,
                     SizedBox(height: 15),
 
-                    ////////
+                    //////// REGISTER
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
