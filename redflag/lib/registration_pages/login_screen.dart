@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redflag/registration_pages/registration_screen.dart';
+import '/nav_pages_UI/nav.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -86,6 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
             // signIn(emailController.text, passwordController.text);
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => NavScreen()));
           },
           child: Text(
             "LOGIN",
