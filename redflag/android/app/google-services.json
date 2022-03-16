@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "538109725024",
+    "project_id": "redflag-3d9d6",
+    "storage_bucket": "redflag-3d9d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538109725024:android:dc6a3cdfeba3cdb0a83605",
+        "android_client_info": {
+          "package_name": "com.example.redflag"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538109725024-vqlrrrabnhd37c81alvj4fb9494stmso.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.redflag",
+            "certificate_hash": "1dc35b62333b93377b52feb89298dfeadd8ff222"
+          }
+        },
+        {
+          "client_id": "538109725024-ko3sdfedrvolre09m6cd0ccvh2ao6vau.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD53jawHjGHyg5kfJVJlQmXPYhFJL2sIbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538109725024-ko3sdfedrvolre09m6cd0ccvh2ao6vau.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

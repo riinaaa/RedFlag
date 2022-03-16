@@ -172,7 +172,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         controller: confirmPinEditingController,
         obscureText: true,
         validator: (value) {
-          RegExp regex = new RegExp(r'^.{4,}$');
+          RegExp regex = new RegExp(r'^[0-9]{4}$');
           if (value!.isEmpty) {
             return ("PIN is required");
           }
@@ -287,6 +287,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       onSaved: (phone) {
         emergencyContactNumberEditingController.text = phone!.completeNumber;
       },
+      textInputAction: TextInputAction.done,
     );
 
     //signup button
