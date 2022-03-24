@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redflag/locations/user_location.dart';
 
 class activatePage extends StatefulWidget {
   const activatePage({Key? key}) : super(key: key);
@@ -14,7 +15,11 @@ class _activatePageState extends State<activatePage> {
       child: Scaffold(
         backgroundColor: Colors.red,
         body: Center(
-            child: ElevatedButton(onPressed: null, child: Text('Activate'))),
+            child: ElevatedButton(
+                onPressed: () {
+                  UserLocation().getLocation();
+                },
+                child: Text('Activate'))),
       ),
     );
   }
