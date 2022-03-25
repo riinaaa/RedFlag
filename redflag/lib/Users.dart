@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import './EmergencyContacts.dart';
 
-class User extends StatelessWidget {
+class Users extends StatelessWidget {
   //const User({ Key? key }) : super(key: key);
 
   var userFirstName;
   var userLastName;
+  var uid;
   var password;
   var email;
   var keyword;
   var pin;
   var emergencyContacts = <EmergencyContacts>{}; //Not sure!!
 
-  User(this.userFirstName, this.userLastName, this.password, this.email,
-      this.keyword, this.pin, this.emergencyContacts) {
+  Users(this.userFirstName, this.userLastName, this.uid, this.password,
+      this.email, this.keyword, this.pin, this.emergencyContacts) {
     userFirstName = this.userLastName;
     userLastName = this.userLastName;
+    uid = this.uid;
     email = this.email;
     password = this.password;
     keyword = this.keyword;
@@ -52,7 +54,7 @@ class User extends StatelessWidget {
   set setEmergencyContacts(emergencyContacts) =>
       this.emergencyContacts = emergencyContacts;
 
-  User.empty();
+  Users.empty();
 
   //----------- UI -----------
   @override

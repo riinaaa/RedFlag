@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:redflag/User.dart';
-import './User.dart';
+import 'package:redflag/Users.dart';
+import 'Users.dart';
 import './AccessStatus.dart';
 
 class Emergency extends StatelessWidget {
   //const ({ Key? key }) : super(key: key);
 
   AccessStatus access = new AccessStatus.empty();
-  User user = new User.empty();
+  Users user = new Users.empty();
   var mute;
   var userCoordinate;
   var policeStationCoordinatef = <String>[];
