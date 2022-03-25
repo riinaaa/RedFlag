@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import './EmergencyContacts.dart';
 
-class Users extends StatelessWidget {
+class Users {
   //const User({ Key? key }) : super(key: key);
 
   var userFirstName;
@@ -11,10 +11,17 @@ class Users extends StatelessWidget {
   var email;
   var keyword;
   var pin;
-  var emergencyContacts = <EmergencyContacts>{}; //Not sure!!
+  List<EmergencyContacts> emergencyContacts = [];
 
-  Users(this.userFirstName, this.userLastName, this.uid, this.password,
-      this.email, this.keyword, this.pin, this.emergencyContacts) {
+  Users(
+      {this.userFirstName,
+      this.userLastName,
+      this.uid,
+      this.password,
+      this.email,
+      this.keyword,
+      this.pin,
+      List<EmergencyContacts>? emergencyContacts}) {
     userFirstName = this.userLastName;
     userLastName = this.userLastName;
     uid = this.uid;
@@ -22,7 +29,7 @@ class Users extends StatelessWidget {
     password = this.password;
     keyword = this.keyword;
     pin = this.pin;
-    emergencyContacts = this.emergencyContacts;
+    emergencyContacts = emergencyContacts ?? [];
   }
 
   get getUserFirstName => this.userFirstName;
@@ -56,9 +63,23 @@ class Users extends StatelessWidget {
 
   Users.empty();
 
-  //----------- UI -----------
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+  // receiving data from server
+  factory Users.fromMap(map) {
+    return Users(
+      uid: map['uid'],
+      email: map['email'],
+      userFirstName: map['firstName'],
+      userLastName: map['secondName'],
+      keyword: map['keyword'],
+
+      // {this.userFirstName,
+      // this.userLastName,
+      // this.uid,
+      // this.password,
+      // this.email,
+      // this.keyword,
+      // this.pin,
+      // List<EmergencyContacts>? emergencyContacts}
+    );
   }
 }
