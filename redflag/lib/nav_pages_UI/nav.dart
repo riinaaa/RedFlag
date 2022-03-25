@@ -18,7 +18,7 @@ class NavScreen extends StatefulWidget {
 class _NavScreenState extends State<NavScreen> {
   final locationService = GeoLocatorService();
   int currentIndex = 0;
-  List pages = [activatePage(), profilePage(), mapPage(), reportsPage()];
+  List pages = [activationPage(), profilePage(), mapPage(), reportsPage()];
 
   @override
   Widget build(BuildContext context) {

@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_learning/location.dart';
+// import 'package:flutter_learning/main.dart';
+// import 'package:flutter_learning/nav_pages/OTP_page/pin.dart';
+// import 'package:flutter_learning/nav_pages/map2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:redflag/pin/pinVerficationPage.dart';
 
-class activationPage extends StatefulWidget {
-  const activationPage({Key? key, lat, lang}) : super(key: key);
+class terminationPage extends StatefulWidget {
+  const terminationPage({Key? key, lat, lang}) : super(key: key);
 
   @override
-  State<activationPage> createState() => _activationPageState();
+  State<terminationPage> createState() => _terminationPageState();
 }
 
-// SEND A LINK
 //  onPressed: () {
 //                   UserLocation().getLocation();
 //                 },
-class _activationPageState extends State<activationPage> {
+class _terminationPageState extends State<terminationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +31,8 @@ class _activationPageState extends State<activationPage> {
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: LinearGradient(colors: [
-                      Colors.redAccent,
-                      Color.fromARGB(255, 241, 114, 114)
+                      Color.fromARGB(255, 82, 255, 125),
+                      Color.fromARGB(255, 114, 241, 182)
                       //add more colors
                     ]),
                     boxShadow: <BoxShadow>[
@@ -54,12 +57,12 @@ class _activationPageState extends State<activationPage> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const Verificatoin(
-                                status: 'emergency',
+                                status: 'safe',
                               )),
                     );
                   },
                   child: new Text(
-                    "Emergency",
+                    "I'm Safe",
                     style: new TextStyle(
                       fontSize: 25.0,
                       color: Color.fromARGB(255, 241, 226, 226),
