@@ -43,6 +43,8 @@ dependencies:
   geocoding: ^2.0.4
   google_maps_flutter: ^2.1.2
   provider: ^6.0.2
+  flutter_verification_code: ^1.1.2+1
+  animate_do: ^2.1.0
 
 
 dev_dependencies:
