@@ -4,20 +4,18 @@ import './EmergencyContacts.dart';
 class User extends StatelessWidget {
   //const User({ Key? key }) : super(key: key);
 
-  var userFullName;
+  var userFirstName;
+  var userLastName;
   var password;
   var email;
   var keyword;
   var pin;
-  var usePhoneNumber;
   var emergencyContacts = <EmergencyContacts>{}; //Not sure!!
 
-  User.empty();
-
-  User(this.email, this.userFullName, this.usePhoneNumber, this.password,
+  User(this.userFirstName, this.userLastName, this.password, this.email,
       this.keyword, this.pin, this.emergencyContacts) {
-    userFullName = this.userFullName;
-    usePhoneNumber = this.usePhoneNumber;
+    userFirstName = this.userLastName;
+    userLastName = this.userLastName;
     email = this.email;
     password = this.password;
     keyword = this.keyword;
@@ -25,27 +23,36 @@ class User extends StatelessWidget {
     emergencyContacts = this.emergencyContacts;
   }
 
-//var emergencyContacts = new EmergencyContacts();
-  get getUserFullName => this.userFullName;
+  get getUserFirstName => this.userFirstName;
 
-  set setUserFullName(var userFullName) => this.userFullName = userFullName;
+  set setUserFirstName(userFirstName) => this.userFirstName = userFirstName;
+
+  get getUserLastName => this.userLastName;
+
+  set setUserLastName(userLastName) => this.userLastName = userLastName;
 
   get getPassword => this.password;
 
-  set setPassword(var password) => this.password = password;
+  set setPassword(password) => this.password = password;
 
   get getEmail => this.email;
 
   set setEmail(email) => this.email = email;
 
-  get getUsePhoneNumber => this.usePhoneNumber;
+  get getKeyword => this.keyword;
 
-  set setUsePhoneNumber(usePhoneNumber) => this.usePhoneNumber = usePhoneNumber;
+  set setKeyword(keyword) => this.keyword = keyword;
+
+  get getPin => this.pin;
+
+  set setPin(pin) => this.pin = pin;
 
   get getEmergencyContacts => this.emergencyContacts;
 
   set setEmergencyContacts(emergencyContacts) =>
-      this.emergencyContacts = emergencyContacts; // unordered collection
+      this.emergencyContacts = emergencyContacts;
+
+  User.empty();
 
   //----------- UI -----------
   @override
