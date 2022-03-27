@@ -7,7 +7,6 @@ class Users {
   var userFirstName;
   var userLastName;
   var uid;
-  var password;
   var email;
   var keyword;
   var pin;
@@ -17,7 +16,6 @@ class Users {
       {this.userFirstName,
       this.userLastName,
       this.uid,
-      this.password,
       this.email,
       this.keyword,
       this.pin,
@@ -26,7 +24,6 @@ class Users {
     userLastName = this.userLastName;
     uid = this.uid;
     email = this.email;
-    password = this.password;
     keyword = this.keyword;
     pin = this.pin;
     emergencyContacts = emergencyContacts ?? [];
@@ -39,10 +36,6 @@ class Users {
   get getUserLastName => this.userLastName;
 
   set setUserLastName(userLastName) => this.userLastName = userLastName;
-
-  get getPassword => this.password;
-
-  set setPassword(password) => this.password = password;
 
   get getEmail => this.email;
 
@@ -68,18 +61,24 @@ class Users {
     return Users(
       uid: map['uid'],
       email: map['email'],
-      userFirstName: map['firstName'],
-      userLastName: map['secondName'],
+      userFirstName: map['userFirstName'],
+      userLastName: map['userLastName'],
       keyword: map['keyword'],
-
-      // {this.userFirstName,
-      // this.userLastName,
-      // this.uid,
-      // this.password,
-      // this.email,
-      // this.keyword,
-      // this.pin,
-      // List<EmergencyContacts>? emergencyContacts}
+      pin: map['pin'],
+      emergencyContacts: map['emergencyContacts'],
     );
+  }
+
+  // sending data to our server
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': uid,
+      'email': email,
+      'firstName': userFirstName,
+      'userLastName': userLastName,
+      'keyword': keyword,
+      'pin': pin,
+      'emergencyContacts': emergencyContacts,
+    };
   }
 }

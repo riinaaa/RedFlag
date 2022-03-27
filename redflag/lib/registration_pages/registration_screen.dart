@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:redflag/EmergencyContacts.dart';
 import '/nav_pages_UI/nav.dart';
 import 'package:redflag/Users.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -512,12 +513,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     User? user = _auth.currentUser;
 
     Users userModel = Users();
+    EmergencyContacts emergencyContactModel = EmergencyContacts();
 
     // writing all the values
+    //user
     userModel.email = user!.email;
     userModel.uid = user.uid;
     userModel.userFirstName = firstNameEditingController.text;
     userModel.userLastName = secondNameEditingController.text;
+    userModel.keyword = keywordEditingController.text;
+    userModel.pin = passwordEditingController.text;
+
+    //emergency contact
+    emergencyContactModel.uid = user.uid;
+    emergencyContactModel.eFullName =
+        emergencyContactNameEditingController.text;
+    emergencyContactModel.phoneNumber =
+        emergencyContactNumberEditingController.text;
 
     await firebaseFirestore
         .collection("users")
