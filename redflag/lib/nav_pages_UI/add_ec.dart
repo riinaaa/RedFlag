@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class add extends StatefulWidget {
   const add({Key? key}) : super(key: key);
@@ -9,20 +8,32 @@ class add extends StatefulWidget {
 }
 
 class _addState extends State<add> {
-  TextEditingController controller_fullName =
-      new TextEditingController(); // controll the TextField
-  TextEditingController controller_phone = new TextEditingController();
+  final controller_fullName = TextEditingController(); // controll the TextField
+  final controller_phone = TextEditingController();
 
   String? name;
   String? phone;
 
+/**
+ In submitData() the data will be sent to the firestore.
+ */
   submitData() {
     name = controller_fullName.text;
     phone = controller_fullName.text;
+    if (name != "" || phone != "") {
+      print(name);
+      print(phone);
+    }
 
-    setState(() {});
-    print(name);
-    print(phone);
+    // setState(() {});
+  }
+
+/**
+ In clearData() the textfields will be cleared.
+ */
+  clearData() {
+    controller_fullName.clear();
+    controller_phone.clear();
   }
 
   @override
@@ -85,9 +96,7 @@ class _addState extends State<add> {
                 ),
               ),
 
-//------------------------------------ Add new Emergency Contacts ----------------------------------------
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//------------------------------------------- TextFieled--------------------------------------------------
+//------------------------------------ Current Emergency Contacts List ----------------------------------------
 
               Column(
                 children: [
@@ -128,16 +137,21 @@ class _addState extends State<add> {
                   SizedBox(
                     height: 150,
                   ),
-
-//------------------------------------ Buttons----------------------------------------
+//-----------------------------------  Buttons ---------------------------------------
 
                   Container(
+                    alignment: FractionalOffset.center,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment
                           .spaceEvenly, // space between the buttons
                       children: [
+//----------------------------------- Add Button ---------------------------------------
+
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: submitData,
+                          style: ElevatedButton.styleFrom(
+                            primary: Color(0xFF4E4EF7),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 25, right: 25, top: 15, bottom: 15),
@@ -145,22 +159,24 @@ class _addState extends State<add> {
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 255, 255, 255))),
                           ),
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF4E4EF7),
-                          ),
                         ),
+
+//----------------------------------- Clear Button -----------------------------------------
                         ElevatedButton(
+                          onPressed: clearData,
+                          style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(255, 167, 167, 167),
+                          ),
                           child: Padding(
                             padding: const EdgeInsets.only(
                                 left: 25, right: 25, top: 15, bottom: 15),
                             child: Text(
                               'Clear',
                               style: TextStyle(
-                                  color: Color(0xFF84A2AF),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          onPressed: null,
                         )
                       ],
                     ),
