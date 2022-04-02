@@ -181,16 +181,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //PIN field
     final pinField = TextFormField(
+        maxLength: 4,
+        maxLengthEnforced: true,
         autofocus: false,
         controller: confirmPinEditingController,
-        obscureText: true,
         validator: (value) {
           RegExp regex = new RegExp(r'^[0-9]{4}$');
           if (value!.isEmpty) {
             return ("PIN is required");
           }
           if (!regex.hasMatch(value)) {
-            return ("Enter Valid PIN(4 Numbers Only)");
+            return ("Enter Valid PIN(Numbers Only)");
           }
         },
         onSaved: (value) {
