@@ -3,10 +3,9 @@ import './EmergencyContacts.dart';
 
 class Users {
   //const User({ Key? key }) : super(key: key);
-
+  var uid;
   var userFirstName;
   var userLastName;
-  var uid;
   var email;
   var keyword;
   var pin;
@@ -65,7 +64,7 @@ class Users {
       userLastName: map['userLastName'],
       keyword: map['keyword'],
       pin: map['pin'],
-      emergencyContacts: map['emergencyContacts'],
+      // emergencyContacts: map['emergencyContacts'],
     );
   }
 
@@ -74,11 +73,11 @@ class Users {
     return {
       'uid': uid,
       'email': email,
-      'firstName': userFirstName,
+      'userFirstName': userFirstName,
       'userLastName': userLastName,
       'keyword': keyword,
       'pin': pin,
-      'emergencyContacts': emergencyContacts,
+      //'emergencyContacts': emergencyContacts,
     };
   }
 }

@@ -7,6 +7,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+List<GlobalKey<FormState>> formKeys = [
+  GlobalKey<FormState>(),
+  GlobalKey<FormState>(),
+  GlobalKey<FormState>(),
+  GlobalKey<FormState>()
+];
+
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -203,14 +210,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final keywordField = TextFormField(
         autofocus: false,
         controller: keywordEditingController,
-        obscureText: true,
         validator: (value) {
           RegExp regex = new RegExp(r'^.{6,}$');
           if (value!.isEmpty) {
-            return ("Password is required for login");
+            return ("keyword is required to register");
           }
           if (!regex.hasMatch(value)) {
-            return ("Enter Valid Password(Min. 6 Character)");
+            return ("Enter Valid keyword(Min. 6 Character)");
           }
         },
         onSaved: (value) {
@@ -230,7 +236,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final confirmKeywordField = TextFormField(
         autofocus: false,
         controller: confirmKeywordEditingController,
-        obscureText: true,
         validator: (value) {
           if (confirmPasswordEditingController.text !=
               passwordEditingController.text) {
@@ -303,8 +308,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
         ),
         onPressed: () {
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => NavScreen()));
+          print("??>>??");
+          signUp(emailEditingController.text, passwordEditingController.text);
         },
         child: Text(
           "Register",
@@ -341,45 +346,31 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             Stepper(
                 steps: [
+                  //STEP INFO
                   Step(
                     title: new Text('Personal Info'),
-                    content: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(height: 1),
-                        firstNameField,
-                        SizedBox(height: 20),
-                        secondNameField,
-                        SizedBox(height: 20),
-                        emailField,
-                        SizedBox(height: 20),
-                        passwordField,
-                        SizedBox(height: 20),
-                        confirmPasswordField,
-                        SizedBox(height: 20),
-                        pinField,
-                        SizedBox(height: 20),
-                      ],
-                    ),
-                    isActive: currentStep >= 0,
-                    state: currentStep == 0
-                        ? StepState.editing
-                        : StepState.complete,
-                  ),
-                  Step(
-                    title: new Text('Keyword'),
-                    content: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(height: 1),
-                        keywordField,
-                        SizedBox(height: 20),
-                        confirmKeywordField,
-
-                        //
-                      ],
+                    content: Form(
+                      key: formKeys[0],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(height: 1),
+                          firstNameField,
+                          SizedBox(height: 20),
+                          secondNameField,
+                          SizedBox(height: 20),
+                          emailField,
+                          SizedBox(height: 20),
+                          passwordField,
+                          SizedBox(height: 20),
+                          confirmPasswordField,
+                          SizedBox(height: 20),
+                          pinField,
+                          SizedBox(height: 20),
+                          //
+                        ],
+                      ),
                     ),
                     isActive: currentStep >= 1,
                     state: currentStep == 1
@@ -388,30 +379,61 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ? StepState.disabled
                             : StepState.complete,
                   ),
+
+                  //STEP KEYWORD
+                  Step(
+                    title: new Text('Keyword'),
+                    content: Form(
+                      key: formKeys[1],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(height: 1),
+                          keywordField,
+                          SizedBox(height: 20),
+                          confirmKeywordField,
+
+                          //
+                        ],
+                      ),
+                    ),
+                    isActive: currentStep >= 1,
+                    state: currentStep == 1
+                        ? StepState.editing
+                        : currentStep < 1
+                            ? StepState.disabled
+                            : StepState.complete,
+                  ),
+
                   Step(
                     title: new Text("Emergency Contact"),
-                    content: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        SizedBox(),
-                        Text(
-                          'PS: A confirmation message will be sent to give them a heads up',
-                          style: TextStyle(fontSize: 12.0),
-                        ),
-                        SizedBox(height: 15),
-                        emergencyContactNameField,
+                    content: Form(
+                      key: formKeys[2],
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(),
+                          Text(
+                            'PS: A confirmation message will be sent to give them a heads up',
+                            style: TextStyle(fontSize: 12.0),
+                          ),
+                          SizedBox(height: 15),
+                          emergencyContactNameField,
 
-                        SizedBox(height: 20),
-                        emergencyContactNumberField,
-                        // signUpButton,
-                        // SizedBox(height: 15),
-                      ],
+                          SizedBox(height: 20),
+                          emergencyContactNumberField,
+                          // signUpButton,
+                          // SizedBox(height: 15),
+                          //
+                        ],
+                      ),
                     ),
-                    isActive: currentStep >= 2,
-                    state: currentStep == 2
+                    isActive: currentStep >= 1,
+                    state: currentStep == 1
                         ? StepState.editing
-                        : currentStep < 2
+                        : currentStep < 1
                             ? StepState.disabled
                             : StepState.complete,
                   ),
@@ -428,7 +450,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   currentStep > 0 ? setState(() => currentStep -= 1) : null;
                 },
                 onStepContinue: () {
-                  currentStep < 2 ? setState(() => currentStep += 1) : null;
+                  if (formKeys[currentStep].currentState!.validate()) {
+                    currentStep < 2 ? setState(() => currentStep += 1) : null;
+                  }
                 },
 
                 //-----CONTROL THE STEPPER BUTTONS------
@@ -467,40 +491,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   void signUp(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        await _auth
-            .createUserWithEmailAndPassword(email: email, password: password)
-            .then((value) => {postDetailsToFirestore()})
-            .catchError((e) {
-          Fluttertoast.showToast(msg: e!.message);
-        });
-      } on FirebaseAuthException catch (error) {
-        switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Your email address appears to be malformed.";
-            break;
-          case "wrong-password":
-            errorMessage = "Your password is wrong.";
-            break;
-          case "user-not-found":
-            errorMessage = "User with this email doesn't exist.";
-            break;
-          case "user-disabled":
-            errorMessage = "User with this email has been disabled.";
-            break;
-          case "too-many-requests":
-            errorMessage = "Too many requests";
-            break;
-          case "operation-not-allowed":
-            errorMessage = "Signing in with Email and Password is not enabled.";
-            break;
-          default:
-            errorMessage = "An undefined Error happened.";
-        }
-        Fluttertoast.showToast(msg: errorMessage!);
-        print(error.code);
+    try {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => {postDetailsToFirestore()})
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+    } on FirebaseAuthException catch (error) {
+      switch (error.code) {
+        case "invalid-email":
+          errorMessage = "Your email address appears to be malformed.";
+          break;
+        case "wrong-password":
+          errorMessage = "Your password is wrong.";
+          break;
+        case "user-not-found":
+          errorMessage = "User with this email doesn't exist.";
+          break;
+        case "user-disabled":
+          errorMessage = "User with this email has been disabled.";
+          break;
+        case "too-many-requests":
+          errorMessage = "Too many requests";
+          break;
+        case "operation-not-allowed":
+          errorMessage = "Signing in with Email and Password is not enabled.";
+          break;
+        default:
+          errorMessage = "An undefined Error happened.";
       }
+      Fluttertoast.showToast(msg: errorMessage!);
+      print(error.code);
     }
   }
 
@@ -522,7 +544,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     userModel.userFirstName = firstNameEditingController.text;
     userModel.userLastName = secondNameEditingController.text;
     userModel.keyword = keywordEditingController.text;
-    userModel.pin = passwordEditingController.text;
+    userModel.pin = confirmPinEditingController.text;
 
     //emergency contact
     emergencyContactModel.uid = user.uid;
@@ -530,6 +552,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         emergencyContactNameEditingController.text;
     emergencyContactModel.phoneNumber =
         emergencyContactNumberEditingController.text;
+
+    print("ec object done");
 
     await firebaseFirestore
         .collection("users")
