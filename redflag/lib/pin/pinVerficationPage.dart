@@ -1,12 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+
 import 'dart:async';
 
 import 'package:flutter_verification_code/flutter_verification_code.dart';
-import 'package:redflag/main.dart';
 import 'package:redflag/nav_pages_UI/nav.dart';
-
-import '../nav_pages_UI/termination/termenationPage.dart';
+import 'package:redflag/nav_pages_UI/termination/termenationPage.dart';
 
 class Verificatoin extends StatefulWidget {
   final String status;
@@ -17,84 +16,109 @@ class Verificatoin extends StatefulWidget {
 }
 
 class _VerificatoinState extends State<Verificatoin> {
-  bool _isResendAgain = false;
   bool _isVerified = false;
   bool _isLoading = false;
 
   String _code = '';
-
-  late Timer _timer;
-  int _start = 60;
-  int _currentIndex = 0;
-
-  void resend() {
-    setState(() {
-      _isResendAgain = true;
-    });
-
-    const oneSec = Duration(seconds: 1);
-    _timer = new Timer.periodic(oneSec, (timer) {
-      setState(() {
-        if (_start == 0) {
-          _start = 60;
-          _isResendAgain = false;
-          timer.cancel();
-        } else {
-          _start--;
-        }
-      });
-    });
-  }
+  String fakePIN = '1234';
 
   // here we can check if the 4 digit equal the one in firebase
   verify() {
-    setState(() {
-      _isLoading = true;
-    });
+    // setState(() {
+    //   _isLoading = true;
+    // });
 
-    const oneSec = Duration(milliseconds: 2000);
-    _timer = new Timer.periodic(oneSec, (timer) {
+    if (_code.length < 4) {
       setState(() {
         _isLoading = false;
-        _isVerified = true;
+        _isVerified = false;
+        print("> 4");
       });
-    });
+//----------------- Display an error message when user enter less than 4 digits------------------
+      final snackBar = SnackBar(
+        content: const Text('Plese enter 4 digits. '),
+        backgroundColor: Color.fromARGB(255, 255, 117, 107),
+        // Inner padding for SnackBar content.
+        padding: const EdgeInsets.only(
+          top: 20,
+          bottom: 20,
+          left: 30,
+        ),
+        margin: EdgeInsets.only(left: 40, right: 40),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      if (_code == fakePIN) {
+        setState(() {
+          _isLoading = false;
+          _isVerified = true;
+          // print('= 4');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NavScreen()),
+          );
+        });
+        print('= 4');
+      } else {
+        //----------------- Display an error message when user enter pin dont equal registered pin------------------
+        final snackBar = SnackBar(
+          content: const Text('Incorrect, please re-enter.'),
+          backgroundColor: Color.fromARGB(255, 255, 117, 107),
+          // Inner padding for SnackBar content.
+          padding: const EdgeInsets.only(
+            top: 20,
+            bottom: 20,
+            left: 30,
+          ),
+          margin: EdgeInsets.only(left: 40, right: 40),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
+    }
   }
 
   @override
   void initState() {
-    // Timer.periodic(Duration(seconds: 5), (timer) {
-    //   setState(() {
-    //     _currentIndex++;
-
-    //     if (_currentIndex == 3) _currentIndex = 0;
-    //   });
-    // });
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    /////////////////////////////////////////////////////////////////////
-    //-------------------------------Timer----------------------------
-    /////////////////////////////////////////////////////////////////////
+// -------------------------- Timer 30 sec ----------------------------
+    Timer(Duration(seconds: 30), () {
+      //------------------------When the 30 sec end without the correct PIN-----------------------------
 
-    print(widget.status);
-    Timer(Duration(seconds: 3), () {
+      // 1) if it from the Emergency buttons
+      //    - Activate fetaures
+      //    - Go to termination page
       if (widget.status == 'emergency') {
+        // Activate all Features
+        print('Fetures Activated and went to termination page');
+
+        // Go to Termination page
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => terminationPage()),
         );
+
+        // 1) if it from the Safe buttons
+        //    - Only go to termination page
       } else {
+        print('went back to termination page');
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => NavScreen()),
+          MaterialPageRoute(builder: (context) => terminationPage()),
         );
       }
     });
-    /////////////////////////////////////////////////////////////////////
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -113,6 +137,7 @@ class _VerificatoinState extends State<Verificatoin> {
                   Container(
                       height: 250,
                       child: FadeInDown(
+                        // flutter_animator
                         duration: Duration(milliseconds: 500),
                         child: Image.network(
                           'https://ouch-cdn2.icons8.com/ElwUPINwMmnzk4s2_9O31AWJhH-eRHnP9z8rHUSS5JQ/rs:fit:784:784/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNzkw/Lzg2NDVlNDllLTcx/ZDItNDM1NC04YjM5/LWI0MjZkZWI4M2Zk/MS5zdmc.png',
@@ -168,12 +193,23 @@ class _VerificatoinState extends State<Verificatoin> {
                   FadeInDown(
                     delay: Duration(milliseconds: 700),
                     duration: Duration(milliseconds: 500),
+
+                    // VerificationCode is from flutter_verification_code 1.1.2+1
+                    // A Flutter package that help you create a verification input.
                     child: VerificationCode(
-                      length: 4,
+                      //-------------------------------------
+                      //*********Style**********
+                      //-------------------------------------
+                      length: 4, //quantity of boxes
+                      autofocus: true, //auto focus when screen appears
+                      digitsOnly: true, //accept only digit inputs from keyboard
                       textStyle: TextStyle(fontSize: 20, color: Colors.black),
                       underlineColor: Color.fromARGB(255, 0, 0, 0),
-                      keyboardType: TextInputType.number,
                       underlineUnfocusedColor: Color.fromARGB(255, 0, 0, 0),
+
+                      //-------------------------------------
+                      ////*********the user input stored in _code//*********
+                      //-------------------------------------
                       onCompleted: (value) {
                         setState(() {
                           _code = value;
@@ -206,14 +242,12 @@ class _VerificatoinState extends State<Verificatoin> {
                     duration: Duration(milliseconds: 500),
                     child: MaterialButton(
                       elevation: 0,
-                      onPressed: _code.length < 4
-                          ? () => {}
-                          : () {
-                              verify();
-                            },
-                      color: Color.fromARGB(255, 102, 102, 255),
-                      minWidth: MediaQuery.of(context).size.width * 0.8,
-                      height: 50,
+                      onPressed: () {
+                        verify();
+                      },
+                      color: Color(0xFF6666FF),
+                      padding: EdgeInsets.only(
+                          top: 20, bottom: 20, left: 130, right: 130),
                       child: _isLoading
                           ? Container(
                               width: 20,
@@ -242,5 +276,19 @@ class _VerificatoinState extends State<Verificatoin> {
                 ],
               )),
         ));
+  }
+}
+
+class errorMsg extends StatefulWidget {
+  const errorMsg({Key? key}) : super(key: key);
+
+  @override
+  State<errorMsg> createState() => _errorMsgState();
+}
+
+class _errorMsgState extends State<errorMsg> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
