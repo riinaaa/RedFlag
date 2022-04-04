@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:redflag/Users.dart';
 
 class add extends StatefulWidget {
   const add({Key? key}) : super(key: key);
@@ -10,9 +13,23 @@ class add extends StatefulWidget {
 class _addState extends State<add> {
   final controller_fullName = TextEditingController(); // controll the TextField
   final controller_phone = TextEditingController();
-
   String? name;
   String? phone;
+  User? user = FirebaseAuth.instance.currentUser;
+  Users loggedInUser = Users();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = Users.fromMap(value.data());
+      setState(() {});
+    });
+  }
 
 /**
  In submitData() the data will be sent to the firestore.
@@ -34,11 +51,6 @@ class _addState extends State<add> {
   clearData() {
     controller_fullName.clear();
     controller_phone.clear();
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override
@@ -80,14 +92,14 @@ class _addState extends State<add> {
                     Column(
                       children: [
                         Text(
-                          'Atheer Alghamdi',
+                          '${loggedInUser.getUserFirstName} ${loggedInUser.getUserLastName}',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 17),
                         ),
                         Text(
-                          '055-834-2221',
+                          '${loggedInUser.getEmail}',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],

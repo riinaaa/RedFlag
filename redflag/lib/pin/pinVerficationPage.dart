@@ -1,9 +1,12 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'dart:async';
 
 import 'package:flutter_verification_code/flutter_verification_code.dart';
+import 'package:redflag/Users.dart';
 import 'package:redflag/nav_pages_UI/nav.dart';
 import 'package:redflag/nav_pages_UI/termination/termenationPage.dart';
 
@@ -20,7 +23,26 @@ class _VerificatoinState extends State<Verificatoin> {
   bool _isLoading = false;
 
   String _code = '';
-  String fakePIN = '1234';
+  // String fakePIN = '1234';
+
+// Retrive the registered PIN
+  User? user = FirebaseAuth.instance.currentUser;
+  Users loggedInUser = Users();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = Users.fromMap(value.data());
+      setState(() {});
+    });
+  }
+
+  String pin = '';
 
   // here we can check if the 4 digit equal the one in firebase
   verify() {
@@ -52,7 +74,10 @@ class _VerificatoinState extends State<Verificatoin> {
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
-      if (_code == fakePIN) {
+      setState(() {
+        String pin = '${loggedInUser.getUserFirstName}';
+      });
+      if (_code == pin) {
         setState(() {
           _isLoading = false;
           _isVerified = true;
@@ -83,11 +108,6 @@ class _VerificatoinState extends State<Verificatoin> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override

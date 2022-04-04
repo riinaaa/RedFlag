@@ -19,7 +19,7 @@ class Users {
       this.keyword,
       this.pin,
       List<EmergencyContacts>? emergencyContacts}) {
-    userFirstName = this.userLastName;
+    userFirstName = this.userFirstName;
     userLastName = this.userLastName;
     uid = this.uid;
     email = this.email;
