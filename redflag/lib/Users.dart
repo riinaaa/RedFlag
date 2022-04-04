@@ -77,7 +77,6 @@ class Users {
       'userLastName': userLastName,
       'keyword': keyword,
       'pin': pin,
-      //'emergencyContacts': emergencyContacts,
     };
   }
 }

@@ -14,6 +14,8 @@ List<GlobalKey<FormState>> formKeys = [
   GlobalKey<FormState>()
 ];
 
+var phoneNumberFull;
+
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -309,7 +311,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
         ),
         onPressed: () {
-          print("??>>??");
           signUp(emailEditingController.text, passwordEditingController.text);
         },
         child: Text(
@@ -533,33 +534,41 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     // sedning these values
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-    User? user = _auth.currentUser;
+    User? currentUser = _auth.currentUser;
 
     Users userModel = Users();
     EmergencyContacts emergencyContactModel = EmergencyContacts();
 
     // writing all the values
     //user
-    userModel.email = user!.email;
-    userModel.uid = user.uid;
+    userModel.email = currentUser!.email;
+    userModel.uid = currentUser.uid;
     userModel.userFirstName = firstNameEditingController.text;
     userModel.userLastName = secondNameEditingController.text;
     userModel.keyword = keywordEditingController.text;
     userModel.pin = confirmPinEditingController.text;
 
     //emergency contact
-    emergencyContactModel.uid = user.uid;
     emergencyContactModel.eFullName =
         emergencyContactNameEditingController.text;
     emergencyContactModel.phoneNumber =
         emergencyContactNumberEditingController.text;
 
-    print("ec object done");
+    //add to the emergencycontact array in the user object
+    userModel.emergencyContacts.add(emergencyContactModel);
 
+//firestore add user information
     await firebaseFirestore
         .collection("users")
-        .doc(user.uid)
+        .doc(currentUser.uid)
         .set(userModel.toMap());
+
+//firestore add emergency contact information
+    await firebaseFirestore
+        .collection("emergencyContatcs")
+        .doc()
+        .set(emergencyContactModel.toMap(currentUser.uid));
+
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
     Navigator.pushAndRemoveUntil((context),

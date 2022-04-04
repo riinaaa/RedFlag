@@ -6,12 +6,10 @@ class EmergencyContacts {
 
   var eFullName;
   var phoneNumber;
-  String? uid;
 
-  EmergencyContacts({this.uid, this.eFullName, this.phoneNumber}) {
+  EmergencyContacts({this.eFullName, this.phoneNumber}) {
     eFullName = this.eFullName;
     phoneNumber = this.phoneNumber;
-    uid = this.uid;
   }
 
   String get getFullName => this.eFullName;
@@ -25,18 +23,13 @@ class EmergencyContacts {
   // receiving data from server
   factory EmergencyContacts.fromMap(map) {
     return EmergencyContacts(
-      uid: map['uid'],
       phoneNumber: map['phoneNumber'],
       eFullName: map['eFullName'],
     );
   }
 
   // sending data to our server
-  Map<String, dynamic> toMap() {
-    return {
-      'uid': uid,
-      'phoneNumber': phoneNumber,
-      'eFullName': eFullName,
-    };
+  Map<String, dynamic> toMap(String uid) {
+    return {'phoneNumber': phoneNumber, 'eFullName': eFullName, 'user': uid};
   }
 }
