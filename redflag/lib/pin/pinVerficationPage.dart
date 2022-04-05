@@ -74,10 +74,9 @@ class _VerificatoinState extends State<Verificatoin> {
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
-      setState(() {
-        String pin = '${loggedInUser.getUserFirstName}';
-      });
-      if (_code == pin) {
+      // String pin = '${loggedInUser.getPin}';
+
+      if (_code == '${loggedInUser.getPin}') {
         setState(() {
           _isLoading = false;
           _isVerified = true;
