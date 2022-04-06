@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_learning/location.dart';
-// import 'package:flutter_learning/main.dart';
-// import 'package:flutter_learning/nav_pages/OTP_page/pin.dart';
-// import 'package:flutter_learning/nav_pages/map2.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:redflag/pin/pinVerficationPage.dart';
 
 class terminationPage extends StatefulWidget {
-  const terminationPage({Key? key, lat, lang}) : super(key: key);
+  const terminationPage({Key? key}) : super(key: key);
 
   @override
   State<terminationPage> createState() => _terminationPageState();
 }
 
-//  onPressed: () {
-//                   UserLocation().getLocation();
-//                 },
 class _terminationPageState extends State<terminationPage> {
   @override
   Widget build(BuildContext context) {
