@@ -28,10 +28,6 @@ class _mapPageState extends State<mapPage> {
     final currentPosition = Provider.of<Position?>(context);
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        title: Text('Nearest Police Station'),
-        backgroundColor: Color.fromARGB(255, 241, 241, 241),
-      ),
       body: (currentPosition != null)
           ? Column(
               children: [

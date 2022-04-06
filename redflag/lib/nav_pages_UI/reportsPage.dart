@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:redflag/Users.dart';
+import 'package:redflag/registration_pages/login_screen.dart';
 
 class reportsPage extends StatefulWidget {
   const reportsPage({Key? key}) : super(key: key);
@@ -81,8 +82,30 @@ class _reportsPageState extends State<reportsPage> {
                   ],
                 ),
               ),
+
+              //------------------------------------Logout------------------------------------
+
+              Container(
+                padding: EdgeInsets.only(top: 80, left: 15),
+                child: TextButton(
+                  onPressed: () {
+                    logout(context);
+                  },
+                  child: Text('Logout',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromARGB(255, 245, 245, 245),
+                      )),
+                ),
+              ),
             ],
           )),
     );
   }
+}
+
+Future<void> logout(BuildContext context) async {
+  await FirebaseAuth.instance.signOut();
+  Navigator.of(context)
+      .pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
 }
