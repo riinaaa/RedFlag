@@ -2,9 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'dart:async';
-
 import 'package:flutter_verification_code/flutter_verification_code.dart';
 import 'package:redflag/Users.dart';
 import 'package:redflag/nav_pages_UI/nav.dart';
@@ -19,11 +17,9 @@ class Verificatoin extends StatefulWidget {
 }
 
 class _VerificatoinState extends State<Verificatoin> {
-  bool _isVerified = false;
-  bool _isLoading = false;
-
   String _code = '';
-  // String fakePIN = '1234';
+  bool _pinLength = false;
+  Timer? _timer;
 
 // Retrive the registered PIN
   User? user = FirebaseAuth.instance.currentUser;
@@ -51,11 +47,8 @@ class _VerificatoinState extends State<Verificatoin> {
     // });
 
     if (_code.length < 4) {
-      setState(() {
-        _isLoading = false;
-        _isVerified = false;
-        print("> 4");
-      });
+      print("> 4");
+
 //----------------- Display an error message when user enter less than 4 digits------------------
       final snackBar = SnackBar(
         content: const Text('Plese enter 4 digits. '),
@@ -77,16 +70,11 @@ class _VerificatoinState extends State<Verificatoin> {
       // String pin = '${loggedInUser.getPin}';
 
       if (_code == '${loggedInUser.getPin}') {
-        setState(() {
-          _isLoading = false;
-          _isVerified = true;
-          // print('= 4');
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => NavScreen()),
-          );
-        });
         print('= 4');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => NavScreen()),
+        );
       } else {
         //----------------- Display an error message when user enter pin dont equal registered pin------------------
         final snackBar = SnackBar(
@@ -109,35 +97,35 @@ class _VerificatoinState extends State<Verificatoin> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-// -------------------------- Timer 30 sec ----------------------------
-    Timer(Duration(seconds: 30), () {
-      //------------------------When the 30 sec end without the correct PIN-----------------------------
+  void startTimer() {
+    // setState(() --> Notify the framework that the internal state of this object has changed.
+    // setState(() {
+    //------------------------When the 30 sec end without the correct PIN-----------------------------
+    _timer = Timer(Duration(seconds: 30), () {
+      if (_timer?.isActive == false && _pinLength == false) {
+        // if it from the Emergency buttons
+        //    - Activate fetaures
+        if (widget.status == 'emergency') {
+          print('1- Fetures Activated');
+        }
 
-      // 1) if it from the Emergency buttons
-      //    - Activate fetaures
-      //    - Go to termination page
-      if (widget.status == 'emergency') {
-        // Activate all Features
-        print('Fetures Activated and went to termination page');
-
-        // Go to Termination page
+        //either from emergency button or safe button,
+        //when the timer end without correct input
+        //go to termenation page
+        print('2- went to termination page');
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => terminationPage()),
-        );
-
-        // 1) if it from the Safe buttons
-        //    - Only go to termination page
-      } else {
-        print('went back to termination page');
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => terminationPage()),
+          MaterialPageRoute(builder: (context) => const terminationPage()),
         );
       }
     });
+    // });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+// -------------------------- Timer 30 sec ----------------------------
+    startTimer();
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -267,26 +255,10 @@ class _VerificatoinState extends State<Verificatoin> {
                       color: Color(0xFF6666FF),
                       padding: EdgeInsets.only(
                           top: 20, bottom: 20, left: 130, right: 130),
-                      child: _isLoading
-                          ? Container(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                backgroundColor: Colors.white,
-                                strokeWidth: 3,
-                                color: Colors.black,
-                              ),
-                            )
-                          : _isVerified
-                              ? Icon(
-                                  Icons.check_circle,
-                                  color: Colors.white,
-                                  size: 30,
-                                )
-                              : Text(
-                                  "Verify",
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                      child: Text(
+                        "Verify",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   )
 
@@ -295,19 +267,5 @@ class _VerificatoinState extends State<Verificatoin> {
                 ],
               )),
         ));
-  }
-}
-
-class errorMsg extends StatefulWidget {
-  const errorMsg({Key? key}) : super(key: key);
-
-  @override
-  State<errorMsg> createState() => _errorMsgState();
-}
-
-class _errorMsgState extends State<errorMsg> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
