@@ -24,7 +24,7 @@ class _profilePageState extends State<profilePage> {
 // to retrive the length of emergency contact based on the UID.
     FirebaseFirestore.instance
         .collection('emergencyContatcs')
-        .where('user', isEqualTo: '/users/' + user!.uid)
+        .where('user', isEqualTo: user!.uid)
         .get()
         .then((value) {
       value.docs.length;
