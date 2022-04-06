@@ -564,10 +564,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .set(userModel.toMap());
 
 //firestore add emergency contact information
-    await firebaseFirestore
-        .collection("emergencyContatcs")
-        .doc()
-        .set(emergencyContactModel.toMap(currentUser.uid));
+    // await firebaseFirestore
+    //     .collection("emergencyContacts")
+    //     .doc()
+    //     .set(emergencyContactModel.toMap());
 
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
