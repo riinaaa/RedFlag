@@ -3,7 +3,6 @@ import './EmergencyContacts.dart';
 
 class Users {
   //const User({ Key? key }) : super(key: key);
-  var uid;
   var userFirstName;
   var userLastName;
   var email;
@@ -14,14 +13,12 @@ class Users {
   Users(
       {this.userFirstName,
       this.userLastName,
-      this.uid,
       this.email,
       this.keyword,
       this.pin,
       List<EmergencyContacts>? emergencyContacts}) {
     userFirstName = this.userFirstName;
     userLastName = this.userLastName;
-    uid = this.uid;
     email = this.email;
     keyword = this.keyword;
     pin = this.pin;
@@ -58,7 +55,6 @@ class Users {
   // receiving data from server
   factory Users.fromMap(map) {
     return Users(
-      uid: map['uid'],
       email: map['email'],
       userFirstName: map['userFirstName'],
       userLastName: map['userLastName'],
@@ -71,7 +67,6 @@ class Users {
   // sending data to our server
   Map<String, dynamic> toMap() {
     return {
-      'uid': uid,
       'email': email,
       'userFirstName': userFirstName,
       'userLastName': userLastName,

@@ -29,10 +29,11 @@ class EmergencyContacts {
   }
 
   // sending data to our server
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(String uid) {
     return {
       'phoneNumber': phoneNumber,
       'eFullName': eFullName,
+      'user': uid,
     };
   }
 }

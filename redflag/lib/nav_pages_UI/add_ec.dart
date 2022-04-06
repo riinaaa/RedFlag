@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:redflag/Users.dart';
 import 'package:redflag/registration_pages/login_screen.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:redflag/EmergencyContacts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class add extends StatefulWidget {
   const add({Key? key}) : super(key: key);
@@ -12,8 +15,8 @@ class add extends StatefulWidget {
 }
 
 class _addState extends State<add> {
-  final controller_fullName = TextEditingController(); // controll the TextField
-  final controller_phone = TextEditingController();
+  final emergencyContactNameEditingController = new TextEditingController();
+  final emergencyContactNumberEditingController = new TextEditingController();
   String? name;
   String? phone;
   User? user = FirebaseAuth.instance.currentUser;
@@ -35,12 +38,31 @@ class _addState extends State<add> {
 /**
  In submitData() the data will be sent to the firestore.
  */
-  submitData() {
-    name = controller_fullName.text;
-    phone = controller_fullName.text;
+  submitData() async {
+    EmergencyContacts emergencyContactModel = EmergencyContacts();
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+//emergency contact
+    emergencyContactModel.eFullName =
+        emergencyContactNameEditingController.text;
+    emergencyContactModel.phoneNumber =
+        emergencyContactNumberEditingController.text;
+
+    //add to the emergencycontact array in the user object
+    loggedInUser.emergencyContacts.add(emergencyContactModel);
+
+    name = emergencyContactNameEditingController.text;
+    phone = emergencyContactNumberEditingController.text;
+
     if (name != "" || phone != "") {
-      print(name);
-      print(phone);
+      //firestore add emergency contact information
+      await firebaseFirestore
+          .collection("emergencyContacts")
+          .doc()
+          .set(emergencyContactModel.toMap(user!.uid));
+
+      Fluttertoast.showToast(msg: "Emergency contact added successfully :) ");
+      clearData();
     }
 
     // setState(() {});
@@ -50,12 +72,57 @@ class _addState extends State<add> {
  In clearData() the textfields will be cleared.
  */
   clearData() {
-    controller_fullName.clear();
-    controller_phone.clear();
+    emergencyContactNameEditingController.clear();
+    emergencyContactNumberEditingController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
+    //emergency contact name field
+    final emergencyContactNameField = TextFormField(
+        autofocus: false,
+        controller: emergencyContactNameEditingController,
+        keyboardType: TextInputType.name,
+        validator: (value) {
+          RegExp regex = new RegExp(r'^.{3,}$');
+          if (value!.isEmpty) {
+            return ("Emergency Contact Name cannot be Empty");
+          }
+          if (!regex.hasMatch(value)) {
+            return ("Enter Valid name(Min. 3 Character)");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          emergencyContactNameEditingController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Emergency Contact Name",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
+
+    //phone number field
+    final emergencyContactNumberField = IntlPhoneField(
+      controller: emergencyContactNumberEditingController,
+      decoration: InputDecoration(
+        hintText: 'Phone Number',
+        border: OutlineInputBorder(
+          // contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
+      initialCountryCode: 'SA',
+      onSaved: (phone) {
+        emergencyContactNumberEditingController.text = phone!.completeNumber;
+      },
+      textInputAction: TextInputAction.done,
+    );
+
     return Container(
       child: Scaffold(
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -150,20 +217,14 @@ class _addState extends State<add> {
                     padding: EdgeInsets.only(left: 35, right: 35),
                     child: Column(
                       children: [
-                        TextField(
-                          controller: controller_fullName,
-                          decoration: InputDecoration(hintText: 'Full Name '),
-                        ),
-                        TextField(
-                          controller: controller_phone,
-                          decoration:
-                              InputDecoration(hintText: 'Phone Number '),
-                        ),
+                        emergencyContactNameField,
+                        SizedBox(height: 20),
+                        emergencyContactNumberField,
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: 150,
+                    height: 30,
                   ),
 //-----------------------------------  Buttons ---------------------------------------
 

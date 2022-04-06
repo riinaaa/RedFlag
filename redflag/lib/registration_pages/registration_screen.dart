@@ -542,7 +542,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     // writing all the values
     //user
     userModel.email = currentUser!.email;
-    userModel.uid = currentUser.uid;
     userModel.userFirstName = firstNameEditingController.text;
     userModel.userLastName = secondNameEditingController.text;
     userModel.keyword = keywordEditingController.text;
@@ -564,10 +563,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .set(userModel.toMap());
 
 //firestore add emergency contact information
-    // await firebaseFirestore
-    //     .collection("emergencyContacts")
-    //     .doc()
-    //     .set(emergencyContactModel.toMap());
+    await firebaseFirestore
+        .collection("emergencyContacts")
+        .doc()
+        .set(emergencyContactModel.toMap(currentUser.uid));
 
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
