@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:redflag/Users.dart';
 
 class reportsPage extends StatefulWidget {
   const reportsPage({Key? key}) : super(key: key);
@@ -8,6 +11,22 @@ class reportsPage extends StatefulWidget {
 }
 
 class _reportsPageState extends State<reportsPage> {
+  User? user = FirebaseAuth.instance.currentUser;
+  Users loggedInUser = Users();
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseFirestore.instance
+        .collection("users")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInUser = Users.fromMap(value.data());
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,14 +66,14 @@ class _reportsPageState extends State<reportsPage> {
                     Column(
                       children: [
                         Text(
-                          'Atheer Alghamdi',
+                          '${loggedInUser.getUserFirstName} ${loggedInUser.getUserLastName}',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
                               fontSize: 17),
                         ),
                         Text(
-                          '055-834-2221',
+                          '${loggedInUser.getEmail}',
                           style: TextStyle(color: Colors.white),
                         ),
                       ],
