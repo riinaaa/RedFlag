@@ -14,9 +14,27 @@ class _profilePageState extends State<profilePage> {
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
 
+  int? ecNum;
+
   @override
   void initState() {
     super.initState();
+
+// to retrive the length of emergency contact based on the UID.
+    FirebaseFirestore.instance
+        .collection('emergencyContatcs')
+        .where('user', isEqualTo: '/users/' + user!.uid)
+        .get()
+        .then((value) {
+      value.docs.length;
+      print(value.docs.length);
+
+      setState(() {
+        ecNum = value.docs.length;
+      });
+    });
+
+// to retrive the name and email of the user.
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -49,46 +67,45 @@ class _profilePageState extends State<profilePage> {
 
 //------------------------------------ User info ----------------------------------------
 
-              Column(children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(top: 80, left: 80),
-                  margin: EdgeInsets.symmetric(horizontal: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        children: [
-                          CircleAvatar(
-                            radius: 30.0,
-                            backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                          ),
-                          Container(
-                            margin: EdgeInsets.all(15.0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  '${loggedInUser.getUserFirstName} ${loggedInUser.getUserLastName}',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17),
-                                ),
-                                Text(
-                                  '${loggedInUser.getEmail}',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+              Container(
+                padding: EdgeInsets.only(top: 80, left: 120),
+                child: Column(
+                  children: [
+                    //child 1 --> avatar
+                    CircleAvatar(
+                      radius: 30.0,
+                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                    //child 2 --> for space between the avatar and user data
+                    SizedBox(
+                      height: 20,
+                    ),
+//----------------//child 3 --> user data
+                    Column(
+                      children: [
+                        Text(
+                          '${loggedInUser.getUserFirstName} ${loggedInUser.getUserLastName}',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17),
+                        ),
+                        Text(
+                          '${loggedInUser.getEmail}',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-              ]),
+              ),
+
+//------------------------------------ Dispaly the number of Emergency Contacts for the user ----------------------------------------
+
               SizedBox(
                 height: 50,
               ),
+
               Align(
                 alignment: Alignment.center,
                 child: Column(
@@ -97,7 +114,6 @@ class _profilePageState extends State<profilePage> {
                       height: 210,
                     ),
 
-//------------------------------------ Dispaly the number of Emergency Contacts for the user ----------------------------------------
                     Container(
                       padding: EdgeInsets.only(
                           left: 30, right: 30, top: 22, bottom: 22),
@@ -116,7 +132,7 @@ class _profilePageState extends State<profilePage> {
                           ),
                         ],
                       ),
-                      child: Text('3',
+                      child: Text('$ecNum',
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
