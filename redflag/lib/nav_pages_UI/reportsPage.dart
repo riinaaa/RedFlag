@@ -106,7 +106,8 @@ class _reportsPageState extends State<reportsPage> {
                 padding: EdgeInsets.only(top: 400, left: 15),
                 child: ElevatedButton(
                     onPressed: () {
-                      mail.sendMail();
+                      mail.sendMail('a.atheer.141919@gmail.com', 'Test',
+                          '<h1>TEST</h1>\n<p>This is a test</p>');
                     },
                     child: Text('Send Email')),
               )

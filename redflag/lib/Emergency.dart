@@ -31,20 +31,19 @@ class Emergency extends StatelessWidget {
     return '';
   }
 
-  sendMail() async {
+  sendMail(String recipients, String subject, String msg) async {
     String username = 'redflagapp.8@gmail.com';
     String password = 'Redflag123';
 
     final smtpServer = gmail(username, password);
     final message = Message()
       ..from = Address(username)
-      ..recipients.add('a.atheer.141919@gmail.com')
+      ..recipients.add(recipients)
 //      ..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
 //      ..bccRecipients.add(Address('bccAddress@example.com'))
-      ..subject = 'Mail using mailer package :: 😀 :: ${DateTime.now()}'
-      ..text = 'heloooooo.\nThis is line 2 of the text part.'
-      ..html =
-          "<h1>Write the content here</h1>\n<p>Hey! its easy use html tags for alignments</p>";
+      ..subject = '$subject :::: ${DateTime.now()}'
+      // ..text = 'heloooooo.\nThis is line 2 of the text part.'
+      ..html = '$msg';
 
     try {
       final sendReport = await send(message, smtpServer);
