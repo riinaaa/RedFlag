@@ -5,25 +5,25 @@ class EmergencyContacts {
   //const EmergencyContacts({ Key? key }) : super(key: key);
 
   var eFullName;
-  var phoneNumber;
+  var ecEmail;
 
-  EmergencyContacts({this.eFullName, this.phoneNumber}) {
+  EmergencyContacts({this.eFullName, this.ecEmail}) {
     eFullName = this.eFullName;
-    phoneNumber = this.phoneNumber;
+    ecEmail = this.ecEmail;
   }
 
   String get getFullName => this.eFullName;
 
   set setFullName(String fullName) => this.eFullName = fullName;
 
-  get getPhoneNumber => this.phoneNumber;
+  get getEcEmail => this.ecEmail;
 
-  set setPhoneNumber(phoneNumber) => this.phoneNumber = phoneNumber;
+  set setEcEmail(ecEmail) => this.ecEmail = ecEmail;
 
   // receiving data from server
   factory EmergencyContacts.fromMap(map) {
     return EmergencyContacts(
-      phoneNumber: map['phoneNumber'],
+      ecEmail: map['ecEmail'],
       eFullName: map['eFullName'],
     );
   }
@@ -31,7 +31,7 @@ class EmergencyContacts {
   // sending data to our server
   Map<String, dynamic> toMap(String uid) {
     return {
-      'phoneNumber': phoneNumber,
+      'ecEmail': ecEmail,
       'eFullName': eFullName,
       'user': uid,
     };

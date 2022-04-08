@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:redflag/EmergencyContacts.dart';
 import '/nav_pages_UI/nav.dart';
 import 'package:redflag/Users.dart';
@@ -13,8 +12,6 @@ List<GlobalKey<FormState>> formKeys = [
   GlobalKey<FormState>(),
   GlobalKey<FormState>()
 ];
-
-var phoneNumberFull;
 
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -44,7 +41,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final keywordEditingController = new TextEditingController();
   final confirmKeywordEditingController = new TextEditingController();
   final emergencyContactNameEditingController = new TextEditingController();
-  final emergencyContactNumberEditingController = new TextEditingController();
+  final emergencyContactEmailEditingController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -287,22 +284,34 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //phone number field
-    final emergencyContactNumberField = IntlPhoneField(
-      controller: emergencyContactNumberEditingController,
-      decoration: InputDecoration(
-        hintText: 'Phone Number',
-        border: OutlineInputBorder(
-          // contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      initialCountryCode: 'SA',
-      onSaved: (phone) {
-        emergencyContactNumberEditingController.text = phone!.completeNumber;
-      },
-      textInputAction: TextInputAction.done,
-    );
+    //emergency contact email field
+    final emergencyContactEmailField = TextFormField(
+        autofocus: false,
+        controller: emergencyContactEmailEditingController,
+        keyboardType: TextInputType.emailAddress,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please Enter Your Email");
+          }
+          // reg expression for email validation
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+              .hasMatch(value)) {
+            return ("Please Enter a valid email");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          emergencyContactEmailEditingController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.mail),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Email",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
 
     //signup button
     final signUpButton = ElevatedButton(
@@ -418,14 +427,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         children: <Widget>[
                           SizedBox(),
                           Text(
-                            'PS: A confirmation message will be sent to give them a heads up',
+                            'PS: A confirmation email will be sent to give them a heads up',
                             style: TextStyle(fontSize: 12.0),
                           ),
                           SizedBox(height: 15),
                           emergencyContactNameField,
 
                           SizedBox(height: 20),
-                          emergencyContactNumberField,
+                          emergencyContactEmailField,
                           // signUpButton,
                           // SizedBox(height: 15),
                           //
@@ -550,8 +559,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     //emergency contact
     emergencyContactModel.eFullName =
         emergencyContactNameEditingController.text;
-    emergencyContactModel.phoneNumber =
-        emergencyContactNumberEditingController.text;
+    emergencyContactModel.ecEmail = emergencyContactEmailEditingController.text;
 
     //add to the emergencycontact array in the user object
     userModel.emergencyContacts.add(emergencyContactModel);

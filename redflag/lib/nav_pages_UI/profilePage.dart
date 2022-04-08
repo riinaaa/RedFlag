@@ -23,7 +23,7 @@ class _profilePageState extends State<profilePage> {
 
 // to retrive the length of emergency contact based on the UID.
     FirebaseFirestore.instance
-        .collection('emergencyContatcs')
+        .collection('emergencyContacts')
         .where('user', isEqualTo: user!.uid)
         .get()
         .then((value) {
@@ -158,7 +158,7 @@ class _profilePageState extends State<profilePage> {
                     SizedBox(
                       height: 17,
                     ),
-                    Text('Emergency \nContatcs.',
+                    Text('Emergency \nContacts.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontSize: 12,

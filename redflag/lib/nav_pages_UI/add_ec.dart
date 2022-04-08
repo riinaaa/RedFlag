@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:redflag/Users.dart';
 import 'package:redflag/registration_pages/login_screen.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:redflag/EmergencyContacts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -16,9 +15,9 @@ class add extends StatefulWidget {
 
 class _addState extends State<add> {
   final emergencyContactNameEditingController = new TextEditingController();
-  final emergencyContactNumberEditingController = new TextEditingController();
+  final emergencyContactEmailEditingController = new TextEditingController();
   String? name;
-  String? phone;
+  String? email;
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
 
@@ -45,16 +44,15 @@ class _addState extends State<add> {
 //emergency contact
     emergencyContactModel.eFullName =
         emergencyContactNameEditingController.text;
-    emergencyContactModel.phoneNumber =
-        emergencyContactNumberEditingController.text;
+    emergencyContactModel.ecEmail = emergencyContactEmailEditingController.text;
 
     //add to the emergencycontact array in the user object
     loggedInUser.emergencyContacts.add(emergencyContactModel);
 
     name = emergencyContactNameEditingController.text;
-    phone = emergencyContactNumberEditingController.text;
+    email = emergencyContactEmailEditingController.text;
 
-    if (name != "" || phone != "") {
+    if (name != "" || email != "") {
       //firestore add emergency contact information
       await firebaseFirestore
           .collection("emergencyContacts")
@@ -73,7 +71,7 @@ class _addState extends State<add> {
  */
   clearData() {
     emergencyContactNameEditingController.clear();
-    emergencyContactNumberEditingController.clear();
+    emergencyContactEmailEditingController.clear();
   }
 
   @override
@@ -106,22 +104,34 @@ class _addState extends State<add> {
           ),
         ));
 
-    //phone number field
-    final emergencyContactNumberField = IntlPhoneField(
-      controller: emergencyContactNumberEditingController,
-      decoration: InputDecoration(
-        hintText: 'Phone Number',
-        border: OutlineInputBorder(
-          // contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      initialCountryCode: 'SA',
-      onSaved: (phone) {
-        emergencyContactNumberEditingController.text = phone!.completeNumber;
-      },
-      textInputAction: TextInputAction.done,
-    );
+    //emergency contact email field
+    final emergencyContactEmailField = TextFormField(
+        autofocus: false,
+        controller: emergencyContactEmailEditingController,
+        keyboardType: TextInputType.emailAddress,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return ("Please Enter Your Email");
+          }
+          // reg expression for email validation
+          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+              .hasMatch(value)) {
+            return ("Please Enter a valid email");
+          }
+          return null;
+        },
+        onSaved: (value) {
+          emergencyContactEmailEditingController.text = value!;
+        },
+        textInputAction: TextInputAction.next,
+        decoration: InputDecoration(
+          prefixIcon: Icon(Icons.mail),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: "Email",
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ));
 
     return Container(
       child: Scaffold(
@@ -219,7 +229,7 @@ class _addState extends State<add> {
                       children: [
                         emergencyContactNameField,
                         SizedBox(height: 20),
-                        emergencyContactNumberField,
+                        emergencyContactEmailField,
                       ],
                     ),
                   ),
