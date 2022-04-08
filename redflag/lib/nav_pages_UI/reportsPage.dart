@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
+import 'package:redflag/Emergency.dart';
 import 'package:redflag/Users.dart';
 import 'package:redflag/registration_pages/login_screen.dart';
 
@@ -14,6 +17,7 @@ class reportsPage extends StatefulWidget {
 class _reportsPageState extends State<reportsPage> {
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
+  Emergency mail = new Emergency();
 
   @override
   void initState() {
@@ -98,6 +102,14 @@ class _reportsPageState extends State<reportsPage> {
                       )),
                 ),
               ),
+              Container(
+                padding: EdgeInsets.only(top: 400, left: 15),
+                child: ElevatedButton(
+                    onPressed: () {
+                      mail.sendMail();
+                    },
+                    child: Text('Send Email')),
+              )
             ],
           )),
     );
