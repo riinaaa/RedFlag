@@ -4,7 +4,6 @@ import 'package:redflag/Users.dart';
 import 'Users.dart';
 import './AccessStatus.dart';
 import 'dart:io';
-
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:google_sign_in/google_sign_in.dart';
