@@ -4,7 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
+import 'package:redflag/Emergency.dart';
+import 'package:redflag/EmergencyContacts.dart';
 import 'package:redflag/Users.dart';
+import 'package:redflag/locations/user_location.dart';
 import 'package:redflag/nav_pages_UI/nav.dart';
 import 'package:redflag/nav_pages_UI/termination/termenationPage.dart';
 
@@ -20,14 +23,27 @@ class _VerificatoinState extends State<Verificatoin> {
   String _code = '';
   bool _pinLength = false;
   Timer? _timer;
+  // UserLocation locLinl=new UserLocation();
 
 // Retrive the registered PIN
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
 
+  EmergencyContacts loggedInEmergencyContacts = EmergencyContacts();
+
   @override
   void initState() {
     super.initState();
+
+    FirebaseFirestore.instance
+        .collection("emergencyContacts")
+        .doc(user!.uid)
+        .get()
+        .then((value) {
+      this.loggedInEmergencyContacts = EmergencyContacts.fromMap(value.data());
+      setState(() {});
+    });
+
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -106,6 +122,22 @@ class _VerificatoinState extends State<Verificatoin> {
         // if it from the Emergency buttons
         //    - Activate fetaures
         if (widget.status == 'emergency') {
+          //----------------------------------------
+          // Send an email to the emergency contact
+          Emergency mail = new Emergency();
+          String subject =
+              'You have been added as an Emergency Contact :: Redflag Team';
+          // String ecName = emergencyContactNameEditingController.text;
+          String userFirstName = loggedInUser.getUserFirstName;
+          String userLastName = loggedInUser.getUserLastName;
+          // String recipients = emergencyContactEmailEditingController.text;
+          final recipients = <dynamic>[loggedInEmergencyContacts.getEcEmail];
+
+          String msg =
+              '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
+          mail.sendMail(recipients, subject, msg);
+
+          //----------------------------------------
           print('1- Fetures Activated');
         }
 
