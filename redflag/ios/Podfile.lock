@@ -473,6 +473,8 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - permission_handler_apple (9.0.4):
+    - Flutter
   - PromisesObjC (2.0.0)
   - sound_mode (0.0.1):
     - Flutter
@@ -489,6 +491,7 @@ DEPENDENCIES:
   - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
   - google_sign_in (from `.symlinks/plugins/google_sign_in/ios`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - sound_mode (from `.symlinks/plugins/sound_mode/ios`)
 
 SPEC REPOS:
@@ -534,6 +537,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
   google_sign_in:
     :path: ".symlinks/plugins/google_sign_in/ios"
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
   sound_mode:
     :path: ".symlinks/plugins/sound_mode/ios"
 
@@ -566,6 +571,7 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Mute: 66213d0aced6a074c7ab88b45ec20a9d54b1b7fb
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   sound_mode: ef0072f20e7306c1c371984a443156e39be092d5
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196

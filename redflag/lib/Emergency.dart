@@ -30,16 +30,18 @@ class Emergency extends StatelessWidget {
     return '';
   }
 
-  sendMail(String recipients, String subject, String msg) async {
+  sendMail(List<dynamic> recipients, String subject, String msg) async {
     String username = 'redflagapp.8@gmail.com';
     String password = 'Redflag123';
 
+    String f = recipients.join(', ');
     final smtpServer = gmail(username, password);
     final message = Message()
       ..from = Address(username)
-      ..recipients.add(recipients)
-//      ..ccRecipients.addAll(['destCc1@example.com', 'destCc2@example.com'])
-//      ..bccRecipients.add(Address('bccAddress@example.com'))
+      // ..recipients.add(recipients)
+
+      ..ccRecipients.addAll(recipients)
+      //  ..bccRecipients.add(Address('bccAddress@example.com'))
       ..subject = '$subject :::: ${DateTime.now()}'
       // ..text = 'heloooooo.\nThis is line 2 of the text part.'
       ..html = '$msg';
@@ -51,6 +53,7 @@ class Emergency extends StatelessWidget {
       //     duration: 3, gravity: Toast.CENTER);
     } on MailerException catch (e) {
       print('Message not sent.');
+      print(e.toString());
       for (var p in e.problems) {
         print('Problem: ${p.code}: ${p.msg}');
       }

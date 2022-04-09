@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:redflag/Emergency.dart';
 import 'package:redflag/EmergencyContacts.dart';
 import '/nav_pages_UI/nav.dart';
 import 'package:redflag/Users.dart';
@@ -577,6 +578,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         .set(emergencyContactModel.toMap(currentUser.uid));
 
     Fluttertoast.showToast(msg: "Account created successfully :) ");
+
+    //----------------------------------------
+    // Send an email to the emergency contact
+    Emergency mail = new Emergency();
+    String subject =
+        'You have been added as an Emergency Contact :: Redflag Team';
+    String ecName = emergencyContactNameEditingController.text;
+    String userFirstName = firstNameEditingController.text;
+    String userLastName = secondNameEditingController.text;
+    // String recipients = emergencyContactEmailEditingController.text;
+    final recipients = <dynamic>[emergencyContactEmailEditingController.text];
+
+    String msg =
+        '<h1>Hello, $ecName </h1>\n<p><strong>$userFirstName $userLastName </strong>has added you as an emergency contact.\n</p><p>If there is an emergency, the Redflag team will send you the location of <strong>$userFirstName</strong>.</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
+    mail.sendMail(recipients, subject, msg);
+
+    //----------------------------------------
 
     Navigator.pushAndRemoveUntil((context),
         MaterialPageRoute(builder: (context) => NavScreen()), (route) => false);
