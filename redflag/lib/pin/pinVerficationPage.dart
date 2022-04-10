@@ -31,6 +31,10 @@ class _VerificatoinState extends State<Verificatoin> {
 
   EmergencyContacts loggedInEmergencyContacts = EmergencyContacts();
 
+  Emergency mail = new Emergency();
+  String subject =
+      'You have been added as an Emergency Contact :: Redflag Team';
+
   @override
   void initState() {
     super.initState();
@@ -114,6 +118,14 @@ class _VerificatoinState extends State<Verificatoin> {
   }
 
   void startTimer() {
+    // String ecName = emergencyContactNameEditingController.text;
+    String userFirstName = loggedInUser.getUserFirstName;
+    String userLastName = loggedInUser.getUserLastName;
+    // String recipients = emergencyContactEmailEditingController.text;
+    final recipients = <dynamic>[loggedInEmergencyContacts.getEcEmail];
+
+    String msg =
+        '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
     // setState(() --> Notify the framework that the internal state of this object has changed.
     // setState(() {
     //------------------------When the 30 sec end without the correct PIN-----------------------------
@@ -124,17 +136,7 @@ class _VerificatoinState extends State<Verificatoin> {
         if (widget.status == 'emergency') {
           //----------------------------------------
           // Send an email to the emergency contact
-          Emergency mail = new Emergency();
-          String subject =
-              'You have been added as an Emergency Contact :: Redflag Team';
-          // String ecName = emergencyContactNameEditingController.text;
-          String userFirstName = loggedInUser.getUserFirstName;
-          String userLastName = loggedInUser.getUserLastName;
-          // String recipients = emergencyContactEmailEditingController.text;
-          final recipients = <dynamic>[loggedInEmergencyContacts.getEcEmail];
 
-          String msg =
-              '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
           mail.sendMail(recipients, subject, msg);
 
           //----------------------------------------

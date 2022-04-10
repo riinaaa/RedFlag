@@ -60,13 +60,13 @@ class _profilePageState extends State<profilePage> {
         //emergency contact
         emergencyContactModel.eFullName = doc['eFullName'];
         emergencyContactModel.ecEmail = doc['ecEmail'];
-        print(emergencyContactModel.ecEmail);
+        // print(emergencyContactModel.ecEmail);
         loggedInUser.emergencyContacts.add(emergencyContactModel);
-        // for (var i = 0; i < loggedInUser.emergencyContacts.length; i++) {
-        //   print(ecNum);
-        //   print(loggedInUser.emergencyContacts[i].eFullName);
-        //   print(loggedInUser.emergencyContacts[i].ecEmail);
-        // }
+        for (var i = 0; i < loggedInUser.emergencyContacts.length; i++) {
+          print(ecNum);
+          print(loggedInUser.emergencyContacts[i].eFullName);
+          print(loggedInUser.emergencyContacts[i].ecEmail);
+        }
       });
     });
 
