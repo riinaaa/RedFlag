@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:redflag/Users.dart';
+import 'package:redflag/EmergencyContacts.dart';
 import 'package:redflag/registration_pages/login_screen.dart';
 
 class profilePage extends StatefulWidget {
@@ -14,6 +15,7 @@ class profilePage extends StatefulWidget {
 class _profilePageState extends State<profilePage> {
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
+  EmergencyContacts emergencyContactModel = EmergencyContacts();
 
   int? ecNum;
 
@@ -48,6 +50,26 @@ class _profilePageState extends State<profilePage> {
 
   @override
   Widget build(BuildContext context) {
+//add emergency contacts to arraylist in the user class
+    FirebaseFirestore.instance
+        .collection('emergencyContacts')
+        .where('user', isEqualTo: user!.uid)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        //emergency contact
+        emergencyContactModel.eFullName = doc['eFullName'];
+        emergencyContactModel.ecEmail = doc['ecEmail'];
+        print(emergencyContactModel.ecEmail);
+        loggedInUser.emergencyContacts.add(emergencyContactModel);
+        // for (var i = 0; i < loggedInUser.emergencyContacts.length; i++) {
+        //   print(ecNum);
+        //   print(loggedInUser.emergencyContacts[i].eFullName);
+        //   print(loggedInUser.emergencyContacts[i].ecEmail);
+        // }
+      });
+    });
+
     return Container(
       child: Scaffold(
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -183,11 +205,45 @@ class _profilePageState extends State<profilePage> {
                                     fontWeight: FontWeight.bold)),
                           ),
                         ),
-                        Text('Show All',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: Color.fromARGB(255, 0, 181, 253),
-                            ))
+                      ],
+                    ),
+                    // View all emergency contacts in a listView
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: SizedBox(
+                            height: 300.0,
+                            child: StreamBuilder<QuerySnapshot>(
+                              stream: FirebaseFirestore.instance
+                                  .collection('emergencyContacts')
+                                  .where('user', isEqualTo: user!.uid)
+                                  .snapshots(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<QuerySnapshot> snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text('Something went wrong');
+                                }
+
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Text("Loading");
+                                }
+                                return ListView(
+                                  children: snapshot.data!.docs
+                                      .map((DocumentSnapshot document) {
+                                    Map<String, dynamic> data = document.data()!
+                                        as Map<String, dynamic>;
+
+                                    return ListTile(
+                                      title: Text(data['eFullName']),
+                                      subtitle: Text(data['ecEmail']),
+                                    );
+                                  }).toList(),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
