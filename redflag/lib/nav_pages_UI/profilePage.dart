@@ -51,24 +51,24 @@ class _profilePageState extends State<profilePage> {
   @override
   Widget build(BuildContext context) {
 //add emergency contacts to arraylist in the user class
-    FirebaseFirestore.instance
-        .collection('emergencyContacts')
-        .where('user', isEqualTo: user!.uid)
-        .get()
-        .then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        //emergency contact
-        emergencyContactModel.eFullName = doc['eFullName'];
-        emergencyContactModel.ecEmail = doc['ecEmail'];
-        // print(emergencyContactModel.ecEmail);
-        loggedInUser.emergencyContacts.add(emergencyContactModel);
-        for (var i = 0; i < loggedInUser.emergencyContacts.length; i++) {
-          print(ecNum);
-          print(loggedInUser.emergencyContacts[i].eFullName);
-          print(loggedInUser.emergencyContacts[i].ecEmail);
-        }
-      });
-    });
+    // FirebaseFirestore.instance
+    //     .collection('emergencyContacts')
+    //     .where('user', isEqualTo: user!.uid)
+    //     .get()
+    //     .then((QuerySnapshot querySnapshot) {
+    //   querySnapshot.docs.forEach((doc) {
+    //     //emergency contact
+    //     emergencyContactModel.eFullName = doc['eFullName'];
+    //     emergencyContactModel.ecEmail = doc['ecEmail'];
+    //     // print(emergencyContactModel.ecEmail);
+    //     loggedInUser.emergencyContacts.add(emergencyContactModel);
+    //     for (var i = 0; i < loggedInUser.emergencyContacts.length; i++) {
+    //       print(ecNum);
+    //       print(loggedInUser.emergencyContacts[i].eFullName);
+    //       print(loggedInUser.emergencyContacts[i].ecEmail);
+    //     }
+    //   });
+    // });
 
     return Container(
       child: Scaffold(

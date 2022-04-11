@@ -49,6 +49,7 @@ class Emergency extends StatelessWidget {
     try {
       final sendReport = await send(message, smtpServer);
       print('Message sent: ' + sendReport.toString());
+      print(recipients);
       // Toast.show("You have clicked the Button! and email sent", context,
       //     duration: 3, gravity: Toast.CENTER);
     } on MailerException catch (e) {

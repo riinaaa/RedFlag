@@ -28,8 +28,12 @@ class _VerificatoinState extends State<Verificatoin> {
 // Retrive the registered PIN
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
-
-  EmergencyContacts loggedInEmergencyContacts = EmergencyContacts();
+////////////////
+  EmergencyContacts emergencyContactModel = EmergencyContacts();
+  List<dynamic> recipients = <dynamic>[];
+  String? userFirstName;
+  String? userLastName;
+  String? msg;
 
   Emergency mail = new Emergency();
   String subject =
@@ -38,14 +42,27 @@ class _VerificatoinState extends State<Verificatoin> {
   @override
   void initState() {
     super.initState();
-
     FirebaseFirestore.instance
-        .collection("emergencyContacts")
-        .doc(user!.uid)
+        .collection('emergencyContacts')
+        .where('user', isEqualTo: user!.uid)
         .get()
-        .then((value) {
-      this.loggedInEmergencyContacts = EmergencyContacts.fromMap(value.data());
-      setState(() {});
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        //emergency contact
+        emergencyContactModel.eFullName = doc['eFullName'];
+        emergencyContactModel.ecEmail = doc['ecEmail'];
+
+        loggedInUser.emergencyContacts.add(emergencyContactModel);
+        int count = 0;
+        for (var i = 0; i < 1; i++) {
+          print('i--> $i');
+          print(loggedInUser.emergencyContacts[i].eFullName);
+          print(loggedInUser.emergencyContacts[i].ecEmail);
+          print('-------------------------');
+
+          recipients.add(loggedInUser.emergencyContacts[i].ecEmail);
+        }
+      });
     });
 
     FirebaseFirestore.instance
@@ -119,10 +136,9 @@ class _VerificatoinState extends State<Verificatoin> {
 
   void startTimer() {
     // String ecName = emergencyContactNameEditingController.text;
-    String userFirstName = loggedInUser.getUserFirstName;
-    String userLastName = loggedInUser.getUserLastName;
+    // String userFirstName = loggedInUser.getUserFirstName;
+    // String userLastName = loggedInUser.getUserLastName;
     // String recipients = emergencyContactEmailEditingController.text;
-    final recipients = <dynamic>[loggedInEmergencyContacts.getEcEmail];
 
     String msg =
         '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
@@ -134,13 +150,10 @@ class _VerificatoinState extends State<Verificatoin> {
         // if it from the Emergency buttons
         //    - Activate fetaures
         if (widget.status == 'emergency') {
+          print('1- Fetures Activated');
           //----------------------------------------
           // Send an email to the emergency contact
-
           mail.sendMail(recipients, subject, msg);
-
-          //----------------------------------------
-          print('1- Fetures Activated');
         }
 
         //either from emergency button or safe button,
@@ -159,6 +172,10 @@ class _VerificatoinState extends State<Verificatoin> {
   @override
   Widget build(BuildContext context) {
 // -------------------------- Timer 30 sec ----------------------------
+    userFirstName = loggedInUser.getUserFirstName;
+    userLastName = loggedInUser.getUserLastName;
+    msg =
+        '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
     startTimer();
 
     return Scaffold(

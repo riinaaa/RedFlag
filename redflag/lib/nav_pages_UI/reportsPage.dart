@@ -26,18 +26,60 @@ class _reportsPageState extends State<reportsPage> {
   String ecName = 'Atheer';
   String userFirstName = 'Shimma';
   String userLastName = 'Alghamdi';
-  final recipients = <dynamic>[
-    'a.atheer.141919@gmail.com',
-    'a.atheer.2014@gmail.com'
-  ];
+  List<dynamic> recipients = <dynamic>[];
 
   // String msg =
   //     '<h1>Hello, $ecName </h1>\n<p><strong>$userFirstName $userLastName </strong>has added you as an emergency contact.\n</p><p>If there is an emergency, the Redflag team will send you the location of <strong>$userFirstName</strong>.</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
-  EmergencyContacts loggedInEmergencyContacts = EmergencyContacts();
+  // EmergencyContacts loggedInEmergencyContacts = EmergencyContacts();
 
   @override
   void initState() {
     super.initState();
+    FirebaseFirestore.instance
+        .collection('emergencyContacts')
+        .where('user', isEqualTo: user!.uid)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        //emergency contact
+        emergencyContactModel.eFullName = doc['eFullName'];
+        emergencyContactModel.ecEmail = doc['ecEmail'];
+        // print(emergencyContactModel.ecEmail);
+
+        // for (var i = 0; i < loggedInUser.emergencyContacts.length; i++) {
+        //   recipients = [emergencyContactModel.ecEmail];
+        // }
+        // print('-------------------------');
+
+        // print('rec --> $recipients');
+        loggedInUser.emergencyContacts.add(emergencyContactModel);
+        // List<dynamic> temp = <dynamic>[];
+        int count = 0;
+        for (var i = 0; i < 1; i++) {
+          print('i--> $i');
+          print(loggedInUser.emergencyContacts[i].eFullName);
+          print(loggedInUser.emergencyContacts[i].ecEmail);
+          print('-------------------------');
+
+          recipients.add(loggedInUser.emergencyContacts[i].ecEmail);
+        }
+        // for (var i = 0; i < loggedInUser.emergencyContacts.length; i++) {
+        //   // print(ecNum);
+        //   print(loggedInUser.emergencyContacts[i].eFullName);
+        //   print(loggedInUser.emergencyContacts[i].ecEmail);
+        //   print('-------------------------');
+
+        //   recipients = [loggedInUser.emergencyContacts[i].ecEmail];
+        // }
+
+        // print(recipients.length);
+      });
+      print(loggedInUser.emergencyContacts.length);
+      // recipients = [loggedInUser.getEmergencyContacts];
+
+      print(recipients);
+      print(recipients.length);
+    });
 
     // FirebaseFirestore.instance
     //     .collection("emergencyContacts")
@@ -133,18 +175,33 @@ class _reportsPageState extends State<reportsPage> {
                 padding: EdgeInsets.only(top: 400, left: 15),
                 child: ElevatedButton(
                     onPressed: () {
-                      // mail.sendMail(recipients, subject,
-                      //     '<h1>Hello, $ecName </h1>\n<p><strong>$userFirstName $userLastName </strong>has added you as an emergency contact.\n</p><p>If there is an emergency, the Redflag team will send you the location of <strong>$userFirstName</strong>.</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>');
-                      // print(loggedInUser.getEmergencyContacts);
-                      // print(emergencyContactModel.ecEmail);
+                      // for (var i = 0;
+                      //     i < loggedInUser.emergencyContacts.length;
+                      //     i++) {
+                      //   // print(ecNum);
+                      //   print(loggedInUser.emergencyContacts[i].getEcEmail);
+                      //   // print(loggedInUser.emergencyContacts[i].eFullName);
+                      //   // print(loggedInUser.emergencyContacts[i].ecEmail);
+                      //   print('-------------------------');
+                      //   recipients = [
+                      //     loggedInUser.emergencyContacts[i].ecEmail
+                      //   ];
+                      // }
+                      // print(recipients);
 
-                      for (var i = 0;
-                          i < loggedInUser.emergencyContacts.length;
-                          i++) {
-                        // print(ecNum);
-                        print(loggedInUser.emergencyContacts[i].eFullName);
-                        print(loggedInUser.emergencyContacts[i].ecEmail);
-                      }
+                      mail.sendMail(recipients, subject,
+                          '<h1>Hello, $ecName </h1>\n<p><strong>$userFirstName $userLastName </strong>has added you as an emergency contact.\n</p><p>If there is an emergency, the Redflag team will send you the location of <strong>$userFirstName</strong>.</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>');
+                      // print(loggedInUser.getEmergencyContacts);
+                      // print('After clicking the button');
+                      // print(recipients);
+
+                      // for (var i = 0;
+                      //     i < loggedInUser.emergencyContacts.length;
+                      //     i++) {
+                      //   // print(ecNum);
+                      //   print(loggedInUser.emergencyContacts[i].eFullName);
+                      //   print(loggedInUser.emergencyContacts[i].ecEmail);
+                      // }
                     },
                     child: Text('Send Email')),
               )
