@@ -33,7 +33,7 @@ class _VerificatoinState extends State<Verificatoin> {
   List<dynamic> recipients = <dynamic>[];
   String? userFirstName;
   String? userLastName;
-  String? msg;
+  // String? msg;
 
   Emergency mail = new Emergency();
   String subject =
@@ -53,12 +53,11 @@ class _VerificatoinState extends State<Verificatoin> {
         emergencyContactModel.ecEmail = doc['ecEmail'];
 
         loggedInUser.emergencyContacts.add(emergencyContactModel);
-        int count = 0;
         for (var i = 0; i < 1; i++) {
-          print('i--> $i');
-          print(loggedInUser.emergencyContacts[i].eFullName);
-          print(loggedInUser.emergencyContacts[i].ecEmail);
-          print('-------------------------');
+          // print('i--> $i');
+          // print(loggedInUser.emergencyContacts[i].eFullName);
+          // print(loggedInUser.emergencyContacts[i].ecEmail);
+          // print('-------------------------');
 
           recipients.add(loggedInUser.emergencyContacts[i].ecEmail);
         }
@@ -84,6 +83,8 @@ class _VerificatoinState extends State<Verificatoin> {
     // });
 
     if (_code.length < 4) {
+      _pinLength = false;
+
       print("> 4");
 
 //----------------- Display an error message when user enter less than 4 digits------------------
@@ -107,11 +108,16 @@ class _VerificatoinState extends State<Verificatoin> {
       // String pin = '${loggedInUser.getPin}';
 
       if (_code == '${loggedInUser.getPin}') {
+        _pinLength = true;
+
         print('= 4');
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => NavScreen()),
         );
+        // _timer!.cancel();
+        // print('timer canceled');
       } else {
         //----------------- Display an error message when user enter pin dont equal registered pin------------------
         final snackBar = SnackBar(
@@ -135,15 +141,12 @@ class _VerificatoinState extends State<Verificatoin> {
   }
 
   void startTimer() {
-    // String ecName = emergencyContactNameEditingController.text;
-    // String userFirstName = loggedInUser.getUserFirstName;
-    // String userLastName = loggedInUser.getUserLastName;
-    // String recipients = emergencyContactEmailEditingController.text;
-
-    String msg =
-        '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
     // setState(() --> Notify the framework that the internal state of this object has changed.
     // setState(() {
+    userFirstName = loggedInUser.getUserFirstName;
+    userLastName = loggedInUser.getUserLastName;
+    String msg =
+        '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
     //------------------------When the 30 sec end without the correct PIN-----------------------------
     _timer = Timer(Duration(seconds: 30), () {
       if (_timer?.isActive == false && _pinLength == false) {
@@ -172,10 +175,9 @@ class _VerificatoinState extends State<Verificatoin> {
   @override
   Widget build(BuildContext context) {
 // -------------------------- Timer 30 sec ----------------------------
-    userFirstName = loggedInUser.getUserFirstName;
-    userLastName = loggedInUser.getUserLastName;
-    msg =
-        '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
+
+    // msg =
+    //     '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
     startTimer();
 
     return Scaffold(
