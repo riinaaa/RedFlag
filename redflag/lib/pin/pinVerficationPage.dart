@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 import 'package:redflag/Emergency.dart';
 import 'package:redflag/EmergencyContacts.dart';
 import 'package:redflag/Users.dart';
@@ -38,6 +40,8 @@ class _VerificatoinState extends State<Verificatoin> {
   Emergency mail = new Emergency();
   String subject =
       'You have been added as an Emergency Contact :: Redflag Team';
+  double? lat;
+  double? lng;
 
   @override
   void initState() {
@@ -141,12 +145,29 @@ class _VerificatoinState extends State<Verificatoin> {
   }
 
   void startTimer() {
+    final currentPosition = Provider.of<Position?>(context);
+    setState(() {
+      lat = currentPosition?.latitude;
+      lng = currentPosition?.longitude;
+    });
+
+    print('lat from Timer --> $lat');
+    print('lng from Timer--> $lng');
+
+    String msg2 =
+        '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">Atheer Alghamdi in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="https://www.google.com/maps/search/?api=1&query=$lat%2C$lng">The Location Link</a></div>';
+
     // setState(() --> Notify the framework that the internal state of this object has changed.
     // setState(() {
     userFirstName = loggedInUser.getUserFirstName;
     userLastName = loggedInUser.getUserLastName;
-    String msg =
-        '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
+    // String msg =
+    //     '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
+    // Future<dynamic> loc = UserLocation().getLocation();
+    // print('loc ----> $loc');
+    // print('-------------------');
+    // print(UserLocation().getLocation());
+
     //------------------------When the 30 sec end without the correct PIN-----------------------------
     _timer = Timer(Duration(seconds: 30), () {
       if (_timer?.isActive == false && _pinLength == false) {
@@ -156,7 +177,7 @@ class _VerificatoinState extends State<Verificatoin> {
           print('1- Fetures Activated');
           //----------------------------------------
           // Send an email to the emergency contact
-          mail.sendMail(recipients, subject, msg);
+          // mail.sendMail(recipients, subject, msg2);
         }
 
         //either from emergency button or safe button,
@@ -176,8 +197,12 @@ class _VerificatoinState extends State<Verificatoin> {
   Widget build(BuildContext context) {
 // -------------------------- Timer 30 sec ----------------------------
 
-    // msg =
-    //     '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
+    // final currentPosition = Provider.of<Position?>(context);
+    // setState(() {
+    //   lat = currentPosition?.latitude;
+    //   lng = currentPosition?.longitude;
+    // });
+
     startTimer();
 
     return Scaffold(

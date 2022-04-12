@@ -4,7 +4,7 @@ import 'package:geolocator/geolocator.dart';
 class UserLocation extends StatelessWidget {
   const UserLocation({Key? key}) : super(key: key);
 
-  void getLocation() async {
+  getLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -42,8 +42,11 @@ class UserLocation extends StatelessWidget {
     double latidue = position.latitude;
     double longtude = position.longitude;
 
-    print(
-        'https://www.google.com/maps/search/?api=1&query=$latidue%2C$longtude'); //Pass is to send it via SMS
+    // print(
+    //     'https://www.google.com/maps/search/?api=1&query=$latidue%2C$longtude');
+    //Pass is to send it via SMS
+
+    return 'https://www.google.com/maps/search/?api=1&query=$latidue%2C$longtude';
   }
 
   @override

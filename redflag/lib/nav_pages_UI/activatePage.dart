@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
+import 'package:redflag/locations/user_location.dart';
 import 'package:redflag/pin/pinVerficationPage.dart';
 import 'package:flutter/services.dart';
 import 'package:sound_mode/permission_handler.dart';
@@ -21,6 +22,8 @@ class activationPage extends StatefulWidget {
 class _activationPageState extends State<activationPage> {
   RingerModeStatus _soundMode = RingerModeStatus.unknown;
   String? _permissionStatus;
+  double? lat;
+  double? lng;
 
   @override
   void initState() {
@@ -93,6 +96,16 @@ class _activationPageState extends State<activationPage> {
 
   @override
   Widget build(BuildContext context) {
+    // String loc = UserLocation().getLocation().toString();
+    // print('loc ----> $loc');
+
+    final currentPosition = Provider.of<Position?>(context);
+    lat = currentPosition?.latitude;
+    lng = currentPosition?.longitude;
+
+    print('lat --> $lat');
+    print('lng --> $lng');
+
     return Scaffold(
         body: Center(
       child: Container(
