@@ -96,15 +96,18 @@ class _activationPageState extends State<activationPage> {
 
   @override
   Widget build(BuildContext context) {
-    // String loc = UserLocation().getLocation().toString();
-    // print('loc ----> $loc');
+    // final currentPosition = Provider.of<Position?>(context);
+    // lat = currentPosition?.latitude;
+    // lng = currentPosition?.longitude;
 
-    final currentPosition = Provider.of<Position?>(context);
-    lat = currentPosition?.latitude;
-    lng = currentPosition?.longitude;
+    // print('lat from activatePage--> $lat');
+    // print('lng from activatePage --> $lng');
 
-    print('lat --> $lat');
-    print('lng --> $lng');
+    // print('-------------------');
+
+    // Future<dynamic> loc = UserLocation().getLocation().then((value) {
+    //   print('loc ----> $value');
+    // });
 
     return Scaffold(
         body: Center(
