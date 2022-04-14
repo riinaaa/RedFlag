@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_auth: ^3.3.11
   firebase_core: ^1.13.1
+  firebase_storage: ^10.2.12
   intl_phone_field: ^3.0.1
   fluttertoast: ^8.0.9
   geolocator: ^8.0.1
@@ -49,6 +50,13 @@ dependencies:
   mailer: ^5.1.0
   google_sign_in: ^5.0.4
   permission_handler: ^9.2.0
+  flutter_sound: ^8.1.9
+  path: ^1.8.0
+  assets_audio_player: ^3.0.3+3
+  intl: ^0.17.0
+
+
+  
 
 
 

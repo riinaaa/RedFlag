@@ -25,6 +25,7 @@ class _VerificatoinState extends State<Verificatoin> {
   String _code = '';
   bool _pinLength = false;
   Timer? _timer;
+
   // UserLocation locLinl=new UserLocation();
 
 // Retrive the registered PIN
@@ -175,7 +176,8 @@ class _VerificatoinState extends State<Verificatoin> {
             print('1- Fetures Activated');
             //----------------------------------------
             // Send an email to the emergency contact
-            mail.sendMail(recipients, subject, msg2);
+            //(UNCOMMENT)
+            //mail.sendMail(recipients, subject, msg2);
           }
 
           //either from emergency button or safe button,

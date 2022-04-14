@@ -13,22 +13,78 @@ class Emergency extends StatelessWidget {
 
   AccessStatus access = new AccessStatus.empty();
   Users user = new Users.empty();
-  var mute;
-  var userCoordinate;
-  var policeStationCoordinatef = <String>[];
-  DateTime startTime = new DateTime.now();
-  DateTime endTimo = new DateTime.now();
-  var enteredPIN;
+  var caseNumber;
+  DateTime? startTime = DateTime.now();
+  DateTime? endTime = DateTime.now();
+  var userLocation;
+  var audioRecording;
 
-  void autoMute(bool mute) {}
-  void autoVideoRecording() {}
-  String locateUser() {
-    return '';
+  get getCaseNumber => this.caseNumber;
+
+  set setCaseNumber(caseNumber) => this.caseNumber = caseNumber;
+
+  get getStartTime => this.startTime;
+
+  set setStartTime(startTime) => this.startTime = startTime;
+
+  get getEndTime => this.endTime;
+
+  set setEndTime(endTime) => this.endTime = endTime;
+
+  get getUserLocation => this.userLocation;
+
+  set setUserLocation(userLocation) => this.userLocation = userLocation;
+
+  get getAudioRecording => this.audioRecording;
+
+  set setAudioRecording(audioRecording) => this.audioRecording = audioRecording;
+
+  Emergency({
+    this.caseNumber,
+    this.startTime,
+    this.endTime,
+    this.userLocation,
+    this.audioRecording,
+  }) {
+    caseNumber = this.caseNumber;
+    startTime = this.startTime;
+    endTime = this.endTime;
+    userLocation = this.userLocation;
+    audioRecording = this.audioRecording;
   }
 
-  String nearestPoliceStations() {
-    return '';
+  // receiving data from server
+  factory Emergency.fromMap(map) {
+    return Emergency(
+      caseNumber: map['caseNumber'],
+      startTime: map['startTime'],
+      endTime: map['endTime'],
+      userLocation: map['userLocation'],
+      audioRecording: map['audioRecording'],
+    );
   }
+
+  // sending data to our server
+  Map<String, dynamic> toMap(String uid) {
+    return {
+      'caseNumber': caseNumber,
+      'startTime': startTime,
+      'endTime': endTime,
+      'userLocation': userLocation,
+      'audioRecording': audioRecording,
+      'user': uid,
+    };
+  }
+
+  // void autoMute(bool mute) {}
+  // void autoVideoRecording() {}
+  // String locateUser() {
+  //   return '';
+  // }
+
+  // String nearestPoliceStations() {
+  //   return '';
+  // }
 
   sendMail(List<dynamic> recipients, String subject, String msg) async {
     String username = 'redflagapp.8@gmail.com';
@@ -59,14 +115,6 @@ class Emergency extends StatelessWidget {
         print('Problem: ${p.code}: ${p.msg}');
       }
     }
-  }
-
-  bool verifyPIN(int enteredPIN) {
-    return false;
-  }
-
-  bool imSafeButton() {
-    return false;
   }
 
   String genrateReport() {

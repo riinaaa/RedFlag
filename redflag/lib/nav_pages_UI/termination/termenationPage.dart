@@ -1,7 +1,14 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:provider/provider.dart';
 import 'package:redflag/pin/pinVerficationPage.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:path/path.dart' as path;
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:intl/intl.dart' show DateFormat;
 
 class terminationPage extends StatefulWidget {
   const terminationPage({Key? key}) : super(key: key);
@@ -11,6 +18,100 @@ class terminationPage extends StatefulWidget {
 }
 
 class _terminationPageState extends State<terminationPage> {
+  late FlutterSoundRecorder _myRecorder;
+  final audioPlayer = AssetsAudioPlayer();
+  late String filePath;
+  bool _play = false;
+  String _recorderTxt = '00:00:00';
+
+  @override
+  void initState() {
+    super.initState();
+    startIt();
+    scheduleStartRecording(
+        1 * 1000); // make the recording start immediately after the page load
+    scheduleTimeout(60 * 1000); // make the recording stop after 60 second
+  }
+
+  // timer for the recording to start
+  Timer scheduleStartRecording([int milliseconds = 10000]) =>
+      Timer(Duration(milliseconds: milliseconds), record);
+
+  // timer for the recording to stop
+  Timer scheduleTimeout([int milliseconds = 10000]) =>
+      Timer(Duration(milliseconds: milliseconds), stopRecord);
+
+  void startIt() async {
+    //setting temp recording in the files
+    filePath = '/sdcard/Download/temps.wav';
+    //new Flutter Sound Recorder.
+    _myRecorder = FlutterSoundRecorder();
+
+// *open* the Audio Session before using it.
+    await _myRecorder.openAudioSession(
+        focus: AudioFocus.requestFocusAndDuckOthers,
+        category: SessionCategory.record,
+        mode: SessionMode.modeDefault,
+        device: AudioDevice.speaker);
+
+    /// Sets the frequency at which duration updates are sent to
+    /// duration listeners.
+    await _myRecorder.setSubscriptionDuration(Duration(milliseconds: 10));
+    await initializeDateFormatting();
+
+    // move this to first page alongside the location
+    await Permission.microphone.request();
+    await Permission.storage.request();
+    await Permission.manageExternalStorage.request();
+  }
+
+//method to start the audio recording
+  Future<void> record() async {
+    Directory dir = Directory(path.dirname(filePath));
+    if (!dir.existsSync()) {
+      dir.createSync();
+    }
+    _myRecorder.openAudioSession();
+    await _myRecorder.startRecorder(
+      toFile: filePath,
+      codec: Codec.pcm16WAV,
+    );
+
+    /// The subscription provides events to the listener,
+    /// and holds the callbacks used to handle the events.
+    /// The subscription can also be used to unsubscribe from the events,
+    /// or to temporarily pause the events from the stream.
+    StreamSubscription _recorderSubscription =
+        _myRecorder.onProgress!.listen((e) {
+      var date = DateTime.fromMillisecondsSinceEpoch(e.duration.inMilliseconds,
+          isUtc: true);
+      var txt = DateFormat('mm:ss:SS', 'en_GB').format(date);
+
+      setState(() {
+        _recorderTxt = txt.substring(0, 8);
+      });
+    });
+    _recorderSubscription.cancel();
+  }
+
+// method to stop the audio recoring
+  Future<String?> stopRecord() async {
+    _myRecorder.closeAudioSession();
+    return await _myRecorder.stopRecorder();
+  }
+
+  Future<void> startPlaying() async {
+    audioPlayer.open(
+      Audio.file(filePath),
+      autoStart: true,
+      showNotification: true,
+    );
+  }
+
+  Future<void> stopPlaying() async {
+    audioPlayer.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
