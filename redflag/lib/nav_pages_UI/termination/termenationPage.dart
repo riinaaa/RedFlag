@@ -9,6 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:path/path.dart' as path;
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:intl/intl.dart' show DateFormat;
+import 'package:path_provider/path_provider.dart';
 
 class terminationPage extends StatefulWidget {
   const terminationPage({Key? key}) : super(key: key);
@@ -43,7 +44,9 @@ class _terminationPageState extends State<terminationPage> {
 
   void startIt() async {
     //setting temp recording in the files
-    filePath = '/sdcard/Download/temps.wav';
+    // getTemporaryDirectory help to get a temp directory based on the device running the app
+    Directory tempDir = await getTemporaryDirectory();
+    filePath = tempDir.path + '/temps.aac';
     //new Flutter Sound Recorder.
     _myRecorder = FlutterSoundRecorder();
 
@@ -67,14 +70,10 @@ class _terminationPageState extends State<terminationPage> {
 
 //method to start the audio recording
   Future<void> record() async {
-    Directory dir = Directory(path.dirname(filePath));
-    if (!dir.existsSync()) {
-      dir.createSync();
-    }
     _myRecorder.openAudioSession();
     await _myRecorder.startRecorder(
       toFile: filePath,
-      codec: Codec.pcm16WAV,
+      codec: Codec.defaultCodec,
     );
 
     /// The subscription provides events to the listener,
@@ -120,50 +119,72 @@ class _terminationPageState extends State<terminationPage> {
           alignment: Alignment.center,
           margin: const EdgeInsets.only(top: 130.0, bottom: 20.0),
           padding: EdgeInsets.all(50),
-          child: Column(children: [
-            DecoratedBox(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(colors: [
-                      Color.fromARGB(255, 82, 255, 125),
-                      Color.fromARGB(255, 114, 241, 182)
-                      //add more colors
-                    ]),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                          color: Color.fromARGB(
-                              145, 63, 63, 63), //shadow for button
-                          blurRadius: 10 //blur radius of shadow
-                          )
-                    ]),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.transparent,
-                    onSurface: Colors.transparent,
-                    shadowColor: Colors.transparent,
-                    //make color or elevated button transparent
-                    fixedSize: const Size(500, 300), // button size
-                  ),
-                  onPressed: () {
-                    // UserLocation().getLocation(); // usre location link
-                    // Verificatoin();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Verificatoin(
-                                status: 'safe',
-                              )),
-                    );
-                  },
-                  child: new Text(
-                    "I'm Safe",
-                    style: new TextStyle(
-                      fontSize: 25.0,
-                      color: Color.fromARGB(255, 241, 226, 226),
+          child: Column(
+            children: [
+              DecoratedBox(
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(colors: [
+                        Color.fromARGB(255, 82, 255, 125),
+                        Color.fromARGB(255, 114, 241, 182)
+                        //add more colors
+                      ]),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Color.fromARGB(
+                                145, 63, 63, 63), //shadow for button
+                            blurRadius: 10 //blur radius of shadow
+                            )
+                      ]),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.transparent,
+                      onSurface: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      //make color or elevated button transparent
+                      fixedSize: const Size(500, 300), // button size
                     ),
+                    onPressed: () {
+                      // UserLocation().getLocation(); // usre location link
+                      // Verificatoin();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Verificatoin(
+                                  status: 'safe',
+                                )),
+                      );
+                    },
+                    child: new Text(
+                      "I'm Safe",
+                      style: new TextStyle(
+                        fontSize: 25.0,
+                        color: Color.fromARGB(255, 241, 226, 226),
+                      ),
+                    ),
+                  )),
+
+// DELETE JUST FOR TESTINGGGG
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 165, 60, 60),
+                  shadowColor: Color.fromARGB(0, 210, 118, 118),
+                  //make color or elevated button transparent
+                  fixedSize: const Size(50, 50), // button size
+                ),
+                onPressed: () {
+                  startPlaying();
+                },
+                child: new Text(
+                  "play",
+                  style: new TextStyle(
+                    fontSize: 10.0,
+                    color: Color.fromARGB(255, 255, 255, 255),
                   ),
-                ))
-          ])),
+                ),
+              ),
+            ],
+          )),
     ));
   }
 }
