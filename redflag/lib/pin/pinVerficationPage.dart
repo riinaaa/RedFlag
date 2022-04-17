@@ -161,60 +161,6 @@ class _VerificatoinState extends State<Verificatoin> {
     }
   }
 
-  void startTimer() {
-    // print('lat from Timer --> $lat');
-    // print('lng from Timer--> $lng');
-
-    Future<dynamic> loc = UserLocation().getLocation().then((value) {
-      print('loc ----> $value');
-      String msg2 =
-          '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">Atheer Alghamdi in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="$value">The Location Link</a></div>';
-
-      print(msg2);
-      // setState(() --> Notify the framework that the internal state of this object has changed.
-      // setState(() {
-      userFirstName = loggedInUser.getUserFirstName;
-      userLastName = loggedInUser.getUserLastName;
-      // String msg =
-      //     '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
-      // Future<dynamic> loc = UserLocation().getLocation();
-      // print('loc ----> $loc');
-      // print('-------------------');
-      // print(UserLocation().getLocation());
-
-      //------------------------When the 30 sec end without the correct PIN-----------------------------
-      _timer = Timer(Duration(seconds: 30), () {
-        if (_timer?.isActive == false && _pinLength == false) {
-          // if it from the Emergency buttons
-          //    - Activate fetaures
-          if (widget.status == 'emergency') {
-            print('1- Fetures Activated');
-            //----------------------------------------
-            // Send an email to the emergency contact
-            //(UNCOMMENT)
-            //mail.sendMail(recipients, subject, msg2);
-
-            // auto mute the phone
-            _setSilentMode();
-
-            //record for 60 seconds
-            record();
-          }
-
-          //either from emergency button or safe button,
-          //when the timer end without correct input
-          //go to termenation page
-          print('2- went to termination page');
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const terminationPage()),
-          );
-        }
-      });
-    }); // value
-    // });
-  }
-
   void startIt() async {
     //setting temp recording in the files
     // getTemporaryDirectory help to get a temp directory based on the device running the app
@@ -279,6 +225,60 @@ class _VerificatoinState extends State<Verificatoin> {
     } on PlatformException {
       print('Do Not Disturb access permissions required!');
     }
+  }
+
+  void startTimer() {
+    // print('lat from Timer --> $lat');
+    // print('lng from Timer--> $lng');
+
+    Future<dynamic> loc = UserLocation().getLocation().then((value) {
+      print('loc ----> $value');
+      String msg2 =
+          '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">Atheer Alghamdi in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="$value">The Location Link</a></div>';
+
+      print(msg2);
+      // setState(() --> Notify the framework that the internal state of this object has changed.
+      // setState(() {
+      userFirstName = loggedInUser.getUserFirstName;
+      userLastName = loggedInUser.getUserLastName;
+      // String msg =
+      //     '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
+      // Future<dynamic> loc = UserLocation().getLocation();
+      // print('loc ----> $loc');
+      // print('-------------------');
+      // print(UserLocation().getLocation());
+
+      //------------------------When the 30 sec end without the correct PIN-----------------------------
+      _timer = Timer(Duration(seconds: 30), () {
+        if (_timer?.isActive == false && _pinLength == false) {
+          // if it from the Emergency buttons
+          //    - Activate fetaures
+          if (widget.status == 'emergency') {
+            print('1- Fetures Activated');
+            //----------------------------------------
+            // Send an email to the emergency contact
+            //(UNCOMMENT)
+            //mail.sendMail(recipients, subject, msg2);
+
+            // auto mute the phone
+            _setSilentMode();
+
+            //record for 60 seconds
+            record();
+          }
+
+          //either from emergency button or safe button,
+          //when the timer end without correct input
+          //go to termenation page
+          print('2- went to termination page');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const terminationPage()),
+          );
+        }
+      });
+    }); // value
+    // });
   }
 
   @override
