@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_verification_code/flutter_verification_code.dart';
@@ -12,6 +13,15 @@ import 'package:redflag/Users.dart';
 import 'package:redflag/locations/user_location.dart';
 import 'package:redflag/nav_pages_UI/nav.dart';
 import 'package:redflag/nav_pages_UI/termination/termenationPage.dart';
+import 'dart:io';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:sound_mode/sound_mode.dart';
+import 'package:sound_mode/utils/ringer_mode_statuses.dart';
+import 'package:flutter/services.dart';
 
 class Verificatoin extends StatefulWidget {
   final String status;
@@ -25,6 +35,10 @@ class _VerificatoinState extends State<Verificatoin> {
   String _code = '';
   bool _pinLength = false;
   Timer? _timer;
+  late FlutterSoundRecorder _myRecorder;
+  final audioPlayer = AssetsAudioPlayer();
+  late String filePath;
+  RingerModeStatus _soundMode = RingerModeStatus.unknown;
 
   // UserLocation locLinl=new UserLocation();
 
@@ -47,6 +61,7 @@ class _VerificatoinState extends State<Verificatoin> {
   @override
   void initState() {
     super.initState();
+    startIt(); // this only starts the session beforehand
 
     FirebaseFirestore.instance
         .collection('emergencyContacts')
@@ -178,6 +193,12 @@ class _VerificatoinState extends State<Verificatoin> {
             // Send an email to the emergency contact
             //(UNCOMMENT)
             //mail.sendMail(recipients, subject, msg2);
+
+            // auto mute the phone
+            _setSilentMode();
+
+            //record for 60 seconds
+            record();
           }
 
           //either from emergency button or safe button,
@@ -192,6 +213,72 @@ class _VerificatoinState extends State<Verificatoin> {
       });
     }); // value
     // });
+  }
+
+  void startIt() async {
+    //setting temp recording in the files
+    // getTemporaryDirectory help to get a temp directory based on the device running the app
+    Directory tempDir = await getTemporaryDirectory();
+    filePath = tempDir.path + '/temps.aac';
+    //new Flutter Sound Recorder.
+    _myRecorder = FlutterSoundRecorder();
+
+// *open* the Audio Session before using it.
+    await _myRecorder.openAudioSession(
+        focus: AudioFocus.requestFocusAndDuckOthers,
+        category: SessionCategory.record,
+        mode: SessionMode.modeDefault,
+        device: AudioDevice.speaker);
+
+    /// Sets the frequency at which duration updates are sent to
+    /// duration listeners.
+    await _myRecorder.setSubscriptionDuration(Duration(milliseconds: 10));
+    await initializeDateFormatting();
+
+    // move this to first page alongside the location
+    await Permission.microphone.request();
+    await Permission.storage.request();
+    await Permission.manageExternalStorage.request();
+    await Permission.accessNotificationPolicy.request();
+  }
+
+  Future<void> record() async {
+    _myRecorder.openAudioSession();
+    await _myRecorder.startRecorder(
+      toFile: filePath,
+      codec: Codec.defaultCodec,
+    );
+
+    /// The subscription provides events to the listener,
+    /// and holds the callbacks used to handle the events.
+    /// The subscription can also be used to unsubscribe from the events,
+    /// or to temporarily pause the events from the stream.
+    StreamSubscription _recorderSubscription =
+        _myRecorder.onProgress!.listen((e) {});
+    _recorderSubscription.cancel();
+
+//stop the recording after 60 seconds
+    Timer scheduleTimeout([int milliseconds = 10000]) =>
+        Timer(Duration(milliseconds: milliseconds), () async {
+          _myRecorder.closeAudioSession();
+          await _myRecorder.stopRecorder();
+        });
+    scheduleTimeout(60 * 1000); // 60 seconds.
+  }
+
+//auto mute the phone
+  Future<void> _setSilentMode() async {
+    RingerModeStatus status;
+
+    try {
+      status = await SoundMode.setSoundMode(RingerModeStatus.silent);
+
+      setState(() {
+        _soundMode = status;
+      });
+    } on PlatformException {
+      print('Do Not Disturb access permissions required!');
+    }
   }
 
   @override

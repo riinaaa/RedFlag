@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:redflag/pin/pinVerficationPage.dart';
 import 'dart:async';
@@ -6,9 +5,7 @@ import 'dart:io';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:path/path.dart' as path;
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:intl/intl.dart' show DateFormat;
 import 'package:path_provider/path_provider.dart';
 
 class terminationPage extends StatefulWidget {
@@ -19,97 +16,95 @@ class terminationPage extends StatefulWidget {
 }
 
 class _terminationPageState extends State<terminationPage> {
-  late FlutterSoundRecorder _myRecorder;
-  final audioPlayer = AssetsAudioPlayer();
-  late String filePath;
-  bool _play = false;
-  String _recorderTxt = '00:00:00';
+  // late FlutterSoundRecorder _myRecorder;
+  // final audioPlayer = AssetsAudioPlayer();
+  // late String filePath;
 
   @override
   void initState() {
     super.initState();
-    startIt();
-    scheduleStartRecording(
-        1 * 1000); // make the recording start immediately after the page load
-    scheduleTimeout(60 * 1000); // make the recording stop after 60 second
+    // startIt();
+    // scheduleStartRecording(
+    //     1 * 1000); // make the recording start immediately after the page load
+    // scheduleTimeout(60 * 1000); // make the recording stop after 60 second
   }
 
   // timer for the recording to start
-  Timer scheduleStartRecording([int milliseconds = 10000]) =>
-      Timer(Duration(milliseconds: milliseconds), record);
+  // Timer scheduleStartRecording([int milliseconds = 10000]) =>
+  //     Timer(Duration(milliseconds: milliseconds), record);
 
-  // timer for the recording to stop
-  Timer scheduleTimeout([int milliseconds = 10000]) =>
-      Timer(Duration(milliseconds: milliseconds), stopRecord);
+  // // timer for the recording to stop
+  // Timer scheduleTimeout([int milliseconds = 10000]) =>
+  //     Timer(Duration(milliseconds: milliseconds), stopRecord);
 
-  void startIt() async {
-    //setting temp recording in the files
-    // getTemporaryDirectory help to get a temp directory based on the device running the app
-    Directory tempDir = await getTemporaryDirectory();
-    filePath = tempDir.path + '/temps.aac';
-    //new Flutter Sound Recorder.
-    _myRecorder = FlutterSoundRecorder();
+//   void startIt() async {
+//     //setting temp recording in the files
+//     // getTemporaryDirectory help to get a temp directory based on the device running the app
+//     Directory tempDir = await getTemporaryDirectory();
+//     filePath = tempDir.path + '/temps.aac';
+//     //new Flutter Sound Recorder.
+//     _myRecorder = FlutterSoundRecorder();
 
-// *open* the Audio Session before using it.
-    await _myRecorder.openAudioSession(
-        focus: AudioFocus.requestFocusAndDuckOthers,
-        category: SessionCategory.record,
-        mode: SessionMode.modeDefault,
-        device: AudioDevice.speaker);
+// // *open* the Audio Session before using it.
+//     await _myRecorder.openAudioSession(
+//         focus: AudioFocus.requestFocusAndDuckOthers,
+//         category: SessionCategory.record,
+//         mode: SessionMode.modeDefault,
+//         device: AudioDevice.speaker);
 
-    /// Sets the frequency at which duration updates are sent to
-    /// duration listeners.
-    await _myRecorder.setSubscriptionDuration(Duration(milliseconds: 10));
-    await initializeDateFormatting();
+//     /// Sets the frequency at which duration updates are sent to
+//     /// duration listeners.
+//     await _myRecorder.setSubscriptionDuration(Duration(milliseconds: 10));
+//     await initializeDateFormatting();
 
-    // move this to first page alongside the location
-    await Permission.microphone.request();
-    await Permission.storage.request();
-    await Permission.manageExternalStorage.request();
-  }
+//     // move this to first page alongside the location
+//     await Permission.microphone.request();
+//     await Permission.storage.request();
+//     await Permission.manageExternalStorage.request();
+//   }
 
 //method to start the audio recording
-  Future<void> record() async {
-    _myRecorder.openAudioSession();
-    await _myRecorder.startRecorder(
-      toFile: filePath,
-      codec: Codec.defaultCodec,
-    );
+  // Future<void> record() async {
+  //   _myRecorder.openAudioSession();
+  //   await _myRecorder.startRecorder(
+  //     toFile: filePath,
+  //     codec: Codec.defaultCodec,
+  //   );
 
-    /// The subscription provides events to the listener,
-    /// and holds the callbacks used to handle the events.
-    /// The subscription can also be used to unsubscribe from the events,
-    /// or to temporarily pause the events from the stream.
-    StreamSubscription _recorderSubscription =
-        _myRecorder.onProgress!.listen((e) {
-      var date = DateTime.fromMillisecondsSinceEpoch(e.duration.inMilliseconds,
-          isUtc: true);
-      var txt = DateFormat('mm:ss:SS', 'en_GB').format(date);
+  //   /// The subscription provides events to the listener,
+  //   /// and holds the callbacks used to handle the events.
+  //   /// The subscription can also be used to unsubscribe from the events,
+  //   /// or to temporarily pause the events from the stream.
+  //   StreamSubscription _recorderSubscription =
+  //       _myRecorder.onProgress!.listen((e) {
+  //     var date = DateTime.fromMillisecondsSinceEpoch(e.duration.inMilliseconds,
+  //         isUtc: true);
+  //     var txt = DateFormat('mm:ss:SS', 'en_GB').format(date);
 
-      setState(() {
-        _recorderTxt = txt.substring(0, 8);
-      });
-    });
-    _recorderSubscription.cancel();
-  }
+  //     setState(() {
+  //       _recorderTxt = txt.substring(0, 8);
+  //     });
+  //   });
+  //   _recorderSubscription.cancel();
+  // }
 
 // method to stop the audio recoring
-  Future<String?> stopRecord() async {
-    _myRecorder.closeAudioSession();
-    return await _myRecorder.stopRecorder();
-  }
+  // Future<String?> stopRecord() async {
+  //   _myRecorder.closeAudioSession();
+  //   return await _myRecorder.stopRecorder();
+  // }
 
-  Future<void> startPlaying() async {
-    audioPlayer.open(
-      Audio.file(filePath),
-      autoStart: true,
-      showNotification: true,
-    );
-  }
+  // Future<void> startPlaying() async {
+  //   audioPlayer.open(
+  //     Audio.file(filePath),
+  //     autoStart: true,
+  //     showNotification: true,
+  //   );
+  // }
 
-  Future<void> stopPlaying() async {
-    audioPlayer.stop();
-  }
+  // Future<void> stopPlaying() async {
+  //   audioPlayer.stop();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -165,24 +160,24 @@ class _terminationPageState extends State<terminationPage> {
                   )),
 
 // DELETE JUST FOR TESTINGGGG
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color.fromARGB(255, 165, 60, 60),
-                  shadowColor: Color.fromARGB(0, 210, 118, 118),
-                  //make color or elevated button transparent
-                  fixedSize: const Size(50, 50), // button size
-                ),
-                onPressed: () {
-                  startPlaying();
-                },
-                child: new Text(
-                  "play",
-                  style: new TextStyle(
-                    fontSize: 10.0,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                ),
-              ),
+              // ElevatedButton(
+              //   style: ElevatedButton.styleFrom(
+              //     primary: Color.fromARGB(255, 165, 60, 60),
+              //     shadowColor: Color.fromARGB(0, 210, 118, 118),
+              //     //make color or elevated button transparent
+              //     fixedSize: const Size(50, 50), // button size
+              //   ),
+              //   onPressed: () {
+              //     startPlaying();
+              //   },
+              //   child: new Text(
+              //     "play",
+              //     style: new TextStyle(
+              //       fontSize: 10.0,
+              //       color: Color.fromARGB(255, 255, 255, 255),
+              //     ),
+              //   ),
+              // ),
             ],
           )),
     ));

@@ -28,54 +28,54 @@ class _activationPageState extends State<activationPage> {
   @override
   void initState() {
     super.initState();
-    _getCurrentSoundMode();
-    _getPermissionStatus();
+    // _getCurrentSoundMode();
+    // _getPermissionStatus();
   }
 
-  Future<void> _getCurrentSoundMode() async {
-    RingerModeStatus ringerStatus = RingerModeStatus.unknown;
+  // Future<void> _getCurrentSoundMode() async {
+  //   RingerModeStatus ringerStatus = RingerModeStatus.unknown;
 
-    Future.delayed(const Duration(seconds: 1), () async {
-      try {
-        ringerStatus = await SoundMode.ringerModeStatus;
-      } catch (err) {
-        ringerStatus = RingerModeStatus.unknown;
-      }
+  //   Future.delayed(const Duration(seconds: 1), () async {
+  //     try {
+  //       ringerStatus = await SoundMode.ringerModeStatus;
+  //     } catch (err) {
+  //       ringerStatus = RingerModeStatus.unknown;
+  //     }
 
-      setState(() {
-        _soundMode = ringerStatus;
-      });
-    });
-  }
+  //     setState(() {
+  //       _soundMode = ringerStatus;
+  //     });
+  //   });
+  // }
 
-  Future<void> _getPermissionStatus() async {
-    bool? permissionStatus = false;
-    try {
-      permissionStatus = await PermissionHandler.permissionsGranted;
-      print(permissionStatus);
-    } catch (err) {
-      print(err);
-    }
+  // Future<void> _getPermissionStatus() async {
+  //   bool? permissionStatus = false;
+  //   try {
+  //     permissionStatus = await PermissionHandler.permissionsGranted;
+  //     print(permissionStatus);
+  //   } catch (err) {
+  //     print(err);
+  //   }
 
-    setState(() {
-      _permissionStatus =
-          permissionStatus! ? "Permissions Enabled" : "Permissions not granted";
-    });
-  }
+  //   setState(() {
+  //     _permissionStatus =
+  //         permissionStatus! ? "Permissions Enabled" : "Permissions not granted";
+  //   });
+  // }
 
-  Future<void> _setSilentMode() async {
-    RingerModeStatus status;
+  // Future<void> _setSilentMode() async {
+  //   RingerModeStatus status;
 
-    try {
-      status = await SoundMode.setSoundMode(RingerModeStatus.silent);
+  //   try {
+  //     status = await SoundMode.setSoundMode(RingerModeStatus.silent);
 
-      setState(() {
-        _soundMode = status;
-      });
-    } on PlatformException {
-      print('Do Not Disturb access permissions required!');
-    }
-  }
+  //     setState(() {
+  //       _soundMode = status;
+  //     });
+  //   } on PlatformException {
+  //     print('Do Not Disturb access permissions required!');
+  //   }
+  // }
 
   // Future<void> _setNormalMode() async {
   //   RingerModeStatus status;
@@ -140,7 +140,7 @@ class _activationPageState extends State<activationPage> {
                     fixedSize: const Size(500, 300), // button size
                   ),
                   onPressed: () {
-                    _setSilentMode();
+                    // _setSilentMode();
                     // UserLocation().getLocation(); // usre location link
                     // Verificatoin();
                     Navigator.push(
