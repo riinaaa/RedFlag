@@ -19,9 +19,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sound_mode/sound_mode.dart';
-import 'package:sound_mode/utils/ringer_mode_statuses.dart';
-import 'package:flutter/services.dart';
 
 class Verificatoin extends StatefulWidget {
   final String status;
@@ -38,7 +35,6 @@ class _VerificatoinState extends State<Verificatoin> {
   late FlutterSoundRecorder _myRecorder;
   final audioPlayer = AssetsAudioPlayer();
   late String filePath;
-  RingerModeStatus _soundMode = RingerModeStatus.unknown;
 
   // UserLocation locLinl=new UserLocation();
 
@@ -108,7 +104,7 @@ class _VerificatoinState extends State<Verificatoin> {
 
       print("> 4");
 
-//----------------- Display an error message when user enter less than 4 digits------------------
+      //----------------- Display an error message when user enter less than 4 digits------------------
       final snackBar = SnackBar(
         content: const Text('Plese enter 4 digits. '),
         backgroundColor: Color.fromARGB(255, 255, 117, 107),
@@ -212,31 +208,16 @@ class _VerificatoinState extends State<Verificatoin> {
     scheduleTimeout(60 * 1000); // 60 seconds.
   }
 
-//auto mute the phone
-  Future<void> _setSilentMode() async {
-    RingerModeStatus status;
-
-    try {
-      status = await SoundMode.setSoundMode(RingerModeStatus.silent);
-
-      setState(() {
-        _soundMode = status;
-      });
-    } on PlatformException {
-      print('Do Not Disturb access permissions required!');
-    }
-  }
-
   void startTimer() {
     // print('lat from Timer --> $lat');
     // print('lng from Timer--> $lng');
 
     Future<dynamic> loc = UserLocation().getLocation().then((value) {
-      print('loc ----> $value');
-      String msg2 =
-          '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">Atheer Alghamdi in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="$value">The Location Link</a></div>';
+      // print('loc ----> $value');
+      // String msg2 =
+      //     '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">Atheer Alghamdi in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="$value">The Location Link</a></div>';
 
-      print(msg2);
+      // print(msg2);
       // setState(() --> Notify the framework that the internal state of this object has changed.
       // setState(() {
       userFirstName = loggedInUser.getUserFirstName;
@@ -259,9 +240,6 @@ class _VerificatoinState extends State<Verificatoin> {
             // Send an email to the emergency contact
             //(UNCOMMENT)
             //mail.sendMail(recipients, subject, msg2);
-
-            // auto mute the phone
-            _setSilentMode();
 
             //record for 60 seconds
             record();

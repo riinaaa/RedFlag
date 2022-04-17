@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:redflag/registration_pages/registration_screen.dart';
+import 'package:redflag/registration_pages/landing_screen.dart';
 import '/nav_pages_UI/nav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -111,8 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
           icon:
               Icon(Icons.arrow_back, color: Color.fromARGB(255, 108, 82, 255)),
           onPressed: () {
-            // passing this to our root
-            Navigator.of(context).pop();
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => LandingScreen()));
           },
         ),
       ),
