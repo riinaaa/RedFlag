@@ -14,8 +14,8 @@ class Emergency extends StatelessWidget {
   AccessStatus access = new AccessStatus.empty();
   Users user = new Users.empty();
   var caseNumber;
-  DateTime? startTime = DateTime.now();
-  DateTime? endTime = DateTime.now();
+  var startTime;
+  var endTime;
   var userLocation;
   var audioRecording;
 

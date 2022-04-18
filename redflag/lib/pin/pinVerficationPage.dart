@@ -35,6 +35,9 @@ class _VerificatoinState extends State<Verificatoin> {
   late FlutterSoundRecorder _myRecorder;
   final audioPlayer = AssetsAudioPlayer();
   late String filePath;
+  late final emergencyId;
+  late final startDate;
+  late final endDate;
 
   // UserLocation locLinl=new UserLocation();
 
@@ -48,11 +51,12 @@ class _VerificatoinState extends State<Verificatoin> {
   String? userLastName;
   // String? msg;
 
-  Emergency mail = new Emergency();
+  Emergency emergencyCase = new Emergency();
   String subject =
       'You have been added as an Emergency Contact :: Redflag Team';
   double? lat;
   double? lng;
+  String? downloadUrl;
 
   @override
   void initState() {
@@ -91,6 +95,10 @@ class _VerificatoinState extends State<Verificatoin> {
     });
   }
 
+  // timer for the recording
+  Timer scheduleTimeout([int milliseconds = 10000]) =>
+      Timer(Duration(milliseconds: milliseconds), stopRecord);
+
   String pin = '';
 
   // here we can check if the 4 digit equal the one in firebase
@@ -128,6 +136,22 @@ class _VerificatoinState extends State<Verificatoin> {
         _pinLength = true;
 
         print('= 4');
+
+        //generate emergencycase ID
+        emergencyId = "RF" + DateTime.now().millisecondsSinceEpoch.toString();
+
+        //end date
+        DateTime nowEnd = DateTime.now();
+        endDate =
+            "${nowEnd.year.toString()}-${nowEnd.month.toString().padLeft(2, '0')}-${nowEnd.day.toString().padLeft(2, '0')} ${nowEnd.hour.toString().padLeft(2, '0')}-${nowEnd.minute.toString().padLeft(2, '0')}";
+
+        // set the endTime in the emergencyCae object
+        emergencyCase.endTime = endDate;
+
+        //UPLOAD AUDIO TO FIREBASE STORAGE
+        uploadRecording(emergencyId);
+
+        //CREATE EMERGENCYCASE COLLECTION + INSERT to firestore
 
         Navigator.push(
           context,
@@ -198,14 +222,37 @@ class _VerificatoinState extends State<Verificatoin> {
     StreamSubscription _recorderSubscription =
         _myRecorder.onProgress!.listen((e) {});
     _recorderSubscription.cancel();
+  }
 
-//stop the recording after 60 seconds
-    Timer scheduleTimeout([int milliseconds = 10000]) =>
-        Timer(Duration(milliseconds: milliseconds), () async {
-          _myRecorder.closeAudioSession();
-          await _myRecorder.stopRecorder();
-        });
-    scheduleTimeout(60 * 1000); // 60 seconds.
+  Future<String?> stopRecord() async {
+    _myRecorder.closeAudioSession();
+    return await _myRecorder.stopRecorder();
+  }
+
+  //upload recording file to firebase storage to get the download url to add it to firestore
+  Future uploadRecording(String ecaseID) async {
+    File recording = File(filePath);
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+    //upload to firebase storage
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child("${user!.uid}/recordings")
+        .child("recording_$ecaseID");
+
+    await ref.putFile(recording);
+    downloadUrl = await ref.getDownloadURL();
+    print("recording url...");
+    print(downloadUrl);
+
+    emergencyCase.caseNumber = ecaseID;
+    emergencyCase.audioRecording = downloadUrl;
+
+    //upload to firebase firestore
+    await firebaseFirestore
+        .collection("emergencyCase")
+        .doc()
+        .set(emergencyCase.toMap(user!.uid));
   }
 
   void startTimer() {
@@ -214,8 +261,10 @@ class _VerificatoinState extends State<Verificatoin> {
 
     Future<dynamic> loc = UserLocation().getLocation().then((value) {
       // print('loc ----> $value');
-      // String msg2 =
-      //     '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">Atheer Alghamdi in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="$value">The Location Link</a></div>';
+      //set the emergency location in the emergencycase object
+      emergencyCase.userLocation = value;
+      String msg2 =
+          '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">Atheer Alghamdi in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="$value">The Location Link</a></div>';
 
       // print(msg2);
       // setState(() --> Notify the framework that the internal state of this object has changed.
@@ -236,13 +285,24 @@ class _VerificatoinState extends State<Verificatoin> {
           //    - Activate fetaures
           if (widget.status == 'emergency') {
             print('1- Fetures Activated');
+
+            //startdate
+            DateTime now = DateTime.now();
+            startDate =
+                "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}-${now.minute.toString().padLeft(2, '0')}";
+
+            // set the startTime in the emergencyCase object
+            emergencyCase.startTime = startDate;
+
             //----------------------------------------
             // Send an email to the emergency contact
             //(UNCOMMENT)
-            //mail.sendMail(recipients, subject, msg2);
+            //emergencyCase.sendMail(recipients, subject, msg2);
 
             //record for 60 seconds
             record();
+            scheduleTimeout(60 * 1000); // 60 seconds.
+
           }
 
           //either from emergency button or safe button,
