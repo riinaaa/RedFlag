@@ -36,10 +36,10 @@ class _VerificatoinState extends State<Verificatoin> {
   final audioPlayer = AssetsAudioPlayer();
   late String filePath;
   late final emergencyId;
-  late final startDate;
+  static var startDate;
   late final endDate;
 
-  // UserLocation locLinl=new UserLocation();
+// UserLocation locLinl=new UserLocation();
 
 // Retrive the registered PIN
   User? user = FirebaseAuth.instance.currentUser;
@@ -137,21 +137,21 @@ class _VerificatoinState extends State<Verificatoin> {
 
         print('= 4');
 
-        //generate emergencycase ID
-        emergencyId = "RF" + DateTime.now().millisecondsSinceEpoch.toString();
+        if (widget.status == 'safe') {
+          //generate emergencycase ID
+          emergencyId = "RF" + DateTime.now().millisecondsSinceEpoch.toString();
 
-        //end date
-        DateTime nowEnd = DateTime.now();
-        endDate =
-            "${nowEnd.year.toString()}-${nowEnd.month.toString().padLeft(2, '0')}-${nowEnd.day.toString().padLeft(2, '0')} ${nowEnd.hour.toString().padLeft(2, '0')}-${nowEnd.minute.toString().padLeft(2, '0')}";
+          //end date
+          DateTime nowEnd = DateTime.now();
+          endDate =
+              "${nowEnd.year.toString()}-${nowEnd.month.toString().padLeft(2, '0')}-${nowEnd.day.toString().padLeft(2, '0')} ${nowEnd.hour.toString().padLeft(2, '0')}-${nowEnd.minute.toString().padLeft(2, '0')}";
 
-        // set the endTime in the emergencyCae object
-        emergencyCase.endTime = endDate;
+          // set the endTime in the emergencyCae object
+          emergencyCase.endTime = endDate;
 
-        //UPLOAD AUDIO TO FIREBASE STORAGE
-        uploadRecording(emergencyId);
-
-        //CREATE EMERGENCYCASE COLLECTION + INSERT to firestore
+          //UPLOAD AUDIO TO FIREBASE STORAGE
+          uploadRecording(emergencyId);
+        }
 
         Navigator.push(
           context,
