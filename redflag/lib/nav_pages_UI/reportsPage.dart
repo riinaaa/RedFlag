@@ -30,31 +30,16 @@ class _reportsPageState extends State<reportsPage> {
   @override
   void initState() {
     super.initState();
-    // if(widget.caseNumb == caseInfo.caseNumber){
 
-    // }
-    FirebaseFirestore.instance
-        .collection("emergencyCase")
-        .doc(user!.uid)
-        .get()
-        .then((value) {
-      this.caseInfo = Emergency.fromMap(value.data());
-      setState(() {});
-    });
-    //-------------------------
-    // StreamBuilder<QuerySnapshot>(
-    //     stream: FirebaseFirestore.instance
-    //         .collection('emergencyCase')
-    //         .where('user', isEqualTo: user!.uid)
-    //         .snapshots(),
-    //     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-    //       snapshot.data!.docs.map((DocumentSnapshot document) {
-    //         Map<String, dynamic> data =
-    //             document.data()! as Map<String, dynamic>;
-    //       });
-    //       return Text("Good");
-    //     });
-    //--------------------------
+    // FirebaseFirestore.instance
+    //     .collection("emergencyCase")
+    //     .doc(user!.uid)
+    //     .get()
+    //     .then((value) {
+    //   this.caseInfo = Emergency.fromMap(value.data());
+    //   setState(() {});
+    // });
+
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -156,90 +141,156 @@ class _reportsPageState extends State<reportsPage> {
               //   margin: EdgeInsets.only(top: 300, left: 15),
               //   child: ElevatedButton(
               //       onPressed: () {
-              //         print(data['caseNumber']);
+              //         print(caseInfo.caseNumber);
+              //         print(loggedInUser.userFirstName);
               //       },
               //       child: Text('print case numer')),
               // ),
 
-              StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('emergencyCase')
-                    .where('user', isEqualTo: user!.uid)
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasError) {
-                    return Text('Something went wrong');
-                  }
+              // StreamBuilder<QuerySnapshot>(
+              //     stream: FirebaseFirestore.instance
+              //         .collection('emergencyCase')
+              //         .where('user', isEqualTo: user!.uid)
+              //         .snapshots(),
+              //     builder: (BuildContext context,
+              //         AsyncSnapshot<QuerySnapshot> snapshot) {
+              //       if (snapshot.connectionState == ConnectionState.waiting) {
+              //         return new Text("Loading");
+              //       }
 
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Text("Loading");
-                  }
-                  return ListView(
-                    children:
-                        snapshot.data!.docs.map((DocumentSnapshot document) {
-                      Map<String, dynamic> data =
-                          document.data()! as Map<String, dynamic>;
-                      return ListTile(
-                        title: Text('Case Number ' + data['caseNumber']),
-                        leading: Icon(Icons.insert_drive_file_rounded),
-                        trailing: IconButton(
-                          icon: Icon(Icons.arrow_forward_rounded),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => reportsPage(
-                                        caseNumb: data['caseNumber'],
-                                      )),
-                            );
-                          },
-                        ),
-                        // subtitle: Text(data['ecEmail']),
-                      );
-                    }).toList(),
-                  );
-                },
+              //       var userDocument = snapshot.data;
+              //       return Text(userDocument['caseNumber']);
+              //     }),
+
+              Container(
+                margin: EdgeInsets.only(top: 170),
+                // color: Colors.red,
+
+// ----------------------------------------- Retrive the case details based on the case number -----------------------------------------
+
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('emergencyCase')
+                      .where('caseNumber', isEqualTo: widget.caseNumb)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Something went wrong');
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text("Loading");
+                    }
+                    return ListView(
+                      children:
+                          snapshot.data!.docs.map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+
+// ----------------------------------------- dispaly termination time -----------------------------------------
+                        return Row(
+                          children: [
+                            Flexible(
+                              child: Container(
+                                // margin: EdgeInsets.only(left: 25, right: 260),
+                                // padding: EdgeInsets.only(top: 20, bottom: 20),
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(255, 255, 255, 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color.fromARGB(170, 226, 223, 223)
+                                          .withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                    ),
+                                  ],
+                                ),
+                                child: ListTile(
+                                  title: Text('Case ID\n',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFF6666FF))),
+                                  // leading: Icon(Icons.access_time_filled_sharp),
+                                  subtitle: Text(data['caseNumber']),
+                                ),
+                              ),
+                            ),
+                            Flexible(
+                              child: Container(
+                                // margin: EdgeInsets.only(left: 25, right: 260),
+                                // padding: EdgeInsets.only(top: 20, bottom: 20),
+                                decoration: BoxDecoration(
+                                  color: Color.fromRGBO(255, 255, 255, 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color.fromARGB(170, 226, 223, 223)
+                                          .withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                    ),
+                                  ],
+                                ),
+                                child: ListTile(
+                                  title: Text('EndTime\n',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFF6666FF))),
+                                  // leading: Icon(Icons.access_time_filled_sharp),
+                                  subtitle: Text(data['endTime']),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
               ),
               //--------------------------------------------------
 
-              Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(
-                        left: 30, right: 30, top: 22, bottom: 22),
-                    margin: EdgeInsets.only(top: 220, left: 90),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(255, 255, 255, 1),
-                      // boxShadow: shadowList,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(170, 188, 188, 188)
-                              .withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 0), // changes position of shadow
-                        ),
-                      ],
-                    ),
-                    child: Text('${caseInfo.getCaseNumber}',
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF6666FF))),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text('Emergency \nContacts.',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500)),
-                ],
-              ),
+              // Column(
+              //   children: [
+              //     Container(
+              //       padding: EdgeInsets.only(
+              //           left: 30, right: 30, top: 22, bottom: 22),
+              //       margin: EdgeInsets.only(top: 220, left: 90),
+              //       decoration: BoxDecoration(
+              //         color: Color.fromRGBO(255, 255, 255, 1),
+              //         // boxShadow: shadowList,
+              //         borderRadius: BorderRadius.circular(10),
+              //         boxShadow: [
+              //           BoxShadow(
+              //             color: Color.fromARGB(170, 188, 188, 188)
+              //                 .withOpacity(0.5),
+              //             spreadRadius: 5,
+              //             blurRadius: 7,
+              //             offset: Offset(0, 0), // changes position of shadow
+              //           ),
+              //         ],
+              //       ),
+              //       child: Text('${caseInfo.getCaseNumber}',
+              //           style: TextStyle(
+              //               fontSize: 30,
+              //               fontWeight: FontWeight.bold,
+              //               color: Color(0xFF6666FF))),
+              //     ),
+              //     SizedBox(
+              //       height: 15,
+              //     ),
+              //     Text('Emergency \nContacts.',
+              //         textAlign: TextAlign.center,
+              //         style: TextStyle(
+              //             fontSize: 12,
+              //             color: Colors.black,
+              //             fontWeight: FontWeight.w500)),
+              //   ],
+              // ),
             ],
           )),
     );

@@ -167,7 +167,6 @@ class _profilePageState extends State<profilePage> {
                                 .withOpacity(0.5),
                             spreadRadius: 5,
                             blurRadius: 7,
-                            offset: Offset(0, 0), // changes position of shadow
                           ),
                         ],
                       ),
