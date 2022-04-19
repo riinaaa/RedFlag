@@ -3,10 +3,10 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:redflag/locations/location_service.dart';
 import 'package:redflag/nav_pages_UI/add_ec.dart';
+import 'package:redflag/nav_pages_UI/reports/emergencyCasesList.dart';
 import '/nav_pages_UI/activatePage.dart';
 import '/nav_pages_UI/mapPage.dart';
 import '/nav_pages_UI/profilePage.dart';
-import '/nav_pages_UI/reportsPage.dart';
 
 // we need classes to create widgets.
 class NavScreen extends StatefulWidget {
@@ -24,7 +24,7 @@ class _NavScreenState extends State<NavScreen> {
     profilePage(),
     add(),
     mapPage(),
-    reportsPage()
+    cemrgencyCases()
   ];
 
   @override
@@ -33,35 +33,6 @@ class _NavScreenState extends State<NavScreen> {
       create: (BuildContext context) => locationService.getLocation(),
       initialData: null,
       child: Scaffold(
-        // ---------------- APP BAR --------------
-        // appBar: AppBar(
-        //   // leading: Icon(Icons.menu),
-        //   // brightness: Brightness.dark,
-        //   backgroundColor: Colors.transparent,
-        //   elevation: 0.0,
-        //   toolbarHeight: 100,
-        //   title: Align(
-        //     alignment: Alignment.centerLeft,
-        //     child: Text(
-        //       "Hi *userName*",
-        //       style: new TextStyle(
-        //         fontSize: 20.0,
-        //         color: Color.fromARGB(255, 255, 255, 255),
-        //       ),
-        //     ),
-        //   ),
-        //   // centerTitle: true,
-        //   flexibleSpace: Container(
-        //     decoration: BoxDecoration(
-        //         borderRadius:
-        //             BorderRadius.only(bottomRight: Radius.circular(70)),
-        //         gradient: LinearGradient(colors: [
-        //           Color(0xFF6666FF),
-        //           Color.fromARGB(255, 131, 131, 252)
-        //         ], begin: Alignment.bottomCenter, end: Alignment.topCenter)),
-        //   ),
-        // ),
-
         // ---------------- NAV BAR --------------
         bottomNavigationBar: BottomNavyBar(
           selectedIndex: currentIndex,

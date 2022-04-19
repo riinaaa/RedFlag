@@ -126,7 +126,7 @@ class _profilePageState extends State<profilePage> {
 //------------------------------------Logout------------------------------------
 
               Container(
-                padding: EdgeInsets.only(top: 80, left: 15),
+                padding: EdgeInsets.only(top: 80, left: 300),
                 child: TextButton(
                   onPressed: () {
                     logout(context);
