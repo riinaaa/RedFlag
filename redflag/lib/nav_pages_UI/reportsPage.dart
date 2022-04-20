@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // for the clipboard
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mailer/mailer.dart';
@@ -22,13 +23,15 @@ class _reportsPageState extends State<reportsPage> {
   // To retrive from Firebase
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
-  Emergency caseInfo = Emergency();
+  // Emergency caseInfo = Emergency();
   // To play audio player
   final audioPlayer = new AudioPlayer();
   bool isPlaying = false;
   Duration duration = Duration.zero;
   Duration postion = Duration.zero;
   late String _filePath;
+  //
+  late String locationLink;
 
   @override
   void dispose() {
@@ -48,7 +51,7 @@ class _reportsPageState extends State<reportsPage> {
     //   });
     // });
 
-    // // listen to audio duration
+    // listen to audio duration
     // audioPlayer.onDurationChanged.listen((newDuration) {
     //   setState(() {
     //     duration = newDuration;
@@ -165,7 +168,7 @@ class _reportsPageState extends State<reportsPage> {
                 child: IconButton(
                   icon: Icon(Icons.arrow_back_rounded),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pop(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const cemrgencyCases()),
@@ -205,7 +208,8 @@ class _reportsPageState extends State<reportsPage> {
                     }
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text("Loading --> waiting");
+                      return Center(child: CircularProgressIndicator());
+                      // return Text("Loading --> waiting");
                     }
                     return ListView(
                       children:
@@ -223,9 +227,6 @@ class _reportsPageState extends State<reportsPage> {
                                   fit: FlexFit.loose,
                                   child: Container(
                                     margin: EdgeInsets.only(left: 8, right: 8),
-
-                                    // margin: EdgeInsets.only(left: 25, right: 260),
-                                    // padding: EdgeInsets.only(top: 20, bottom: 20),
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(255, 255, 255, 1),
                                       borderRadius: BorderRadius.circular(10),
@@ -303,7 +304,7 @@ class _reportsPageState extends State<reportsPage> {
                                       ],
                                     ),
                                     child: ListTile(
-                                      title: Text('End Time\n',
+                                      title: Text('Incident Date\n',
                                           style: TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
@@ -319,26 +320,79 @@ class _reportsPageState extends State<reportsPage> {
                               height: 50,
                             ),
                             // ----------------------------------------- dispaly location -----------------------------------------
+                            // IconButton(
+                            //     onPressed: () {
+                            //       setState(() {
+                            //         locationLink = data['userLocation'];
+                            //       });
 
-                            Container(
-                              margin: EdgeInsets.only(left: 8, right: 8),
-                              padding: EdgeInsets.only(bottom: 40),
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(255, 255, 255, 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ListTile(
-                                title: Text('Location\n',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFF6666FF))),
-                                // leading: Icon(Icons.access_time_filled_sharp),
-                                subtitle: Text(data['userLocation']),
-                              ),
+                            //       // Clipboard.setData(
+                            //       //     ClipboardData(text: locationLink));
+
+                            //       Clipboard.setData(
+                            //               ClipboardData(text: locationLink))
+                            //           .then((_) {
+                            //         ScaffoldMessenger.of(context).showSnackBar(
+                            //             SnackBar(
+                            //                 content: Text(
+                            //                     " Address link copied to clipboard")));
+                            //       });
+                            //     },
+                            //     icon: Icon(Icons.copy)),
+
+                            Column(
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(left: 15),
+                                  child: Row(
+                                    children: [
+                                      Text('Location\n',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF6666FF))),
+                                      IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              locationLink =
+                                                  data['userLocation'];
+                                            });
+                                            Clipboard.setData(ClipboardData(
+                                                    text: locationLink))
+                                                .then((_) {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                          " Address link copied to clipboard")));
+                                            });
+                                          },
+                                          icon: Icon(Icons.copy)),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(left: 8, right: 8),
+                                  padding: EdgeInsets.only(bottom: 40),
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(255, 255, 255, 1),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: ListTile(
+                                    // title: Text('Location\n',
+                                    //     style: TextStyle(
+                                    //         fontSize: 15,
+                                    //         fontWeight: FontWeight.bold,
+                                    //         color: Color(0xFF6666FF))),
+                                    // leading: Icon(Icons.access_time_filled_sharp),
+                                    subtitle: Text(data['userLocation']),
+                                  ),
+                                ),
+                              ],
                             ),
+
+                            // IconButton(onPressed: onPressed, icon: icon),
                             SizedBox(
-                              height: 50,
+                              height: 20,
                             ),
 // ----------------------------------------- dispaly audio -----------------------------------------
 
@@ -360,55 +414,84 @@ class _reportsPageState extends State<reportsPage> {
                                     // leading: Icon(Icons.access_time_filled_sharp),
                                     // subtitle: Text(data['userLocation']),
                                   ),
-                                  Slider(
-                                      min: 0,
-                                      max: duration.inSeconds.toDouble(),
-                                      value: postion.inSeconds.toDouble(),
-                                      onChanged: (value) async {
-                                        final position =
-                                            Duration(seconds: value.toInt());
-                                        await audioPlayer.seek(position);
-                                        await audioPlayer.resume();
-                                      }),
-                                  Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 16),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(formatTime(postion)),
-                                        Text(formatTime(duration - postion)),
-                                      ],
+                                  // Slider(
+                                  //     min: 0,
+                                  //     max: duration.inSeconds.toDouble(),
+                                  //     value: postion.inSeconds.toDouble(),
+                                  //     onChanged: (value) async {
+                                  //       final position =
+                                  //           Duration(seconds: value.toInt());
+                                  //       await audioPlayer.seek(position);
+                                  //       await audioPlayer.resume();
+                                  //     }),
+                                  // Padding(
+                                  //   padding:
+                                  //       EdgeInsets.symmetric(horizontal: 16),
+                                  //   child: Row(
+                                  //     mainAxisAlignment:
+                                  //         MainAxisAlignment.spaceBetween,
+                                  //     children: [
+                                  //       Text(formatTime(postion)),
+                                  //       Text(formatTime(duration - postion)),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                  Align(
+                                    alignment: Alignment
+                                        .centerLeft, // or AlignmentDirectional.center,
+
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.only(left: 20, right: 8),
+                                      child: ElevatedButton(
+                                        child: const Text('Play'),
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Color(0xFF6666FF),
+                                          padding: const EdgeInsets.only(
+                                              left: 30,
+                                              right: 30,
+                                              top: 10,
+                                              bottom: 10),
+                                          textStyle: const TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.normal),
+                                          // shape: RoundedRectangleBorder(
+                                          //     borderRadius:
+                                          //         BorderRadius.circular(20))
+                                        ),
+
+                                        // radius: 35,
+
+                                        // child: IconButton(
+                                        //   icon: Icon(
+                                        //     isPlaying
+                                        //         ? Icons.pause
+                                        //         : Icons.play_arrow,
+                                        //   ),
+                                        //   iconSize: 50,
+                                        onPressed: () async {
+                                          setState(() {
+                                            _filePath = data['audioRecording'];
+                                          });
+
+                                          // await Future.delayed(
+                                          //     Duration(milliseconds: 300));
+
+                                          _onPlayButtonPressed();
+                                          print(_filePath);
+                                          // if (isPlaying) {
+                                          //   await audioPlayer.pause();
+                                          // } else {
+                                          //   // await audioPlayer.resume();
+                                          //   // String url = data['audioRecording'];
+                                          //   await audioPlayer
+                                          //       .play(data['audioRecording']);
+                                          //   // print(data['audioRecording']);
+                                          // }
+                                        },
+                                      ),
                                     ),
                                   ),
-                                  CircleAvatar(
-                                    radius: 35,
-                                    child: IconButton(
-                                      icon: Icon(
-                                        isPlaying
-                                            ? Icons.pause
-                                            : Icons.play_arrow,
-                                      ),
-                                      iconSize: 50,
-                                      onPressed: () async {
-                                        setState(() {
-                                          _filePath = data['audioRecording'];
-                                        });
-                                        _onPlayButtonPressed();
-                                        print(_filePath);
-                                        // if (isPlaying) {
-                                        //   await audioPlayer.pause();
-                                        // } else {
-                                        //   // await audioPlayer.resume();
-                                        //   // String url = data['audioRecording'];
-                                        //   await audioPlayer
-                                        //       .play(data['audioRecording']);
-                                        //   // print(data['audioRecording']);
-                                        // }
-                                      },
-                                    ),
-                                  )
                                 ],
                               ),
                             ),

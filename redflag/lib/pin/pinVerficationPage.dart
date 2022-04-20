@@ -52,8 +52,7 @@ class _VerificatoinState extends State<Verificatoin> {
   // String? msg;
 
   Emergency emergencyCase = new Emergency();
-  String subject =
-      'You have been added as an Emergency Contact :: Redflag Team';
+  String subject = 'There is an emergency ::🔴:: Redflag Team';
   double? lat;
   double? lng;
   String? downloadUrl;

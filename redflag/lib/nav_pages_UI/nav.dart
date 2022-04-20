@@ -45,12 +45,12 @@ class _NavScreenState extends State<NavScreen> {
             BottomNavyBarItem(
                 icon: Icon(Icons.radio_button_checked),
                 title: Text('Activate'),
-                activeColor: Colors.deepPurple,
+                activeColor: Color(0xFF6666FF),
                 inactiveColor: Colors.black),
             BottomNavyBarItem(
                 icon: Icon(Icons.home),
                 title: Text('Profile'),
-                activeColor: Colors.deepPurple,
+                activeColor: Color(0xFF6666FF),
                 inactiveColor: Colors.black),
             BottomNavyBarItem(
                 icon: Icon(Icons.group_add_rounded),
@@ -60,12 +60,12 @@ class _NavScreenState extends State<NavScreen> {
             BottomNavyBarItem(
                 icon: Icon(Icons.map),
                 title: Text('Map'),
-                activeColor: Colors.deepPurple,
+                activeColor: Color(0xFF6666FF),
                 inactiveColor: Colors.black),
             BottomNavyBarItem(
                 icon: Icon(Icons.insert_drive_file_rounded),
                 title: Text('Report'),
-                activeColor: Colors.deepPurple,
+                activeColor: Color(0xFF6666FF),
                 inactiveColor: Colors.black)
           ],
         ),

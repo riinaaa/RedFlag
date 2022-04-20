@@ -199,8 +199,8 @@ class _profilePageState extends State<profilePage> {
                             alignment: Alignment.centerLeft,
                             child: Text('Current Emergency Contacts ',
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
+                                    fontSize: 20,
+                                    color: Color(0xFF4E4EF7),
                                     fontWeight: FontWeight.bold)),
                           ),
                         ),
@@ -233,9 +233,36 @@ class _profilePageState extends State<profilePage> {
                                     Map<String, dynamic> data = document.data()!
                                         as Map<String, dynamic>;
 
-                                    return ListTile(
-                                      title: Text(data['eFullName']),
-                                      subtitle: Text(data['ecEmail']),
+                                    return Container(
+                                      margin: EdgeInsets.only(
+                                          top: 5, left: 30, right: 30),
+                                      // padding: EdgeInsets.only(top: 20, bottom: 20),
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF6666FF),
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color.fromARGB(
+                                                    170, 201, 198, 198)
+                                                .withOpacity(0.5),
+                                            spreadRadius: 5,
+                                            blurRadius: 7,
+                                          ),
+                                        ],
+                                      ),
+                                      child: ListTile(
+                                        title: Text(data['eFullName'],
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    255, 236, 236, 238))),
+                                        subtitle: Text(data['ecEmail'],
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                color: Color.fromARGB(
+                                                    255, 236, 236, 238))),
+                                      ),
                                     );
                                   }).toList(),
                                 );

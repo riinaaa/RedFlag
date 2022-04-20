@@ -66,7 +66,7 @@ class _addState extends State<add> {
       // Send an email to the emergency contact
       Emergency mail = new Emergency();
       String subject =
-          'You have been added as an Emergency Contact :: Redflag Team';
+          'You have been added as an Emergency Contact ::🟡:: Redflag Team';
       String ecName = emergencyContactNameEditingController.text;
       String userFirstName = loggedInUser.getUserFirstName;
       String userLastName = loggedInUser.getUserLastName;
