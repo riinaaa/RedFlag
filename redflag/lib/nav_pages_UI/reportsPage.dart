@@ -358,21 +358,21 @@ class _reportsPageState extends State<reportsPage> {
                                             fontWeight: FontWeight.bold,
                                             color: Color(0xFF6666FF))),
                                     // leading: Icon(Icons.access_time_filled_sharp),
-                                    subtitle: Text(data['userLocation']),
+                                    // subtitle: Text(data['userLocation']),
                                   ),
-                                  // Slider(
-                                  //     min: 0,
-                                  //     max: duration.inSeconds.toDouble(),
-                                  //     value: postion.inSeconds.toDouble(),
-                                  //     onChanged: (value) async {
-                                  //       final position =
-                                  //           Duration(seconds: value.toInt());
-                                  //       await audioPlayer.seek(position);
-                                  //       await audioPlayer.resume();
-                                  //     }),
+                                  Slider(
+                                      min: 0,
+                                      max: duration.inSeconds.toDouble(),
+                                      value: postion.inSeconds.toDouble(),
+                                      onChanged: (value) async {
+                                        final position =
+                                            Duration(seconds: value.toInt());
+                                        await audioPlayer.seek(position);
+                                        await audioPlayer.resume();
+                                      }),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 16),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
