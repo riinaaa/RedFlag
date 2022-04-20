@@ -8,6 +8,7 @@ import 'package:redflag/EmergencyContacts.dart';
 import 'package:redflag/Users.dart';
 import 'package:redflag/nav_pages_UI/reports/emergencyCasesList.dart';
 import 'package:redflag/registration_pages/login_screen.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class reportsPage extends StatefulWidget {
   final String caseNumb;
@@ -18,26 +19,47 @@ class reportsPage extends StatefulWidget {
 }
 
 class _reportsPageState extends State<reportsPage> {
+  // To retrive from Firebase
   User? user = FirebaseAuth.instance.currentUser;
-
   Users loggedInUser = Users();
   Emergency caseInfo = Emergency();
+  // To play audio player
+  final audioPlayer = new AudioPlayer();
+  bool isPlaying = false;
+  Duration duration = Duration.zero;
+  Duration postion = Duration.zero;
+  late String _filePath;
 
-  // String msg =
-  //     '<h1>Hello, $ecName </h1>\n<p><strong>$userFirstName $userLastName </strong>has added you as an emergency contact.\n</p><p>If there is an emergency, the Redflag team will send you the location of <strong>$userFirstName</strong>.</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
-  // EmergencyContacts loggedInEmergencyContacts = EmergencyContacts();
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    audioPlayer.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
     super.initState();
 
-    // FirebaseFirestore.instance
-    //     .collection("emergencyCase")
-    //     .doc(user!.uid)
-    //     .get()
-    //     .then((value) {
-    //   this.caseInfo = Emergency.fromMap(value.data());
-    //   setState(() {});
+    // // listen to states --> playing, paused, stooped
+    // audioPlayer.onPlayerStateChanged.listen((state) {
+    //   setState(() {
+    //     isPlaying = state == PlayerState.PLAYING;
+    //   });
+    // });
+
+    // // listen to audio duration
+    // audioPlayer.onDurationChanged.listen((newDuration) {
+    //   setState(() {
+    //     duration = newDuration;
+    //   });
+    // });
+
+    // // listen to audio duration
+    // audioPlayer.onAudioPositionChanged.listen((newPostion) {
+    //   setState(() {
+    //     postion = newPostion;
+    //   });
     // });
 
     FirebaseFirestore.instance
@@ -48,6 +70,37 @@ class _reportsPageState extends State<reportsPage> {
       this.loggedInUser = Users.fromMap(value.data());
       setState(() {});
     });
+  }
+
+  void _onPlayButtonPressed() {
+    if (!isPlaying) {
+      print('method --> $_filePath');
+      isPlaying = true;
+      audioPlayer.play(_filePath);
+
+      audioPlayer.onPlayerCompletion.listen((duration) {
+        setState(() {
+          isPlaying = false;
+        });
+      });
+    } else {
+      audioPlayer.pause();
+      isPlaying = false;
+    }
+    setState(() {});
+  }
+
+  String formatTime(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(duration.inHours);
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+
+    return [
+      if (duration.inHours > 0) hours,
+      minutes,
+      seconds,
+    ].join(':');
   }
 
   @override
@@ -105,7 +158,7 @@ class _reportsPageState extends State<reportsPage> {
                 ),
               ),
 
-              //------------------------------------Return to the case numbers list------------------------------------
+              //------------------------------------Return to the case numbers list page------------------------------------
 
               Container(
                 margin: EdgeInsets.only(top: 80, left: 15),
@@ -120,7 +173,7 @@ class _reportsPageState extends State<reportsPage> {
                   },
                 ),
               ),
-              //------------------------------------Logout------------------------------------
+//------------------------------------Logout------------------------------------
 
               Container(
                 padding: EdgeInsets.only(top: 80, left: 300),
@@ -136,38 +189,10 @@ class _reportsPageState extends State<reportsPage> {
                 ),
               ),
 
-              //------------------------------------Test------------------------------------
-              // Container(
-              //   margin: EdgeInsets.only(top: 300, left: 15),
-              //   child: ElevatedButton(
-              //       onPressed: () {
-              //         print(caseInfo.caseNumber);
-              //         print(loggedInUser.userFirstName);
-              //       },
-              //       child: Text('print case numer')),
-              // ),
-
-              // StreamBuilder<QuerySnapshot>(
-              //     stream: FirebaseFirestore.instance
-              //         .collection('emergencyCase')
-              //         .where('user', isEqualTo: user!.uid)
-              //         .snapshots(),
-              //     builder: (BuildContext context,
-              //         AsyncSnapshot<QuerySnapshot> snapshot) {
-              //       if (snapshot.connectionState == ConnectionState.waiting) {
-              //         return new Text("Loading");
-              //       }
-
-              //       var userDocument = snapshot.data;
-              //       return Text(userDocument['caseNumber']);
-              //     }),
+// ----------------------------------------- Retrive the case details based on the case number -----------------------------------------
 
               Container(
                 margin: EdgeInsets.only(top: 170),
-                // color: Colors.red,
-
-// ----------------------------------------- Retrive the case details based on the case number -----------------------------------------
-
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('emergencyCase')
@@ -180,7 +205,7 @@ class _reportsPageState extends State<reportsPage> {
                     }
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Text("Loading");
+                      return Text("Loading --> waiting");
                     }
                     return ListView(
                       children:
@@ -188,61 +213,203 @@ class _reportsPageState extends State<reportsPage> {
                         Map<String, dynamic> data =
                             document.data()! as Map<String, dynamic>;
 
-// ----------------------------------------- dispaly termination time -----------------------------------------
-                        return Row(
+// ----------------------------------------- dispaly Emergency case ID -----------------------------------------
+
+                        return Column(
                           children: [
-                            Flexible(
-                              child: Container(
-                                // margin: EdgeInsets.only(left: 25, right: 260),
-                                // padding: EdgeInsets.only(top: 20, bottom: 20),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color.fromARGB(170, 226, 223, 223)
-                                          .withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
+                            Row(
+                              children: [
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 8, right: 8),
+
+                                    // margin: EdgeInsets.only(left: 25, right: 260),
+                                    // padding: EdgeInsets.only(top: 20, bottom: 20),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(255, 255, 255, 1),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              Color.fromARGB(170, 226, 223, 223)
+                                                  .withOpacity(0.5),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                    child: ListTile(
+                                      title: Text('Case ID\n',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF6666FF))),
+                                      // leading: Icon(Icons.access_time_filled_sharp),
+                                      subtitle: Text(data['caseNumber']),
+                                    ),
+                                  ),
                                 ),
-                                child: ListTile(
-                                  title: Text('Case ID\n',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xFF6666FF))),
-                                  // leading: Icon(Icons.access_time_filled_sharp),
-                                  subtitle: Text(data['caseNumber']),
+// ----------------------------------------- dispaly Activation time -----------------------------------------
+
+                                // Flexible(
+                                //   fit: FlexFit.loose,
+                                //   child: Container(
+                                //     margin: EdgeInsets.only(left: 8, right: 8),
+
+                                //     // margin: EdgeInsets.only(left: 25, right: 260),
+                                //     // padding: EdgeInsets.only(top: 20, bottom: 20),
+                                //     decoration: BoxDecoration(
+                                //       color: Color.fromRGBO(255, 255, 255, 1),
+                                //       borderRadius: BorderRadius.circular(10),
+                                //       boxShadow: [
+                                //         BoxShadow(
+                                //           color:
+                                //               Color.fromARGB(170, 226, 223, 223)
+                                //                   .withOpacity(0.5),
+                                //           spreadRadius: 5,
+                                //           blurRadius: 7,
+                                //         ),
+                                //       ],
+                                //     ),
+                                //     child: ListTile(
+                                //       title: Text('Start Time\n',
+                                //           style: TextStyle(
+                                //               fontSize: 15,
+                                //               fontWeight: FontWeight.bold,
+                                //               color: Color(0xFF6666FF))),
+                                //       // leading: Icon(Icons.access_time_filled_sharp),
+                                //       subtitle: Text(data['startTime']),
+                                //     ),
+                                //   ),
+                                // ),
+                                // ----------------------------------------- dispaly termination time -----------------------------------------
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: Container(
+                                    margin: EdgeInsets.only(left: 8, right: 8),
+                                    // padding: EdgeInsets.only(top: 20, bottom: 20),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(255, 255, 255, 1),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color:
+                                              Color.fromARGB(170, 226, 223, 223)
+                                                  .withOpacity(0.5),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                        ),
+                                      ],
+                                    ),
+                                    child: ListTile(
+                                      title: Text('End Time\n',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color(0xFF6666FF))),
+                                      // leading: Icon(Icons.access_time_filled_sharp),
+                                      subtitle: Text(data['endTime']),
+                                    ),
+                                  ),
                                 ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 50,
+                            ),
+                            // ----------------------------------------- dispaly location -----------------------------------------
+
+                            Container(
+                              margin: EdgeInsets.only(left: 8, right: 8),
+                              padding: EdgeInsets.only(bottom: 40),
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: ListTile(
+                                title: Text('Location\n',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color(0xFF6666FF))),
+                                // leading: Icon(Icons.access_time_filled_sharp),
+                                subtitle: Text(data['userLocation']),
                               ),
                             ),
-                            Flexible(
-                              child: Container(
-                                // margin: EdgeInsets.only(left: 25, right: 260),
-                                // padding: EdgeInsets.only(top: 20, bottom: 20),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(255, 255, 255, 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color.fromARGB(170, 226, 223, 223)
-                                          .withOpacity(0.5),
-                                      spreadRadius: 5,
-                                      blurRadius: 7,
+                            SizedBox(
+                              height: 50,
+                            ),
+// ----------------------------------------- dispaly audio -----------------------------------------
+
+                            Container(
+                              margin: EdgeInsets.only(left: 8, right: 8),
+                              padding: EdgeInsets.only(bottom: 40),
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text('Audio \n',
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF6666FF))),
+                                    // leading: Icon(Icons.access_time_filled_sharp),
+                                    subtitle: Text(data['userLocation']),
+                                  ),
+                                  // Slider(
+                                  //     min: 0,
+                                  //     max: duration.inSeconds.toDouble(),
+                                  //     value: postion.inSeconds.toDouble(),
+                                  //     onChanged: (value) async {
+                                  //       final position =
+                                  //           Duration(seconds: value.toInt());
+                                  //       await audioPlayer.seek(position);
+                                  //       await audioPlayer.resume();
+                                  //     }),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(formatTime(postion)),
+                                        Text(formatTime(duration - postion)),
+                                      ],
                                     ),
-                                  ],
-                                ),
-                                child: ListTile(
-                                  title: Text('EndTime\n',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: Color(0xFF6666FF))),
-                                  // leading: Icon(Icons.access_time_filled_sharp),
-                                  subtitle: Text(data['endTime']),
-                                ),
+                                  ),
+                                  CircleAvatar(
+                                    radius: 35,
+                                    child: IconButton(
+                                      icon: Icon(
+                                        isPlaying
+                                            ? Icons.pause
+                                            : Icons.play_arrow,
+                                      ),
+                                      iconSize: 50,
+                                      onPressed: () async {
+                                        setState(() {
+                                          _filePath = data['audioRecording'];
+                                        });
+                                        _onPlayButtonPressed();
+                                        print(_filePath);
+                                        // if (isPlaying) {
+                                        //   await audioPlayer.pause();
+                                        // } else {
+                                        //   // await audioPlayer.resume();
+                                        //   // String url = data['audioRecording'];
+                                        //   await audioPlayer
+                                        //       .play(data['audioRecording']);
+                                        //   // print(data['audioRecording']);
+                                        // }
+                                      },
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ],
