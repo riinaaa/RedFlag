@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:redflag/Users.dart';
 import 'package:redflag/EmergencyContacts.dart';
 import 'package:redflag/registration_pages/login_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({Key? key}) : super(key: key);
@@ -262,6 +263,17 @@ class _profilePageState extends State<profilePage> {
                                                 fontSize: 15,
                                                 color: Color.fromARGB(
                                                     255, 236, 236, 238))),
+                                        trailing: IconButton(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: Color.fromARGB(
+                                                255, 240, 240, 240),
+                                          ),
+                                          onPressed: () {
+                                            deleteEmergencyContact(
+                                                data['ecEmail']);
+                                          },
+                                        ),
                                       ),
                                     );
                                   }).toList(),
@@ -285,5 +297,16 @@ class _profilePageState extends State<profilePage> {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => LoginScreen()));
+  }
+
+//delete emergency contact
+  Future<void> deleteEmergencyContact(String email) async {
+    var collection = FirebaseFirestore.instance.collection('emergencyContacts');
+    var snapshot = await collection
+        .where('ecEmail', isEqualTo: email)
+        .where('user', isEqualTo: user!.uid)
+        .get();
+    await snapshot.docs.first.reference.delete();
+    Fluttertoast.showToast(msg: "Emergency contact deleted successfully :) ");
   }
 }
