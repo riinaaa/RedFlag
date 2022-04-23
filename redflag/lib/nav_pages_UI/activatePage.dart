@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:sound_mode/sound_mode.dart';
 import 'package:sound_mode/utils/ringer_mode_statuses.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sound_mode/permission_handler.dart';
 
 class activationPage extends StatefulWidget {
   const activationPage({Key? key, lat, lang}) : super(key: key);
@@ -12,10 +13,6 @@ class activationPage extends StatefulWidget {
   State<activationPage> createState() => _activationPageState();
 }
 
-// SEND A LINK
-//  onPressed: () {
-//                   UserLocation().getLocation();
-//                 },
 class _activationPageState extends State<activationPage> {
   double? lat;
   double? lng;
@@ -27,14 +24,23 @@ class _activationPageState extends State<activationPage> {
     permissionsInit();
   }
 
+  // to make sure all permissions and accesses are granted
   void permissionsInit() async {
     await Permission.microphone.request();
     await Permission.storage.request();
     await Permission.manageExternalStorage.request();
     await Permission.accessNotificationPolicy.request();
     await Permission.location.request();
+
+    //this checks if the user granted the do not disturb permission
+    bool? isGranted = await PermissionHandler.permissionsGranted;
+    if (!isGranted!) {
+      //if not it will open the Do Not Disturb Access settings to grant the access
+      await PermissionHandler.openDoNotDisturbSetting();
+    }
   }
 
+// to set the sound mode to silent
   Future<void> _setSilentMode() async {
     RingerModeStatus status;
 
@@ -51,19 +57,6 @@ class _activationPageState extends State<activationPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final currentPosition = Provider.of<Position?>(context);
-    // lat = currentPosition?.latitude;
-    // lng = currentPosition?.longitude;
-
-    // print('lat from activatePage--> $lat');
-    // print('lng from activatePage --> $lng');
-
-    // print('-------------------');
-
-    // Future<dynamic> loc = UserLocation().getLocation().then((value) {
-    //   print('loc ----> $value');
-    // });
-
     return Scaffold(
         body: Center(
       child: Container(
@@ -95,9 +88,8 @@ class _activationPageState extends State<activationPage> {
                     fixedSize: const Size(500, 300), // button size
                   ),
                   onPressed: () {
+                    // on activation it will set the user's phone to silent
                     _setSilentMode();
-                    // UserLocation().getLocation(); // usre location link
-                    // Verificatoin();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
