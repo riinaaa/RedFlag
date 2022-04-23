@@ -16,7 +16,6 @@ import 'package:redflag/nav_pages_UI/termination/termenationPage.dart';
 import 'dart:io';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -199,12 +198,6 @@ class _VerificatoinState extends State<Verificatoin> {
     /// duration listeners.
     await _myRecorder.setSubscriptionDuration(Duration(milliseconds: 10));
     await initializeDateFormatting();
-
-    // move this to first page alongside the location
-    await Permission.microphone.request();
-    await Permission.storage.request();
-    await Permission.manageExternalStorage.request();
-    await Permission.accessNotificationPolicy.request();
   }
 
   Future<void> record() async {
@@ -295,8 +288,7 @@ class _VerificatoinState extends State<Verificatoin> {
 
             //----------------------------------------
             // Send an email to the emergency contact
-            //(UNCOMMENT)
-            //emergencyCase.sendMail(recipients, subject, msg2);
+            emergencyCase.sendMail(recipients, subject, msg2);
 
             //record for 60 seconds
             record();

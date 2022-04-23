@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:redflag/pin/pinVerficationPage.dart';
+import 'package:flutter/services.dart';
+import 'package:sound_mode/sound_mode.dart';
+import 'package:sound_mode/utils/ringer_mode_statuses.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class activationPage extends StatefulWidget {
   const activationPage({Key? key, lat, lang}) : super(key: key);
@@ -15,28 +19,35 @@ class activationPage extends StatefulWidget {
 class _activationPageState extends State<activationPage> {
   double? lat;
   double? lng;
+  RingerModeStatus _soundMode = RingerModeStatus.unknown;
 
   @override
   void initState() {
     super.initState();
+    permissionsInit();
   }
 
-  // Future<void> _setNormalMode() async {
-  //   RingerModeStatus status;
+  void permissionsInit() async {
+    await Permission.microphone.request();
+    await Permission.storage.request();
+    await Permission.manageExternalStorage.request();
+    await Permission.accessNotificationPolicy.request();
+    await Permission.location.request();
+  }
 
-  //   try {
-  //     status = await SoundMode.setSoundMode(RingerModeStatus.normal);
-  //     setState(() {
-  //       _soundMode = status;
-  //     });
-  //   } on PlatformException {
-  //     print('Do Not Disturb access permissions required!');
-  //   }
-  // }
+  Future<void> _setSilentMode() async {
+    RingerModeStatus status;
 
-  // Future<void> _openDoNotDisturbSettings() async {
-  //   await PermissionHandler.openDoNotDisturbSetting();
-  // }
+    try {
+      status = await SoundMode.setSoundMode(RingerModeStatus.silent);
+
+      setState(() {
+        _soundMode = status;
+      });
+    } on PlatformException {
+      print('Do Not Disturb access permissions required!');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +95,7 @@ class _activationPageState extends State<activationPage> {
                     fixedSize: const Size(500, 300), // button size
                   ),
                   onPressed: () {
+                    _setSilentMode();
                     // UserLocation().getLocation(); // usre location link
                     // Verificatoin();
                     Navigator.push(
