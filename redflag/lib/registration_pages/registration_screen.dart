@@ -51,12 +51,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         controller: firstNameEditingController,
         keyboardType: TextInputType.name,
         validator: (value) {
-          RegExp regex = new RegExp(r'^.{3,}$');
+          RegExp regex = new RegExp(r'^.{2,}$');
           if (value!.isEmpty) {
             return ("First Name cannot be Empty");
           }
           if (!regex.hasMatch(value)) {
-            return ("Enter Valid name(Min. 3 Character)");
+            return ("Enter Valid name(Min. 2 Character)");
           }
           return null;
         },
@@ -130,7 +130,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     final passwordField = TextFormField(
         autofocus: false,
         controller: passwordEditingController,
-        obscureText: true,
+        obscureText: true, // ****
         validator: (value) {
           RegExp regex = new RegExp(r'^.{6,}$');
           if (value!.isEmpty) {
@@ -211,12 +211,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         autofocus: false,
         controller: keywordEditingController,
         validator: (value) {
-          RegExp regex = new RegExp(r'^.{6,}$');
+          RegExp regex = new RegExp(r'^.{2,}$');
           if (value!.isEmpty) {
             return ("keyword is required to register");
           }
           if (!regex.hasMatch(value)) {
-            return ("Enter Valid keyword(Min. 6 Character)");
+            return ("Enter Valid keyword(Min. 2 Character)");
           }
         },
         onSaved: (value) {
@@ -237,8 +237,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         autofocus: false,
         controller: confirmKeywordEditingController,
         validator: (value) {
-          if (confirmPasswordEditingController.text !=
-              passwordEditingController.text) {
+          if (confirmKeywordEditingController.text !=
+              keywordEditingController.text) {
             return "Keywords don't match";
           }
           return null;
@@ -262,12 +262,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         controller: emergencyContactNameEditingController,
         keyboardType: TextInputType.name,
         validator: (value) {
-          RegExp regex = new RegExp(r'^.{3,}$');
+          RegExp regex = new RegExp(r'^.{2,}$');
           if (value!.isEmpty) {
             return ("Emergency Contact Name cannot be Empty");
           }
           if (!regex.hasMatch(value)) {
-            return ("Enter Valid name(Min. 3 Character)");
+            return ("Enter Valid name(Min. 2 Character)");
           }
           return null;
         },

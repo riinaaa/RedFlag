@@ -33,6 +33,7 @@ class EmergencyContacts {
     return {
       'ecEmail': ecEmail,
       'eFullName': eFullName,
+      //act as a forign key
       'user': uid,
     };
   }
