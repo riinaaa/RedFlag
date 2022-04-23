@@ -283,9 +283,6 @@ class _VerificatoinState extends State<Verificatoin> {
             startDate =
                 "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}-${now.minute.toString().padLeft(2, '0')}";
 
-            // set the startTime in the emergencyCase object
-            emergencyCase.startTime = startDate;
-
             //----------------------------------------
             // Send an email to the emergency contact
             emergencyCase.sendMail(recipients, subject, msg2);

@@ -14,7 +14,6 @@ class Emergency extends StatelessWidget {
   AccessStatus access = new AccessStatus.empty();
   Users user = new Users.empty();
   var caseNumber;
-  var startTime;
   var endTime;
   var userLocation;
   var audioRecording;
@@ -22,10 +21,6 @@ class Emergency extends StatelessWidget {
   get getCaseNumber => this.caseNumber;
 
   set setCaseNumber(caseNumber) => this.caseNumber = caseNumber;
-
-  get getStartTime => this.startTime;
-
-  set setStartTime(startTime) => this.startTime = startTime;
 
   get getEndTime => this.endTime;
 
@@ -41,13 +36,11 @@ class Emergency extends StatelessWidget {
 
   Emergency({
     this.caseNumber,
-    this.startTime,
     this.endTime,
     this.userLocation,
     this.audioRecording,
   }) {
     caseNumber = this.caseNumber;
-    startTime = this.startTime;
     endTime = this.endTime;
     userLocation = this.userLocation;
     audioRecording = this.audioRecording;
@@ -57,7 +50,6 @@ class Emergency extends StatelessWidget {
   factory Emergency.fromMap(map) {
     return Emergency(
       caseNumber: map['caseNumber'],
-      startTime: map['startTime'],
       endTime: map['endTime'],
       userLocation: map['userLocation'],
       audioRecording: map['audioRecording'],
@@ -68,7 +60,6 @@ class Emergency extends StatelessWidget {
   Map<String, dynamic> toMap(String uid) {
     return {
       'caseNumber': caseNumber,
-      'startTime': startTime,
       'endTime': endTime,
       'userLocation': userLocation,
       'audioRecording': audioRecording,

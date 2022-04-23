@@ -14,18 +14,6 @@ class _terminationPageState extends State<terminationPage> {
     super.initState();
   }
 
-  // Future<void> startPlaying() async {
-  //   audioPlayer.open(
-  //     Audio.file(filePath),
-  //     autoStart: true,
-  //     showNotification: true,
-  //   );
-  // }
-
-  // Future<void> stopPlaying() async {
-  //   audioPlayer.stop();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,8 +48,6 @@ class _terminationPageState extends State<terminationPage> {
                       fixedSize: const Size(500, 300), // button size
                     ),
                     onPressed: () {
-                      // UserLocation().getLocation(); // usre location link
-                      // Verificatoin();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -78,26 +64,6 @@ class _terminationPageState extends State<terminationPage> {
                       ),
                     ),
                   )),
-
-// DELETE JUST FOR TESTINGGGG
-              // ElevatedButton(
-              //   style: ElevatedButton.styleFrom(
-              //     primary: Color.fromARGB(255, 165, 60, 60),
-              //     shadowColor: Color.fromARGB(0, 210, 118, 118),
-              //     //make color or elevated button transparent
-              //     fixedSize: const Size(50, 50), // button size
-              //   ),
-              //   onPressed: () {
-              //     startPlaying();
-              //   },
-              //   child: new Text(
-              //     "play",
-              //     style: new TextStyle(
-              //       fontSize: 10.0,
-              //       color: Color.fromARGB(255, 255, 255, 255),
-              //     ),
-              //   ),
-              // ),
             ],
           )),
     ));
