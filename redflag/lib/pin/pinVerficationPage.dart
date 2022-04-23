@@ -252,17 +252,18 @@ class _VerificatoinState extends State<Verificatoin> {
     // print('lng from Timer--> $lng');
 
     Future<dynamic> loc = UserLocation().getLocation().then((value) {
+      userFirstName = loggedInUser.getUserFirstName;
+      userLastName = loggedInUser.getUserLastName;
       // print('loc ----> $value');
       //set the emergency location in the emergencycase object
       emergencyCase.userLocation = value;
       String msg2 =
-          '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">Atheer Alghamdi in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="$value">The Location Link</a></div>';
+          '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">$userFirstName $userLastName in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="$value">The Location Link</a></div>';
 
       // print(msg2);
       // setState(() --> Notify the framework that the internal state of this object has changed.
       // setState(() {
-      userFirstName = loggedInUser.getUserFirstName;
-      userLastName = loggedInUser.getUserLastName;
+
       // String msg =
       //     '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
       // Future<dynamic> loc = UserLocation().getLocation();
@@ -372,7 +373,7 @@ class _VerificatoinState extends State<Verificatoin> {
                     delay: Duration(milliseconds: 600),
                     duration: Duration(milliseconds: 500),
                     child: Text(
-                      "Please enter the 4 digit code \n you specified during registration to deactivate.",
+                      "Please enter the 4 digit code \n you specified during registration to deactivate.\n You have 30 sec.",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontSize: 14,
