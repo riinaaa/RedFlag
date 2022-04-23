@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+//created multiple formkeys because each step in the stepper require validation
 List<GlobalKey<FormState>> formKeys = [
   GlobalKey<FormState>(),
   GlobalKey<FormState>(),
@@ -30,9 +31,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   //steper steps
   int currentStep = 0;
 
-  // our form key
-  final _formKey = GlobalKey<FormState>();
-  // editing Controller
+  // editing Controller for each text field
   final firstNameEditingController = new TextEditingController();
   final secondNameEditingController = new TextEditingController();
   final emailEditingController = new TextEditingController();
@@ -356,12 +355,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               'Registeration',
               style: TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold),
             ),
+
+            // stepper for multistep registration
             Stepper(
                 steps: [
-                  //STEP INFO
+                  //STEP INFO which contains firstNameField secondNameField emailField passwordField pinField
                   Step(
                     title: new Text('Personal Info'),
                     content: Form(
+                      //first form key to validate
                       key: formKeys[0],
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -392,10 +394,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             : StepState.complete,
                   ),
 
-                  //STEP KEYWORD
+                  //STEP KEYWORD which takes the keyword from the user
                   Step(
                     title: new Text('Keyword'),
                     content: Form(
+                      //second form key to validate
                       key: formKeys[1],
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -405,8 +408,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           keywordField,
                           SizedBox(height: 20),
                           confirmKeywordField,
-
-                          //
                         ],
                       ),
                     ),
@@ -417,9 +418,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ? StepState.disabled
                             : StepState.complete,
                   ),
-
+                  //STEP Emergency Contact to take emergency contact information, email and name
                   Step(
                     title: new Text("Emergency Contact"),
+                    //third form key to validate
                     content: Form(
                       key: formKeys[2],
                       child: Column(
@@ -433,12 +435,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           SizedBox(height: 15),
                           emergencyContactNameField,
-
                           SizedBox(height: 20),
                           emergencyContactEmailField,
-                          // signUpButton,
-                          // SizedBox(height: 15),
-                          //
                         ],
                       ),
                     ),
@@ -449,7 +447,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ? StepState.disabled
                             : StepState.complete,
                   ),
-                ],
+                ], // end of steps
+
+                // Stepper info
                 type: StepperType.vertical,
                 physics: ScrollPhysics(),
                 currentStep: currentStep,
@@ -458,9 +458,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     currentStep = step;
                   });
                 },
+                // if the current step isnt the first step, when the user press back it will take it to the pervious step
                 onStepCancel: () {
                   currentStep > 0 ? setState(() => currentStep -= 1) : null;
                 },
+                // if the current step isnt the last step, when the user press continue to go to the next step
+                // it will first validate then take it to the next step if there wasnt an error in the step
                 onStepContinue: () {
                   if (formKeys[currentStep].currentState!.validate()) {
                     currentStep < 2 ? setState(() => currentStep += 1) : null;
@@ -502,6 +505,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ));
   }
 
+// to signup we useed  firebase auth to register the user email and password
   void signUp(String email, String password) async {
     try {
       await _auth
@@ -510,7 +514,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           .catchError((e) {
         Fluttertoast.showToast(msg: e!.message);
       });
-    } on FirebaseAuthException catch (error) {
+    }
+    //firebase login errors
+    on FirebaseAuthException catch (error) {
       switch (error.code) {
         case "invalid-email":
           errorMessage = "Your email address appears to be malformed.";
@@ -538,14 +544,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
+// to signup after we created the firebase auth for the email and password
+// we also need to store the rest of the user information
   postDetailsToFirestore() async {
     // calling our firestore
     // calling our user model
     // sedning these values
 
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
+    // create object to get the current user from firebase auth
     User? currentUser = _auth.currentUser;
 
+    // object from our users class to create the user
     Users userModel = Users();
     EmergencyContacts emergencyContactModel = EmergencyContacts();
 
@@ -569,12 +580,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     await firebaseFirestore
         .collection("users")
         .doc(currentUser.uid)
+        // sending user infromation to the firestore from our users class
         .set(userModel.toMap());
 
 //firestore add emergency contact information
     await firebaseFirestore
         .collection("emergencyContacts")
         .doc()
+        // sending emergcency contact infromation to the firestore from our emergcency contact class
         .set(emergencyContactModel.toMap(currentUser.uid));
 
     Fluttertoast.showToast(msg: "Account created successfully :) ");

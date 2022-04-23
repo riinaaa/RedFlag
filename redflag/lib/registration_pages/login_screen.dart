@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
-  // firebase
+  // firebase auth
   final _auth = FirebaseAuth.instance;
 
   // error messages
@@ -211,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // login function
+  // login function takes both email and password and will perform login using Firebase Auth
   void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
       try {
@@ -222,11 +222,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => NavScreen())),
                 });
-      } on FirebaseAuthException catch (error) {
+      }
+      //firebase login errors
+      on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
             errorMessage = "Your email address appears to be malformed.";
-
             break;
           case "wrong-password":
             errorMessage = "Your password is wrong.";
