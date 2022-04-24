@@ -56,6 +56,9 @@ dependencies:
   assets_audio_player: ^3.0.3+3
   intl: ^0.17.0
   path_provider: ^2.0.9
+  firebase_auth_mocks: ^0.8.4
+  test: ^1.19.5
+  fake_cloud_firestore: ^1.2.2
 
 dev_dependencies:
   flutter_test:
