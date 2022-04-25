@@ -85,20 +85,14 @@ class Emergency extends StatelessWidget {
     final smtpServer = gmail(username, password);
     final message = Message()
       ..from = Address(username)
-      // ..recipients.add(recipients)
-
       ..ccRecipients.addAll(recipients)
-      //  ..bccRecipients.add(Address('bccAddress@example.com'))
       ..subject = '$subject :::: ${DateTime.now()}'
-      // ..text = 'heloooooo.\nThis is line 2 of the text part.'
       ..html = '$msg';
 
     try {
       final sendReport = await send(message, smtpServer);
       print('Message sent: ' + sendReport.toString());
       print(recipients);
-      // Toast.show("You have clicked the Button! and email sent", context,
-      //     duration: 3, gravity: Toast.CENTER);
     } on MailerException catch (e) {
       print('Message not sent.');
       print(e.toString());

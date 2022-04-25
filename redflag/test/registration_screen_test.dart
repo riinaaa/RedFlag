@@ -24,50 +24,38 @@ void main() {
   //   });
   // });
 
-  // Creating an account
-  test('sign up with email and password', () async {
-    final email = 'some@email.com';
-    final password = 'some!password';
+  //Email and Password Authentication
+  test('The Email address and password have been authenticated.', () async {
+    final email = 'atheer@gmail.com';
+    final password = 'AAlghamdi@8991';
     final auth = MockFirebaseAuth();
     final result = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
     final user = result.user!;
+    // final userInput = 'email&gmai.com';
     expect(user.email, email);
-    // expect(auth.authStateChanges(), emitsInOrder([null, isA<User>()]));
-    // expect(auth.userChanges(), emitsInOrder([null, isA<User>()]));
-    // expect(user.isAnonymous, isFalse);
   });
 
-  final tUser = MockUser(
-    uid: 'T3STU1D',
-    email: 'bob@thebuilder.com',
+  final test_User = MockUser(
+    uid: '002',
+    email: 'atheer@gmail.com',
   );
 
-  //Logout
+  //sign out
   test('Returns null after sign out', () async {
-    final auth = MockFirebaseAuth(signedIn: true, mockUser: tUser);
-    final user = auth.currentUser;
-
+    final auth = MockFirebaseAuth(signedIn: true, mockUser: test_User);
     await auth.signOut();
-
-    expect(auth.currentUser, null);
-    expect(auth.authStateChanges(), emitsInOrder([user, null]));
-    expect(auth.userChanges(), emitsInOrder([user, null]));
+    expect(auth.currentUser, isNull);
   });
 
   // Login
-  // test('Login with email and password', () async {
-  //   final auth = MockFirebaseAuth(mockUser: tUser);
-  //   final result = await auth.signInWithEmailAndPassword(
-  //       email: 'bob@thebuilder.com', password: '123456');
-  //   final user = result.user;
-  //   expect(user, tUser);
-  //   // print('user --> $user.uid');
-  //   // print('tUser -->$tUser.uid');
-
-  //   expect(auth.authStateChanges(), emitsInOrder([null, isA<User>()]));
-  //   expect(auth.userChanges(), emitsInOrder([null, isA<User>()]));
-  // });
+  test('Login with email and password', () async {
+    final auth = MockFirebaseAuth(mockUser: test_User);
+    final result = await auth.signInWithEmailAndPassword(
+        email: test_User.email!, password: '123456');
+    final user = result.user!; //firebase
+    expect(user.email, 'atheer@gmail.com');
+  });
 
   //   test('with token', () async {
   //     final auth = MockFirebaseAuth(mockUser: tUser);
