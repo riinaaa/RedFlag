@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:redflag/registration_pages/registration_screen.dart';
 import 'package:redflag/registration_pages/landing_screen.dart';
@@ -13,6 +14,13 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   Firebase.initializeApp();
+  // }
+
   // form key
   final _formKey = GlobalKey<FormState>();
 
@@ -30,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     //email field
     final emailField = TextFormField(
+        key: Key('emailField_login'),
         autofocus: false,
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
@@ -59,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     //password field
     final passwordField = TextFormField(
+        key: Key('passwordField_login'),
         autofocus: false,
         controller: passwordController,
         obscureText: true,

@@ -136,6 +136,9 @@ class _VerificatoinState extends State<Verificatoin> {
         print('= 4');
 
         if (widget.status == 'safe') {
+          // scheduleTimeout(5 * 1000); // 60 seconds.
+
+          // stopRecord();
           //generate emergencycase ID
           emergencyId = "RF" + DateTime.now().millisecondsSinceEpoch.toString();
 
