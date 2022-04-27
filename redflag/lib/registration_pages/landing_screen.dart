@@ -37,6 +37,7 @@ class _LandingScreenState extends State<LandingScreen> {
 
     //LOGIN Button
     final loginPageButton = Material(
+      key: Key('homeLoginButton'),
       elevation: 3,
       borderRadius: BorderRadius.circular(10),
       color: Colors.white,

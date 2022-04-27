@@ -60,6 +60,7 @@ class _activationPageState extends State<activationPage> {
     return Scaffold(
         body: Center(
       child: Container(
+          key: Key('ActivationButton'),
           alignment: Alignment.center,
           margin: const EdgeInsets.only(top: 130.0, bottom: 20.0),
           padding: EdgeInsets.all(50),

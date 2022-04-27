@@ -95,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
 
     final loginButton = Material(
+      key: Key('signInButton'),
       elevation: 5,
       borderRadius: BorderRadius.circular(30),
       color: Color.fromARGB(255, 108, 82, 255),
@@ -103,6 +104,8 @@ class _LoginScreenState extends State<LoginScreen> {
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
             signIn(emailController.text, passwordController.text);
+            // Navigator.of(context).pushReplacement(
+            //     MaterialPageRoute(builder: (context) => NavScreen()));
           },
           child: Text(
             "LOGIN",
