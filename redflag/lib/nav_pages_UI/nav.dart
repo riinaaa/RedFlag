@@ -35,6 +35,7 @@ class _NavScreenState extends State<NavScreen> {
       child: Scaffold(
         // ---------------- NAV BAR --------------
         bottomNavigationBar: BottomNavyBar(
+          key: Key('bottom'),
           selectedIndex: currentIndex,
           onItemSelected: (index) {
             setState(() {

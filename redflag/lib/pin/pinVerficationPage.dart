@@ -28,6 +28,8 @@ class Verificatoin extends StatefulWidget {
 }
 
 class _VerificatoinState extends State<Verificatoin> {
+  final confirmPinEditingController = new TextEditingController();
+
   String _code = '';
   bool _pinLength = false;
   Timer? _timer;
@@ -105,8 +107,12 @@ class _VerificatoinState extends State<Verificatoin> {
     //   _isLoading = true;
     // });
 
-    if (_code.length < 4) {
+    if (confirmPinEditingController.text.length < 4) {
       _pinLength = false;
+
+      int k = confirmPinEditingController.text.length;
+      print(k);
+      print(confirmPinEditingController.text);
 
       print("> 4");
 
@@ -130,7 +136,7 @@ class _VerificatoinState extends State<Verificatoin> {
     } else {
       // String pin = '${loggedInUser.getPin}';
 
-      if (_code == '${loggedInUser.getPin}') {
+      if (confirmPinEditingController.text == '${loggedInUser.getPin}') {
         _pinLength = true;
 
         print('= 4');
@@ -399,30 +405,51 @@ class _VerificatoinState extends State<Verificatoin> {
 
                     // VerificationCode is from flutter_verification_code 1.1.2+1
                     // A Flutter package that help you create a verification input.
-                    child: VerificationCode(
-                      //-------------------------------------
-                      //*********Style**********
-                      //-------------------------------------
-                      length: 4, //quantity of boxes
-                      autofocus: true, //auto focus when screen appears
-                      digitsOnly: true, //accept only digit inputs from keyboard
-                      textStyle: TextStyle(fontSize: 20, color: Colors.black),
-                      underlineColor: Color.fromARGB(255, 0, 0, 0),
-                      underlineUnfocusedColor: Color.fromARGB(255, 0, 0, 0),
 
-                      //-------------------------------------
-                      ////*********the user input stored in _code//*********
-                      //-------------------------------------
-                      onCompleted: (value) {
-                        setState(() {
-                          _code = value;
-                          // _code --> contain the entered PIN,
-                          // we will compare it with the one the user regestered.
-                          // print(_code);
-                        });
-                      },
-                      onEditing: (value) {},
-                    ),
+                    child: TextFormField(
+                        key: Key('pinTextField_pinPage'),
+                        maxLength: 4,
+                        maxLengthEnforced: true,
+                        autofocus: false,
+                        controller: confirmPinEditingController,
+                        onSaved: (value) {
+                          confirmPinEditingController.text = value!;
+                          // _code = confirmPinEditingController.text;
+                        },
+                        textInputAction: TextInputAction.next,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.lock),
+                          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                          hintText: "PIN",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        )),
+
+                    // child: VerificationCode(
+                    //   //-------------------------------------
+                    //   //*********Style**********
+                    //   //-------------------------------------
+                    //   length: 4, //quantity of boxes
+                    //   autofocus: true, //auto focus when screen appears
+                    //   digitsOnly: true, //accept only digit inputs from keyboard
+                    //   textStyle: TextStyle(fontSize: 20, color: Colors.black),
+                    //   underlineColor: Color.fromARGB(255, 0, 0, 0),
+                    //   underlineUnfocusedColor: Color.fromARGB(255, 0, 0, 0),
+
+                    //   //-------------------------------------
+                    //   ////*********the user input stored in _code//*********
+                    //   //-------------------------------------
+                    //   onCompleted: (value) {
+                    //     setState(() {
+                    //       _code = value;
+                    //       // _code --> contain the entered PIN,
+                    //       // we will compare it with the one the user regestered.
+                    //       // print(_code);
+                    //     });
+                    //   },
+                    //   onEditing: (value) {},
+                    // ),
                   ),
 
                   /////////////////////////////////////////////////////////////////////
@@ -444,6 +471,7 @@ class _VerificatoinState extends State<Verificatoin> {
                     delay: Duration(milliseconds: 800),
                     duration: Duration(milliseconds: 500),
                     child: MaterialButton(
+                      key: Key('verifyPinButton_pinPage'),
                       elevation: 0,
                       onPressed: () {
                         verify();

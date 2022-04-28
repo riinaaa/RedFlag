@@ -33,6 +33,7 @@ class _mapPageState extends State<mapPage> {
               children: [
                 Expanded(
                   child: GoogleMap(
+                    key: Key('GoogleMap_mapPage'),
                     mapType: MapType.normal,
                     initialCameraPosition: CameraPosition(
                         target: LatLng(currentPosition.latitude,

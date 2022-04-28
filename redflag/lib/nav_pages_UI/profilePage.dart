@@ -209,6 +209,8 @@ class _profilePageState extends State<profilePage> {
                                   return Text("Loading");
                                 }
                                 return ListView(
+                                  key: Key(
+                                      'currentEmergencyContactsList_profilePage'),
                                   children: snapshot.data!.docs
                                       .map((DocumentSnapshot document) {
                                     Map<String, dynamic> data = document.data()!

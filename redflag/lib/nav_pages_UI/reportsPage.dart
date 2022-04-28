@@ -161,11 +161,12 @@ class _reportsPageState extends State<reportsPage> {
                 ),
               ),
 
-              //------------------------------------Return to the case numbers list page------------------------------------
+//------------------------------------Return to the case numbers list page------------------------------------
 
               Container(
                 margin: EdgeInsets.only(top: 80, left: 15),
                 child: IconButton(
+                  key: Key('returnButton_reportPage'),
                   icon: Icon(Icons.arrow_back_rounded),
                   onPressed: () {
                     Navigator.pop(
@@ -251,40 +252,7 @@ class _reportsPageState extends State<reportsPage> {
                                     ),
                                   ),
                                 ),
-// ----------------------------------------- dispaly Activation time -----------------------------------------
-
-                                // Flexible(
-                                //   fit: FlexFit.loose,
-                                //   child: Container(
-                                //     margin: EdgeInsets.only(left: 8, right: 8),
-
-                                //     // margin: EdgeInsets.only(left: 25, right: 260),
-                                //     // padding: EdgeInsets.only(top: 20, bottom: 20),
-                                //     decoration: BoxDecoration(
-                                //       color: Color.fromRGBO(255, 255, 255, 1),
-                                //       borderRadius: BorderRadius.circular(10),
-                                //       boxShadow: [
-                                //         BoxShadow(
-                                //           color:
-                                //               Color.fromARGB(170, 226, 223, 223)
-                                //                   .withOpacity(0.5),
-                                //           spreadRadius: 5,
-                                //           blurRadius: 7,
-                                //         ),
-                                //       ],
-                                //     ),
-                                //     child: ListTile(
-                                //       title: Text('Start Time\n',
-                                //           style: TextStyle(
-                                //               fontSize: 15,
-                                //               fontWeight: FontWeight.bold,
-                                //               color: Color(0xFF6666FF))),
-                                //       // leading: Icon(Icons.access_time_filled_sharp),
-                                //       subtitle: Text(data['startTime']),
-                                //     ),
-                                //   ),
-                                // ),
-                                // ----------------------------------------- dispaly termination time -----------------------------------------
+// ----------------------------------------- dispaly termination time -----------------------------------------
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: Container(
@@ -319,26 +287,7 @@ class _reportsPageState extends State<reportsPage> {
                             SizedBox(
                               height: 50,
                             ),
-                            // ----------------------------------------- dispaly location -----------------------------------------
-                            // IconButton(
-                            //     onPressed: () {
-                            //       setState(() {
-                            //         locationLink = data['userLocation'];
-                            //       });
-
-                            //       // Clipboard.setData(
-                            //       //     ClipboardData(text: locationLink));
-
-                            //       Clipboard.setData(
-                            //               ClipboardData(text: locationLink))
-                            //           .then((_) {
-                            //         ScaffoldMessenger.of(context).showSnackBar(
-                            //             SnackBar(
-                            //                 content: Text(
-                            //                     " Address link copied to clipboard")));
-                            //       });
-                            //     },
-                            //     icon: Icon(Icons.copy)),
+// ----------------------------------------- dispaly location -----------------------------------------
 
                             Column(
                               children: [
@@ -352,6 +301,8 @@ class _reportsPageState extends State<reportsPage> {
                                               fontWeight: FontWeight.bold,
                                               color: Color(0xFF6666FF))),
                                       IconButton(
+                                          key: Key(
+                                              'copyLocationLinkButton_reportPage'),
                                           onPressed: () {
                                             setState(() {
                                               locationLink =
@@ -378,19 +329,11 @@ class _reportsPageState extends State<reportsPage> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: ListTile(
-                                    // title: Text('Location\n',
-                                    //     style: TextStyle(
-                                    //         fontSize: 15,
-                                    //         fontWeight: FontWeight.bold,
-                                    //         color: Color(0xFF6666FF))),
-                                    // leading: Icon(Icons.access_time_filled_sharp),
                                     subtitle: Text(data['userLocation']),
                                   ),
                                 ),
                               ],
                             ),
-
-                            // IconButton(onPressed: onPressed, icon: icon),
                             SizedBox(
                               height: 20,
                             ),
@@ -444,6 +387,7 @@ class _reportsPageState extends State<reportsPage> {
                                       margin:
                                           EdgeInsets.only(left: 20, right: 8),
                                       child: ElevatedButton(
+                                        key: Key('playAudioButton_Page'),
                                         child: const Text('Play'),
                                         style: ElevatedButton.styleFrom(
                                           primary: Color(0xFF6666FF),

@@ -96,6 +96,7 @@ class _addState extends State<add> {
   Widget build(BuildContext context) {
     //emergency contact name field
     final emergencyContactNameField = TextFormField(
+        key: Key('nameField_addPage'),
         autofocus: false,
         controller: emergencyContactNameEditingController,
         keyboardType: TextInputType.name,
@@ -124,6 +125,7 @@ class _addState extends State<add> {
 
     //emergency contact email field
     final emergencyContactEmailField = TextFormField(
+        key: Key('emailField_addPage'),
         autofocus: false,
         controller: emergencyContactEmailEditingController,
         keyboardType: TextInputType.emailAddress,
@@ -265,6 +267,7 @@ class _addState extends State<add> {
 //----------------------------------- Add Button ---------------------------------------
 
                         ElevatedButton(
+                          key: Key('addButton_addPage'),
                           onPressed: submitData,
                           style: ElevatedButton.styleFrom(
                             primary: Color(0xFF4E4EF7),

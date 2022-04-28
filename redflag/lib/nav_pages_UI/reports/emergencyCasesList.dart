@@ -30,26 +30,6 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
 
   @override
   Widget build(BuildContext context) {
-//add emergency contacts to arraylist in the user class
-    // FirebaseFirestore.instance
-    //     .collection('emergencyContacts')
-    //     .where('user', isEqualTo: user!.uid)
-    //     .get()
-    //     .then((QuerySnapshot querySnapshot) {
-    //   querySnapshot.docs.forEach((doc) {
-    //     //emergency contact
-    //     emergencyContactModel.eFullName = doc['eFullName'];
-    //     emergencyContactModel.ecEmail = doc['ecEmail'];
-    //     // print(emergencyContactModel.ecEmail);
-    //     loggedInUser.emergencyContacts.add(emergencyContactModel);
-    //     for (var i = 0; i < loggedInUser.emergencyContacts.length; i++) {
-    //       print(ecNum);
-    //       print(loggedInUser.emergencyContacts[i].eFullName);
-    //       print(loggedInUser.emergencyContacts[i].ecEmail);
-    //     }
-    //   });
-    // });
-
     return Container(
       child: Scaffold(
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -108,6 +88,7 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
               Container(
                 padding: EdgeInsets.only(top: 80, left: 300),
                 child: TextButton(
+                  key: Key('logoutButton'),
                   onPressed: () {
                     logout(context);
                   },
@@ -215,6 +196,8 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                                               255, 240, 240, 240),
                                         ),
                                         trailing: IconButton(
+                                          key: Key(
+                                              'caseNumberButton_emergencyCasesPage'),
                                           icon: Icon(
                                             Icons.arrow_forward_rounded,
                                             color: Color.fromARGB(
