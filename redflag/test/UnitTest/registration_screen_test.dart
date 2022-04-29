@@ -5,25 +5,6 @@ import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:test/test.dart';
 
 void main() {
-  // test('Returns no user if not signed in', () async {
-  //   final auth = MockFirebaseAuth();
-  //   final user = auth.currentUser;
-  //   expect(user, isNull);
-  // });
-
-  // group('Emits an initial User? on startup.', () {
-  //   test('null if signed out', () async {
-  //     final auth = MockFirebaseAuth();
-  //     expect(auth.authStateChanges(), emits(null));
-  //     // expect(auth.userChanges(), emitsInOrder([isA<User>()]));
-  //   });
-  //   test('a user if signed in', () async {
-  //     final auth = MockFirebaseAuth(signedIn: true);
-  //     expect(auth.authStateChanges(), emitsInOrder([isA<User>()]));
-  //     expect(auth.userChanges(), emitsInOrder([isA<User>()]));
-  //   });
-  // });
-
   //Email and Password Authentication
   test('The Email address and password have been authenticated.', () async {
     final email = 'atheer@gmail.com';
@@ -32,7 +13,6 @@ void main() {
     final result = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
     final user = result.user!;
-    // final userInput = 'email&gmai.com';
     expect(user.email, email);
   });
 
@@ -41,13 +21,6 @@ void main() {
     email: 'atheer@gmail.com',
   );
 
-  //sign out
-  test('Returns null after sign out', () async {
-    final auth = MockFirebaseAuth(signedIn: true, mockUser: test_User);
-    await auth.signOut();
-    expect(auth.currentUser, isNull);
-  });
-
   // Login
   test('Login with email and password', () async {
     final auth = MockFirebaseAuth(mockUser: test_User);
@@ -55,6 +28,13 @@ void main() {
         email: test_User.email!, password: '123456');
     final user = result.user!; //firebase
     expect(user.email, 'atheer@gmail.com');
+  });
+
+  // logout
+  test('Returns null after sign out', () async {
+    final auth = MockFirebaseAuth(signedIn: true, mockUser: test_User);
+    await auth.signOut();
+    expect(auth.currentUser, isNull);
   });
 
   //   test('with token', () async {

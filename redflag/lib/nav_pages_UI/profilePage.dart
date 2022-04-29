@@ -246,6 +246,7 @@ class _profilePageState extends State<profilePage> {
                                                 color: Color.fromARGB(
                                                     255, 236, 236, 238))),
                                         trailing: IconButton(
+                                          key: Key('deleteButton'),
                                           icon: Icon(
                                             Icons.delete,
                                             color: Color.fromARGB(

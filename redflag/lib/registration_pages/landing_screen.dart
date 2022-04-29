@@ -17,6 +17,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     //SignUp Button
     final signUpPageButton = Material(
+      key: Key('homeSignUpButton'),
       elevation: 3,
       borderRadius: BorderRadius.circular(10),
       color: Color.fromARGB(255, 108, 82, 255),

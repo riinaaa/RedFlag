@@ -22,26 +22,6 @@ void main() {
     setUp(() {
       GeolocatorPlatform.instance = MockGeolocatorPlatform();
     });
-
-    test('isLocationServiceEnabled', () async {
-      final isLocationServiceEnabled =
-          await Geolocator.isLocationServiceEnabled();
-
-      expect(isLocationServiceEnabled, true);
-    });
-
-    test('checkPermission', () async {
-      final permission = await Geolocator.checkPermission();
-
-      expect(permission, LocationPermission.whileInUse);
-    });
-
-    test('requestPermission', () async {
-      final permission = await Geolocator.requestPermission();
-
-      expect(permission, LocationPermission.whileInUse);
-    });
-
     test('getCurrentPosition', () async {
       final position = await Geolocator.getCurrentPosition();
 
@@ -60,6 +40,18 @@ void main() {
 
       expect(position, fake);
     });
+    test('isLocationServiceEnabled', () async {
+      final isLocationServiceEnabled =
+          await Geolocator.isLocationServiceEnabled();
+
+      expect(isLocationServiceEnabled, true);
+    });
+
+    test('requestPermission', () async {
+      final permission = await Geolocator.requestPermission();
+
+      expect(permission, LocationPermission.whileInUse);
+    });
 
     test('getLocationAccuracy', () async {
       final accuracy = await Geolocator.getLocationAccuracy();
@@ -73,15 +65,8 @@ class MockGeolocatorPlatform extends Mock
     with MockPlatformInterfaceMixin
     implements GeolocatorPlatform {
   @override
-  Future<LocationPermission> checkPermission() =>
-      Future.value(LocationPermission.whileInUse);
-
-  @override
-  Future<LocationPermission> requestPermission() =>
-      Future.value(LocationPermission.whileInUse);
-
-  @override
-  Future<bool> isLocationServiceEnabled() => Future.value(true);
+  Future<LocationAccuracyStatus> getLocationAccuracy() =>
+      Future.value(LocationAccuracyStatus.precise);
 
   @override
   Future<Position> getCurrentPosition({
@@ -90,6 +75,9 @@ class MockGeolocatorPlatform extends Mock
       Future.value(mockPosition);
 
   @override
-  Future<LocationAccuracyStatus> getLocationAccuracy() =>
-      Future.value(LocationAccuracyStatus.precise);
+  Future<LocationPermission> requestPermission() =>
+      Future.value(LocationPermission.whileInUse);
+
+  @override
+  Future<bool> isLocationServiceEnabled() => Future.value(true);
 }

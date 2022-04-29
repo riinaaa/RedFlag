@@ -47,6 +47,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     //first name field
     final firstNameField = TextFormField(
+        key: Key('firstNameTextField_registPage'),
         autofocus: false,
         controller: firstNameEditingController,
         keyboardType: TextInputType.name,
@@ -75,6 +76,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //second name field
     final secondNameField = TextFormField(
+        key: Key('secondNameTextField_registPage'),
         autofocus: false,
         controller: secondNameEditingController,
         keyboardType: TextInputType.name,
@@ -97,8 +99,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //email field
+    //user email field
     final emailField = TextFormField(
+        key: Key('userEmailTextField_registPage'),
         autofocus: false,
         controller: emailEditingController,
         keyboardType: TextInputType.emailAddress,
@@ -128,6 +131,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //password field
     final passwordField = TextFormField(
+        key: Key('passwordTextField_registPage'),
         autofocus: false,
         controller: passwordEditingController,
         obscureText: true, // ****
@@ -155,6 +159,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //confirm password field
     final confirmPasswordField = TextFormField(
+        key: Key('confirmPasswordTextField_registPage'),
         autofocus: false,
         controller: confirmPasswordEditingController,
         obscureText: true,
@@ -180,6 +185,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //PIN field
     final pinField = TextFormField(
+        key: Key('registerdPinTextField_registPage'),
         maxLength: 4,
         maxLengthEnforced: true,
         autofocus: false,
@@ -208,6 +214,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //keyword field
     final keywordField = TextFormField(
+        key: Key('keywordTextField_registPage'),
         autofocus: false,
         controller: keywordEditingController,
         validator: (value) {
@@ -234,6 +241,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //confirm keyword field
     final confirmKeywordField = TextFormField(
+        key: Key('confirmKeywordTextField_registPage'),
         autofocus: false,
         controller: confirmKeywordEditingController,
         validator: (value) {
@@ -258,6 +266,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //emergency contact name field
     final emergencyContactNameField = TextFormField(
+        key: Key('ecNameTextField_registPage'),
         autofocus: false,
         controller: emergencyContactNameEditingController,
         keyboardType: TextInputType.name,
@@ -286,6 +295,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //emergency contact email field
     final emergencyContactEmailField = TextFormField(
+        key: Key('ecEmailTextField_registPage'),
         autofocus: false,
         controller: emergencyContactEmailEditingController,
         keyboardType: TextInputType.emailAddress,
@@ -315,6 +325,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     //signup button
     final signUpButton = ElevatedButton(
+        key: Key('RegisterButton_registPage'),
         style: ElevatedButton.styleFrom(
           primary: Color.fromARGB(255, 108, 82, 255), // background
           onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
@@ -478,14 +489,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     child: Row(children: [
                       if (currentStep < 2)
                         ElevatedButton(
+                          key: Key('nextButton_registPage'),
                           style: ElevatedButton.styleFrom(
                             primary:
                                 Color.fromARGB(255, 108, 82, 255), // background
                             onPrimary: Color.fromARGB(
                                 255, 255, 255, 255), // foreground
                           ),
-                          onPressed: controls.onStepContinue,
                           child: const Text('Next'),
+                          onPressed: controls.onStepContinue,
                         ),
                       if (currentStep == 2) signUpButton,
                       if (currentStep != 0)

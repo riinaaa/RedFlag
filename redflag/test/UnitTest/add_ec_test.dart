@@ -89,48 +89,14 @@ void main() {
     });
   });
 
-  test('Snapshots sets exists property to true if the document does exist',
-      () async {
-    final instance = FakeFirebaseFirestore();
-    await instance.collection('users').doc(uid).set({
-      'name': 'Bob',
-    });
-    instance
-        .collection('users')
-        .doc(uid)
-        .snapshots()
-        .listen(expectAsync1((document) {
-      expect(document.exists, equals(true));
-    }));
-  });
-
-  test('Snapshots sets exists property to false if the document does not exist',
-      () async {
-    final instance = FakeFirebaseFirestore();
-    await instance.collection('users').doc(uid).set({
-      'name': 'Bob',
-    });
-    instance
-        .collection('users')
-        .doc('doesnotexist')
-        .snapshots()
-        .listen(expectAsync1((document) {
-      expect(document.exists, equals(false));
-    }));
-  });
-
-// The doc is there but it it is empty (no data)
+//------------------------The doc is there but it  is empty (no data)------------------------
   test('Nonexistent document should have null data', () async {
-    final nonExistentId = 'nonExistentId';
     final instance = FakeFirebaseFirestore();
 
-    final snapshot1 =
-        await instance.collection('users').doc(nonExistentId).get();
+    final snapshot1 = await instance.collection('users').doc(uid).get();
 
-    expect(snapshot1, isNotNull);
-    expect(snapshot1.id, nonExistentId);
-    // data field should be null before the document is saved
-    expect(snapshot1.data(), isNull);
+    expect(snapshot1, isNotNull); // check if the Doc exists
+    expect(snapshot1.data(), isNull); // check if the Doc have data exists
   });
 
 // ------------------------Delete Emergency Contact------------------------
@@ -141,21 +107,15 @@ void main() {
         .collection('emergencyContact')
         .doc('003')
         .set({'eFullName': 'Rina', 'ecEmail': 'rinaAlfarsi@gmail'});
-    await instance
-        .collection('users')
-        .doc('004')
-        .set({'eFullName': 'Maha', 'ecEmail': 'mahaAlmutirir@gmail.com'});
+
     // 2) delete instance
     await instance.collection('emergencyContact').doc('003').delete();
-    await instance.collection('emergencyContacta').doc('004').delete();
 
     // 3) get instance after delete to check it in the exception method.
     final users = await instance.collection('emergencyContact').get();
 
     // 4) check if the whole doc is empty or not.
     expect(users.docs.isEmpty, equals(true));
-    expect(instance.hasSavedDocument('users/003'), false);
-    expect(instance.hasSavedDocument('users/004'), true);
   });
 
   // 	----------------------Retrive PIN----------------------
@@ -172,15 +132,11 @@ void main() {
     });
 
     final snapshot1 = await instance.collection('users').doc(uid).get();
-
-    // expect(snapshot1, isNotNull);
     expect(snapshot1.data()!['pin'], "1234");
-    // data field should be null before the document is saved
-    // expect(snapshot1.data(), isNull);
   });
 
-  // 	----------------------Insert Emergency case detailes----------------------
-  test('Retrive Emergency case detailes', () async {
+  // 	----------------------Insert Emergency case detailes then retrive it to check it existing----------------------
+  test('Insert and Retrieve Emergency Case Details', () async {
     final instance = FakeFirebaseFirestore();
     await instance.collection('emergencyCase').doc(uid).set({
       "audioRecording":
@@ -196,8 +152,8 @@ void main() {
     expect(snapshot1.data(), isNotNull);
   });
 
-  // 	----------------------Retrive Emergency case detailes----------------------
-  test('Retrive Emergency case detailes', () async {
+  // 	----------------------Retrieve Emergency case details ----------------------
+  test('Retrieve Emergency case details', () async {
     final instance = FakeFirebaseFirestore();
     await instance.collection('emergencyCase').doc(uid).set({
       "audioRecording":
