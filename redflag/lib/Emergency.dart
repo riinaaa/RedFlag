@@ -1,18 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:redflag/Users.dart';
-import 'Users.dart';
-import './AccessStatus.dart';
-import 'dart:io';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
-class Emergency extends StatelessWidget {
-  //const ({ Key? key }) : super(key: key);
-
-  AccessStatus access = new AccessStatus.empty();
-  Users user = new Users.empty();
+class Emergency {
   var caseNumber;
   var endTime;
   var userLocation;
@@ -47,6 +36,7 @@ class Emergency extends StatelessWidget {
   }
 
   // receiving data from server
+  //factory => create the emergency case
   factory Emergency.fromMap(map) {
     return Emergency(
       caseNumber: map['caseNumber'],
@@ -66,16 +56,6 @@ class Emergency extends StatelessWidget {
       'user': uid,
     };
   }
-
-  // void autoMute(bool mute) {}
-  // void autoVideoRecording() {}
-  // String locateUser() {
-  //   return '';
-  // }
-
-  // String nearestPoliceStations() {
-  //   return '';
-  // }
 
   sendMail(List<dynamic> recipients, String subject, String msg) async {
     String username = 'redflagapp.8@gmail.com';
@@ -101,16 +81,4 @@ class Emergency extends StatelessWidget {
       }
     }
   }
-
-  String genrateReport() {
-    return '';
-  }
-  //----------- UI -----------
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
 }
-
-/////////////////////////////////////////////////

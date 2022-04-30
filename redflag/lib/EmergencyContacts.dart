@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import './EmergencyContacts.dart';
-
 class EmergencyContacts {
-  //const EmergencyContacts({ Key? key }) : super(key: key);
-
   var eFullName;
   var ecEmail;
 

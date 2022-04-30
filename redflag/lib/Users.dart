@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import './EmergencyContacts.dart';
 
 class Users {
-  //const User({ Key? key }) : super(key: key);
   var userFirstName;
   var userLastName;
   var email;
@@ -50,8 +48,6 @@ class Users {
   set setEmergencyContacts(emergencyContacts) =>
       this.emergencyContacts = emergencyContacts;
 
-  Users.empty();
-
   // receiving data from server
   factory Users.fromMap(map) {
     return Users(
@@ -60,7 +56,6 @@ class Users {
       userLastName: map['userLastName'],
       keyword: map['keyword'],
       pin: map['pin'],
-      // emergencyContacts: map['emergencyContacts'],
     );
   }
 

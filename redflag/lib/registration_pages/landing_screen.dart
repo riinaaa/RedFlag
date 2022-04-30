@@ -10,12 +10,9 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
-  // form key
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
-    //SignUp Button
+    //------------------------------ SignUp Button------------------------------
     final signUpPageButton = Material(
       key: Key('homeSignUpButton'),
       elevation: 3,
@@ -36,7 +33,7 @@ class _LandingScreenState extends State<LandingScreen> {
           )),
     );
 
-    //LOGIN Button
+    //------------------------------ LOGIN Button------------------------------
     final loginPageButton = Material(
       key: Key('homeLoginButton'),
       elevation: 3,
@@ -59,7 +56,7 @@ class _LandingScreenState extends State<LandingScreen> {
           )),
     );
 
-////
+//------------------------------ The landing page UI ------------------------------
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(

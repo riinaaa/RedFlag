@@ -15,33 +15,28 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //   Firebase.initializeApp();
-  // }
+  // ------------------------------ form key------------------------------
+  final _formKey = GlobalKey<FormState>(); //for the validate
 
-  // form key
-  final _formKey = GlobalKey<FormState>();
-
-  // editing controller
+  //------------------------------ TextFields Controller (to get the user input)------------------------------
   final TextEditingController emailController = new TextEditingController();
   final TextEditingController passwordController = new TextEditingController();
 
-  // firebase auth
+  //------------------------------ Firebase Auth------------------------------
   final _auth = FirebaseAuth.instance;
 
-  // error messages
+  //------------------------------ error messages------------------------------
   String? errorMessage;
 
   @override
   Widget build(BuildContext context) {
-    //email field
+    //------------------------------ email field------------------------------
     final emailField = TextFormField(
         key: Key('emailField_login'),
         autofocus: false,
         controller: emailController,
         keyboardType: TextInputType.emailAddress,
+        // Email Validation
         validator: (value) {
           if (value!.isEmpty) {
             return ("Please Enter Your Email");
@@ -56,7 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
         onSaved: (value) {
           emailController.text = value!;
         },
-        textInputAction: TextInputAction.next,
+        textInputAction:
+            TextInputAction.next, //When press Tap will go to the next TextField
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.mail),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -66,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ));
 
-    //password field
+    //------------------------------ password field------------------------------
     final passwordField = TextFormField(
         key: Key('passwordField_login'),
         autofocus: false,
@@ -93,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
             borderRadius: BorderRadius.circular(10),
           ),
         ));
-
+    //------------------------------ Login Button ------------------------------
     final loginButton = Material(
       key: Key('signInButton'),
       elevation: 5,
@@ -103,9 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
+            // This method will perform Firebase Email and Password Authintecation.
             signIn(emailController.text, passwordController.text);
-            // Navigator.of(context).pushReplacement(
-            //     MaterialPageRoute(builder: (context) => NavScreen()));
           },
           child: Text(
             "LOGIN",
@@ -115,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
           )),
     );
 
-////
+    //------------------------------ The Login page UI ------------------------------
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -158,33 +153,33 @@ class _LoginScreenState extends State<LoginScreen> {
                     emailField,
                     SizedBox(height: 25),
                     passwordField,
-                    SizedBox(height: 2),
+                    // SizedBox(height: 2),
 
-                    //forgot password
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          Text("Forgot password? "),
+                    // //forgot password
+                    // Row(
+                    //     mainAxisAlignment: MainAxisAlignment.end,
+                    //     children: <Widget>[
+                    //       Text("Forgot password? "),
 
-                          // to know when the user clicks on it
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          //change the router here!
-                                          RegistrationScreen()));
-                            },
-                            child: Text(
-                              "click here",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15),
-                            ),
-                          )
-                        ]),
+                    //       // to know when the user clicks on it
+                    //       GestureDetector(
+                    //         onTap: () {
+                    //           Navigator.push(
+                    //               context,
+                    //               MaterialPageRoute(
+                    //                   builder: (context) =>
+                    //                       //change the router here!
+                    //                       RegistrationScreen()));
+                    //         },
+                    //         child: Text(
+                    //           "click here",
+                    //           style: TextStyle(
+                    //               color: Colors.black,
+                    //               fontWeight: FontWeight.bold,
+                    //               fontSize: 15),
+                    //         ),
+                    //       )
+                    //     ]),
                     SizedBox(height: 35),
 
                     loginButton,
