@@ -153,39 +153,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     emailField,
                     SizedBox(height: 25),
                     passwordField,
-                    // SizedBox(height: 2),
-
-                    // //forgot password
-                    // Row(
-                    //     mainAxisAlignment: MainAxisAlignment.end,
-                    //     children: <Widget>[
-                    //       Text("Forgot password? "),
-
-                    //       // to know when the user clicks on it
-                    //       GestureDetector(
-                    //         onTap: () {
-                    //           Navigator.push(
-                    //               context,
-                    //               MaterialPageRoute(
-                    //                   builder: (context) =>
-                    //                       //change the router here!
-                    //                       RegistrationScreen()));
-                    //         },
-                    //         child: Text(
-                    //           "click here",
-                    //           style: TextStyle(
-                    //               color: Colors.black,
-                    //               fontWeight: FontWeight.bold,
-                    //               fontSize: 15),
-                    //         ),
-                    //       )
-                    //     ]),
                     SizedBox(height: 35),
-
                     loginButton,
                     SizedBox(height: 15),
 
-                    //////// REGISTER
+                    //------------------------------ REGISTER------------------------------
                     Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -219,19 +191,25 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  //------------------------------ Login Method ------------------------------
   // login function takes both email and password and will perform login using Firebase Auth
   void signIn(String email, String password) async {
     if (_formKey.currentState!.validate()) {
+      // if evreything the user enter is valid
+      // ------------------------------ Login Auth ------------------------------
       try {
         await _auth
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
+                  // Display the success mesg to the user
                   Fluttertoast.showToast(msg: "You've Logged in Successfully"),
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => NavScreen())),
+                  //****Note****
+                  //pushReplacement() => we used it because we don’t want the user to go back to LoginScreen in any case.
                 });
       }
-      //firebase login errors
+      //------------------------------ Firebase login errors------------------------------
       on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
@@ -255,6 +233,8 @@ class _LoginScreenState extends State<LoginScreen> {
           default:
             errorMessage = "An undefined Error happened.";
         }
+
+        // Display the error mesg to the user
         Fluttertoast.showToast(msg: errorMessage!);
         print(error.code);
       }

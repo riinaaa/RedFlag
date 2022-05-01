@@ -4,9 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:flutter_verification_code/flutter_verification_code.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:provider/provider.dart';
 import 'package:redflag/Emergency.dart';
 import 'package:redflag/EmergencyContacts.dart';
 import 'package:redflag/Users.dart';
@@ -30,17 +27,14 @@ class Verificatoin extends StatefulWidget {
 class _VerificatoinState extends State<Verificatoin> {
   final confirmPinEditingController = new TextEditingController();
 
-  String _code = '';
-  bool _pinLength = false;
+  bool _pinLength = false; // flag for the timer
   Timer? _timer;
   late FlutterSoundRecorder _myRecorder;
   final audioPlayer = AssetsAudioPlayer();
   late String filePath;
-  late final emergencyId;
-  static var startDate;
-  late final endDate;
 
-// UserLocation locLinl=new UserLocation();
+  late final emergencyId;
+  late final endDate;
 
 // Retrive the registered PIN
   User? user = FirebaseAuth.instance.currentUser;
@@ -50,19 +44,18 @@ class _VerificatoinState extends State<Verificatoin> {
   List<dynamic> recipients = <dynamic>[];
   String? userFirstName;
   String? userLastName;
-  // String? msg;
 
   Emergency emergencyCase = new Emergency();
   String subject = 'There is an emergency ::🔴:: Redflag Team';
-  double? lat;
-  double? lng;
   String? downloadUrl;
 
   @override
   void initState() {
     super.initState();
-    startIt(); // this only starts the session beforehand
+    // this only starts the recording session beforehand
+    startIt();
 
+    // retrive the Emergency Contacts name and emailes to send them an Emergency Email
     FirebaseFirestore.instance
         .collection('emergencyContacts')
         .where('user', isEqualTo: user!.uid)
@@ -72,19 +65,13 @@ class _VerificatoinState extends State<Verificatoin> {
         //emergency contact
         emergencyContactModel.eFullName = doc['eFullName'];
         emergencyContactModel.ecEmail = doc['ecEmail'];
-
         loggedInUser.emergencyContacts.add(emergencyContactModel);
         for (var i = 0; i < 1; i++) {
-          // print('i--> $i');
-          // print(loggedInUser.emergencyContacts[i].eFullName);
-          // print(loggedInUser.emergencyContacts[i].ecEmail);
-          // print('-------------------------');
-
           recipients.add(loggedInUser.emergencyContacts[i].ecEmail);
         }
       });
     });
-
+// -------------- to retrive the length of emergency contact based on the UID.--------------
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -95,28 +82,18 @@ class _VerificatoinState extends State<Verificatoin> {
     });
   }
 
-  // timer for the recording
+  //----------------------timer for the recording-----------------------
   Timer scheduleTimeout([int milliseconds = 10000]) =>
       Timer(Duration(milliseconds: milliseconds), stopRecord);
 
-  String pin = '';
-
-  // here we can check if the 4 digit equal the one in firebase
+  // ---------- Check if the 4 digit the user enter equal the one in Firestore ----------
   verify() {
-    // setState(() {
-    //   _isLoading = true;
-    // });
-
+    //----------------- Display an error message when user enter less than 4 digits------------------
     if (confirmPinEditingController.text.length < 4) {
       _pinLength = false;
-
       int k = confirmPinEditingController.text.length;
-      print(k);
-      print(confirmPinEditingController.text);
-
       print("> 4");
-
-      //----------------- Display an error message when user enter less than 4 digits------------------
+      // the msg
       final snackBar = SnackBar(
         content: const Text('Plese enter 4 digits. '),
         backgroundColor: Color.fromARGB(255, 255, 117, 107),
@@ -132,30 +109,32 @@ class _VerificatoinState extends State<Verificatoin> {
           borderRadius: BorderRadius.circular(5),
         ),
       );
+
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
-      // String pin = '${loggedInUser.getPin}';
-
+      //----------------- Deactivate when the user enter the correct pin------------------
       if (confirmPinEditingController.text == '${loggedInUser.getPin}') {
         _pinLength = true;
-
         print('= 4');
 
+        // if the user:
+        //1) entered the pin page from the Safe button
+        //2) terminate the emergency
+        //----> it will add new emergency case  to firestore
         if (widget.status == 'safe') {
-          // scheduleTimeout(5 * 1000); // 60 seconds.
-
-          // stopRecord();
+          // 1
           //generate emergencycase ID
           emergencyId = "RF" + DateTime.now().millisecondsSinceEpoch.toString();
-
-          //end date
+          // 2
+          //Incedint date
           DateTime nowEnd = DateTime.now();
           endDate =
               "${nowEnd.year.toString()}-${nowEnd.month.toString().padLeft(2, '0')}-${nowEnd.day.toString().padLeft(2, '0')} ${nowEnd.hour.toString().padLeft(2, '0')}-${nowEnd.minute.toString().padLeft(2, '0')}";
 
-          // set the endTime in the emergencyCae object
+          // set the Incedint date in the emergencyCae object
           emergencyCase.endTime = endDate;
 
+          // 3
           //UPLOAD AUDIO TO FIREBASE STORAGE
           uploadRecording(emergencyId);
         }
@@ -164,14 +143,12 @@ class _VerificatoinState extends State<Verificatoin> {
           context,
           MaterialPageRoute(builder: (context) => NavScreen()),
         );
-        // _timer!.cancel();
-        // print('timer canceled');
-      } else {
+
         //----------------- Display an error message when user enter pin dont equal registered pin------------------
+      } else {
         final snackBar = SnackBar(
           content: const Text('Incorrect, please re-enter.'),
           backgroundColor: Color.fromARGB(255, 255, 117, 107),
-          // Inner padding for SnackBar content.
           padding: const EdgeInsets.only(
             top: 20,
             bottom: 20,
@@ -188,15 +165,18 @@ class _VerificatoinState extends State<Verificatoin> {
     }
   }
 
+  // ---------- will open an audio session and setup before recording ----------
+  //setting temp recording in the files
   void startIt() async {
-    //setting temp recording in the files
-    // getTemporaryDirectory help to get a temp directory based on the device running the app
-    Directory tempDir = await getTemporaryDirectory();
+    // getTemporaryDirectory => help to get a temp directory based on the device running the app
+    Directory tempDir =
+        await getTemporaryDirectory(); // where the recording will be stored
     filePath = tempDir.path + '/temps.aac';
-    //new Flutter Sound Recorder.
-    _myRecorder = FlutterSoundRecorder();
 
-// *open* the Audio Session before using it.
+    //new Flutter Sound Recorder.
+    _myRecorder = FlutterSoundRecorder(); // obj
+
+    // *open* the Audio Session before using it.
     await _myRecorder.openAudioSession(
         focus: AudioFocus.requestFocusAndDuckOthers,
         category: SessionCategory.record,
@@ -209,28 +189,36 @@ class _VerificatoinState extends State<Verificatoin> {
     await initializeDateFormatting();
   }
 
+  // ---------- Start the recording ----------
   Future<void> record() async {
-    _myRecorder.openAudioSession();
+    _myRecorder.openAudioSession(); // start record
     await _myRecorder.startRecorder(
-      toFile: filePath,
-      codec: Codec.defaultCodec,
+      toFile: filePath, // where to save it
+      codec: Codec.defaultCodec, // audio file type
     );
 
+    // ******** important for the recording ********
     /// The subscription provides events to the listener,
     /// and holds the callbacks used to handle the events.
     /// The subscription can also be used to unsubscribe from the events,
     /// or to temporarily pause the events from the stream.
     StreamSubscription _recorderSubscription =
+        /**
+     * _recordingSession.onProgress.listen then listens while the audio recording
+     *  is in progress. While this happens.
+     */
         _myRecorder.onProgress!.listen((e) {});
     _recorderSubscription.cancel();
   }
 
+  // ---------- Stop the recording (Close the session) ----------
   Future<String?> stopRecord() async {
     _myRecorder.closeAudioSession();
     return await _myRecorder.stopRecorder();
   }
 
-  //upload recording file to firebase storage to get the download url to add it to firestore
+  //----------upload recording file to firebase ----------
+  // to get the download url to add it to firestore
   Future uploadRecording(String ecaseID) async {
     File recording = File(filePath);
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -257,78 +245,54 @@ class _VerificatoinState extends State<Verificatoin> {
   }
 
   void startTimer() {
-    // print('lat from Timer --> $lat');
-    // print('lng from Timer--> $lng');
-
     Future<dynamic> loc = UserLocation().getLocation().then((value) {
       userFirstName = loggedInUser.getUserFirstName;
       userLastName = loggedInUser.getUserLastName;
-      // print('loc ----> $value');
-      //set the emergency location in the emergencycase object
+
+      //set the user location link in the emergency case object
+      //to store the link in firestore
       emergencyCase.userLocation = value;
+
+      // the email content
       String msg2 =
           '<div style=" height: 300px; width: 600px; border-style: ridge; border-radius: 15px; text-align: center; font-family: verdana;">\n<h1 style="color:red;">$userFirstName $userLastName in danger!</h1>\n<p>REDFLAG has been activated.</p>\n<br>\n<br>\n<br>\n<br>\n<a style="color:#6c63ff;font-weight: 900" href="$value">The Location Link</a></div>';
 
-      // print(msg2);
-      // setState(() --> Notify the framework that the internal state of this object has changed.
-      // setState(() {
-
-      // String msg =
-      //     '<p><strong>$userFirstName $userLastName </strong> is in danger!.\n</p><p>the user location  ------ .</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
-      // Future<dynamic> loc = UserLocation().getLocation();
-      // print('loc ----> $loc');
-      // print('-------------------');
-      // print(UserLocation().getLocation());
-
-      //------------------------When the 30 sec end without the correct PIN-----------------------------
+      //------------------------30 Sec Timer, will only perform the features if the user didn't enter the correct pin-----------------------------
       _timer = Timer(Duration(seconds: 30), () {
         if (_timer?.isActive == false && _pinLength == false) {
-          // if it from the Emergency buttons
-          //    - Activate fetaures
+          // ----------- if the user entered the pin page from --> the Emergency button.
           if (widget.status == 'emergency') {
+            // Activate fetaures
             print('1- Fetures Activated');
-
-            //startdate
-            DateTime now = DateTime.now();
-            startDate =
-                "${now.year.toString()}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')} ${now.hour.toString().padLeft(2, '0')}-${now.minute.toString().padLeft(2, '0')}";
-
-            //----------------------------------------
-            // Send an email to the emergency contact
+            // 1) Send an emergency email to the emergency contact
             emergencyCase.sendMail(recipients, subject, msg2);
-
-            //record for 60 seconds
+            //2) record audio for 60 seconds
             record();
             scheduleTimeout(60 * 1000); // 60 seconds.
+            //3) Mute
+            // in the Activation page
 
           }
 
-          //either from emergency button or safe button,
-          //when the timer end without correct input
-          //go to termenation page
           print('2- went to termination page');
+          //either from Emergency button or Safe button,
+          //when the timer end without correct input
+          //it will send the user to the Termenation page
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const terminationPage()),
           );
         }
       });
-    }); // value
-    // });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-// -------------------------- Timer 30 sec ----------------------------
-    // final currentPosition = Provider.of<Position?>(context);
-    // lat = currentPosition?.latitude;
-    // lng = currentPosition?.longitude;
-
-    // print('lat from pin--> $lat');
-    // print('lng from pin --> $lng');
-
+    // The timer will start ince the user enter the pin page
     startTimer();
 
+    // ---------------------- PIN page UI ----------------------
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
@@ -402,19 +366,13 @@ class _VerificatoinState extends State<Verificatoin> {
                   FadeInDown(
                     delay: Duration(milliseconds: 700),
                     duration: Duration(milliseconds: 500),
-
-                    // VerificationCode is from flutter_verification_code 1.1.2+1
-                    // A Flutter package that help you create a verification input.
-
                     child: TextFormField(
                         key: Key('pinTextField_pinPage'),
                         maxLength: 4,
-                        maxLengthEnforced: true,
-                        autofocus: false,
+                        autofocus: true,
                         controller: confirmPinEditingController,
                         onSaved: (value) {
                           confirmPinEditingController.text = value!;
-                          // _code = confirmPinEditingController.text;
                         },
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
@@ -425,35 +383,8 @@ class _VerificatoinState extends State<Verificatoin> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         )),
-
-                    // child: VerificationCode(
-                    //   //-------------------------------------
-                    //   //*********Style**********
-                    //   //-------------------------------------
-                    //   length: 4, //quantity of boxes
-                    //   autofocus: true, //auto focus when screen appears
-                    //   digitsOnly: true, //accept only digit inputs from keyboard
-                    //   textStyle: TextStyle(fontSize: 20, color: Colors.black),
-                    //   underlineColor: Color.fromARGB(255, 0, 0, 0),
-                    //   underlineUnfocusedColor: Color.fromARGB(255, 0, 0, 0),
-
-                    //   //-------------------------------------
-                    //   ////*********the user input stored in _code//*********
-                    //   //-------------------------------------
-                    //   onCompleted: (value) {
-                    //     setState(() {
-                    //       _code = value;
-                    //       // _code --> contain the entered PIN,
-                    //       // we will compare it with the one the user regestered.
-                    //       // print(_code);
-                    //     });
-                    //   },
-                    //   onEditing: (value) {},
-                    // ),
                   ),
 
-                  /////////////////////////////////////////////////////////////////////
-                  /////////////////////////////////////////////////////////////////////
                   // space between the input and the button
 
                   SizedBox(
@@ -485,9 +416,6 @@ class _VerificatoinState extends State<Verificatoin> {
                       ),
                     ),
                   )
-
-                  /////////////////////////////////////////////////////////////////////
-                  /////////////////////////////////////////////////////////////////////
                 ],
               )),
         ));

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-// import 'package:location/location.dart';
 
 class mapPage extends StatefulWidget {
   const mapPage({Key? key}) : super(key: key);
@@ -13,10 +12,15 @@ class mapPage extends StatefulWidget {
 }
 
 class _mapPageState extends State<mapPage> {
+  //GoogleMapController =>  is mostly similar to TextEditingController as it is being used to
+  // manage the camera functions, zoom and animations, etc.
   Completer<GoogleMapController> _controller = Completer();
-  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
+
+  // store each marker ID so we cas use it in ( markers list ) to refrence the marker.
   List<MarkerId> listMarkerIds = List<MarkerId>.empty(growable: true);
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  // we will store the markers in here then will use it to set it on the map
+  Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
   @override
   void initState() {
@@ -25,23 +29,30 @@ class _mapPageState extends State<mapPage> {
 
   @override
   Widget build(BuildContext context) {
+    // we passed the lat and lng from the location_service.dart using a FutureProvider.
     final currentPosition = Provider.of<Position?>(context);
     return Scaffold(
-      key: scaffoldKey,
       body: (currentPosition != null)
           ? Column(
               children: [
                 Expanded(
+                  // GoogleMap => Display the Google Map
                   child: GoogleMap(
                     key: Key('GoogleMap_mapPage'),
                     mapType: MapType.normal,
+                    // ------------------ Focues on the user current location ------------------
                     initialCameraPosition: CameraPosition(
                         target: LatLng(currentPosition.latitude,
                             currentPosition.longitude),
                         zoom: 12),
-                    myLocationEnabled: true,
+
+                    myLocationEnabled:
+                        true, // put a blue dot on the user location
                     myLocationButtonEnabled: true,
-                    markers: Set<Marker>.of(markers.values),
+                    // ------------------ Placing the markers ------------------
+                    markers: Set<Marker>.of(markers
+                        .values), // set the markers that is in the markers list
+
                     onMapCreated: (GoogleMapController controller) {
                       _controller.complete(controller);
 
@@ -99,7 +110,7 @@ class _mapPageState extends State<mapPage> {
                               title: "Police Sattion",
                               snippet: "مركز شرطة الجامعة"));
 
-// MARKER 3
+                      // MARKER 3
                       Marker marker3 = Marker(
                           markerId: markerId3,
                           position:

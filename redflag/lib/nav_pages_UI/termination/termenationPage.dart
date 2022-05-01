@@ -14,6 +14,7 @@ class _terminationPageState extends State<terminationPage> {
     super.initState();
   }
 
+  // ------------------------- The termination page UI -------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(

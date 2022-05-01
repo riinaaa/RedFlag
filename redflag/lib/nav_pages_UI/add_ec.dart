@@ -15,16 +15,21 @@ class add extends StatefulWidget {
 }
 
 class _addState extends State<add> {
+  // Controllers for the TextFileds to get the user input
   final emergencyContactNameEditingController = new TextEditingController();
   final emergencyContactEmailEditingController = new TextEditingController();
   String? name;
   String? email;
+
+  // Firebase Auth
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
 
   @override
   void initState() {
     super.initState();
+
+    // -------------- to retrive the name and email of the user.--------------
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -35,19 +40,18 @@ class _addState extends State<add> {
     });
   }
 
-/**
- In submitData() the data will be sent to the firestore.
- */
+  // --------------------- In submitData() the data will be sent to the firestore. ---------------------
+
   submitData() async {
     EmergencyContacts emergencyContactModel = EmergencyContacts();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-//emergency contact
+    //emergency contact
     emergencyContactModel.eFullName =
         emergencyContactNameEditingController.text;
     emergencyContactModel.ecEmail = emergencyContactEmailEditingController.text;
 
-    //add to the emergencycontact array in the user object
+    //--------------------- add to the emergencycontact array in the user object ---------------------
     loggedInUser.emergencyContacts.add(emergencyContactModel);
 
     name = emergencyContactNameEditingController.text;
@@ -62,8 +66,8 @@ class _addState extends State<add> {
 
       Fluttertoast.showToast(msg: "Emergency contact added successfully :) ");
 
-      //----------------------------------------
-      // Send an email to the emergency contact
+      //********************************************************************************
+      // ---------------------Send an email to the emergency contact---------------------
       Emergency mail = new Emergency();
       String subject =
           'You have been added as an Emergency Contact ::🟡:: Redflag Team';
@@ -84,9 +88,8 @@ class _addState extends State<add> {
     // setState(() {});
   }
 
-/**
- In clearData() the textfields will be cleared.
- */
+  // ---------------------In clearData() the textfields will be cleared.---------------------
+
   clearData() {
     emergencyContactNameEditingController.clear();
     emergencyContactEmailEditingController.clear();
@@ -94,10 +97,10 @@ class _addState extends State<add> {
 
   @override
   Widget build(BuildContext context) {
-    //emergency contact name field
+    //--------------------- emergency contact name field ---------------------
     final emergencyContactNameField = TextFormField(
         key: Key('nameField_addPage'),
-        autofocus: false,
+        autofocus: true,
         controller: emergencyContactNameEditingController,
         keyboardType: TextInputType.name,
         validator: (value) {
@@ -123,7 +126,7 @@ class _addState extends State<add> {
           ),
         ));
 
-    //emergency contact email field
+    //---------------------emergency contact email field---------------------
     final emergencyContactEmailField = TextFormField(
         key: Key('emailField_addPage'),
         autofocus: false,
@@ -153,12 +156,13 @@ class _addState extends State<add> {
           ),
         ));
 
+    // --------------------- Add page UI ---------------------
     return Container(
       child: Scaffold(
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
           body: Stack(
             children: [
-//------------------------------------ App Bar ----------------------------------------
+              //------------------------------------ App Bar ----------------------------------------
 
               Container(
                 height: 250,
@@ -171,7 +175,7 @@ class _addState extends State<add> {
                     ], begin: Alignment.topLeft, end: Alignment.bottomRight)),
               ),
 
-//------------------------------------ User info ----------------------------------------
+              //------------------------------------ User info ----------------------------------------
 
               Container(
                 padding: EdgeInsets.only(top: 80, left: 120),
@@ -179,6 +183,8 @@ class _addState extends State<add> {
                   children: [
                     //child 1 --> avatar
                     CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          "https://hostpapasupport.com/knowledgebase/wp-content/uploads/2018/04/1-13.png"),
                       radius: 30.0,
                       backgroundColor: Color.fromARGB(255, 255, 255, 255),
                     ),
@@ -205,7 +211,7 @@ class _addState extends State<add> {
                   ],
                 ),
               ),
-//------------------------------------Logout------------------------------------
+              //------------------------------------Logout------------------------------------
 
               Container(
                 padding: EdgeInsets.only(top: 80, left: 300),
@@ -221,13 +227,14 @@ class _addState extends State<add> {
                 ),
               ),
 
-//------------------------------------ Current Emergency Contacts List ----------------------------------------
+//------------------------------------ The body ----------------------------------------
 
               Column(
                 children: [
                   SizedBox(
                     height: 300,
                   ),
+                  // ------------------------- The header -------------------------
                   Align(
                     // to force it to stay in the left then will control it with th margin, if i remove it, it will go the center and the margin can't move it
                     alignment: Alignment.centerLeft,
@@ -243,6 +250,7 @@ class _addState extends State<add> {
                   SizedBox(
                     height: 30,
                   ),
+                  // ------------------------- Text Fields -------------------------
                   Container(
                     padding: EdgeInsets.only(left: 35, right: 35),
                     child: Column(
@@ -264,7 +272,7 @@ class _addState extends State<add> {
                       mainAxisAlignment: MainAxisAlignment
                           .spaceEvenly, // space between the buttons
                       children: [
-//----------------------------------- Add Button ---------------------------------------
+                        //------------------------- Add Button -------------------------
 
                         ElevatedButton(
                           key: Key('addButton_addPage'),
@@ -281,7 +289,7 @@ class _addState extends State<add> {
                           ),
                         ),
 
-//----------------------------------- Clear Button -----------------------------------------
+                        //------------------------- Clear Button -------------------------
                         ElevatedButton(
                           onPressed: clearData,
                           style: ElevatedButton.styleFrom(
@@ -308,6 +316,7 @@ class _addState extends State<add> {
     );
   }
 
+//-----------------------------------  Logout function ---------------------------------------
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(

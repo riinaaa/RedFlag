@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // for the clipboard
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
-import 'package:redflag/Emergency.dart';
-import 'package:redflag/EmergencyContacts.dart';
 import 'package:redflag/Users.dart';
 import 'package:redflag/nav_pages_UI/reports/emergencyCasesList.dart';
 import 'package:redflag/registration_pages/login_screen.dart';
@@ -20,22 +16,18 @@ class reportsPage extends StatefulWidget {
 }
 
 class _reportsPageState extends State<reportsPage> {
-  // To retrive from Firebase
+  //  Firebase Auth
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
-  // Emergency caseInfo = Emergency();
+
   // To play audio player
   final audioPlayer = new AudioPlayer();
   bool isPlaying = false;
-  Duration duration = Duration.zero;
-  Duration postion = Duration.zero;
   late String _filePath;
-  //
   late String locationLink;
 
   @override
   void dispose() {
-    // TODO: implement dispose
     audioPlayer.dispose();
     super.dispose();
   }
@@ -43,28 +35,7 @@ class _reportsPageState extends State<reportsPage> {
   @override
   void initState() {
     super.initState();
-
-    // // listen to states --> playing, paused, stooped
-    // audioPlayer.onPlayerStateChanged.listen((state) {
-    //   setState(() {
-    //     isPlaying = state == PlayerState.PLAYING;
-    //   });
-    // });
-
-    // listen to audio duration
-    // audioPlayer.onDurationChanged.listen((newDuration) {
-    //   setState(() {
-    //     duration = newDuration;
-    //   });
-    // });
-
-    // // listen to audio duration
-    // audioPlayer.onAudioPositionChanged.listen((newPostion) {
-    //   setState(() {
-    //     postion = newPostion;
-    //   });
-    // });
-
+    // -------------- to retrive the name and email of the user.--------------
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -77,9 +48,10 @@ class _reportsPageState extends State<reportsPage> {
 
   void _onPlayButtonPressed() {
     if (!isPlaying) {
+      // if the audio in not playing
       print('method --> $_filePath');
       isPlaying = true;
-      audioPlayer.play(_filePath);
+      audioPlayer.play(_filePath); // will paly the audio through the URL
 
       audioPlayer.onPlayerCompletion.listen((duration) {
         setState(() {
@@ -87,23 +59,11 @@ class _reportsPageState extends State<reportsPage> {
         });
       });
     } else {
-      audioPlayer.pause();
+      // if the audio is palying
+      audioPlayer.pause(); // will pause the audio through the URL
       isPlaying = false;
     }
     setState(() {});
-  }
-
-  String formatTime(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final hours = twoDigits(duration.inHours);
-    final minutes = twoDigits(duration.inMinutes.remainder(60));
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
-
-    return [
-      if (duration.inHours > 0) hours,
-      minutes,
-      seconds,
-    ].join(':');
   }
 
   @override
@@ -134,6 +94,8 @@ class _reportsPageState extends State<reportsPage> {
                   children: [
                     //child 1 --> avatar
                     CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          "https://hostpapasupport.com/knowledgebase/wp-content/uploads/2018/04/1-13.png"),
                       radius: 30.0,
                       backgroundColor: Color.fromARGB(255, 255, 255, 255),
                     ),
@@ -194,9 +156,14 @@ class _reportsPageState extends State<reportsPage> {
               ),
 
 // ----------------------------------------- Retrive the case details based on the case number -----------------------------------------
-
+              SizedBox(
+                height: 50,
+              ),
               Container(
                 margin: EdgeInsets.only(top: 170),
+                // --------------- Retriving Emergency Case Detailes based on the caseNumb ---------------
+                //StreamBuilder<QuerySnapshot> => we used it to retrive it as Listview
+                // and to be apply to retrive multiple documents from the Firestore
                 child: StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
                       .collection('emergencyCase')
@@ -212,22 +179,24 @@ class _reportsPageState extends State<reportsPage> {
                       return Center(child: CircularProgressIndicator());
                       // return Text("Loading --> waiting");
                     }
+
+                    // -------------- The UI of the Listview --------------
                     return ListView(
                       children:
                           snapshot.data!.docs.map((DocumentSnapshot document) {
                         Map<String, dynamic> data =
                             document.data()! as Map<String, dynamic>;
 
-// ----------------------------------------- dispaly Emergency case ID -----------------------------------------
-
                         return Column(
                           children: [
                             Row(
                               children: [
+// ----------------------------------------- dispaly Emergency case ID -----------------------------------------
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: Container(
-                                    margin: EdgeInsets.only(left: 8, right: 8),
+                                    margin: EdgeInsets.only(
+                                        top: 15, left: 8, right: 8),
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(255, 255, 255, 1),
                                       borderRadius: BorderRadius.circular(10),
@@ -247,16 +216,16 @@ class _reportsPageState extends State<reportsPage> {
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
                                               color: Color(0xFF6666FF))),
-                                      // leading: Icon(Icons.access_time_filled_sharp),
                                       subtitle: Text(data['caseNumber']),
                                     ),
                                   ),
                                 ),
-// ----------------------------------------- dispaly termination time -----------------------------------------
+// ----------------------------------------- dispaly Incident date -----------------------------------------
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: Container(
-                                    margin: EdgeInsets.only(left: 8, right: 8),
+                                    margin: EdgeInsets.only(
+                                        top: 15, left: 8, right: 8),
                                     // padding: EdgeInsets.only(top: 20, bottom: 20),
                                     decoration: BoxDecoration(
                                       color: Color.fromRGBO(255, 255, 255, 1),
@@ -354,31 +323,7 @@ class _reportsPageState extends State<reportsPage> {
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,
                                             color: Color(0xFF6666FF))),
-                                    // leading: Icon(Icons.access_time_filled_sharp),
-                                    // subtitle: Text(data['userLocation']),
                                   ),
-                                  // Slider(
-                                  //     min: 0,
-                                  //     max: duration.inSeconds.toDouble(),
-                                  //     value: postion.inSeconds.toDouble(),
-                                  //     onChanged: (value) async {
-                                  //       final position =
-                                  //           Duration(seconds: value.toInt());
-                                  //       await audioPlayer.seek(position);
-                                  //       await audioPlayer.resume();
-                                  //     }),
-                                  // Padding(
-                                  //   padding:
-                                  //       EdgeInsets.symmetric(horizontal: 16),
-                                  //   child: Row(
-                                  //     mainAxisAlignment:
-                                  //         MainAxisAlignment.spaceBetween,
-                                  //     children: [
-                                  //       Text(formatTime(postion)),
-                                  //       Text(formatTime(duration - postion)),
-                                  //     ],
-                                  //   ),
-                                  // ),
                                   Align(
                                     alignment: Alignment
                                         .centerLeft, // or AlignmentDirectional.center,
@@ -399,39 +344,13 @@ class _reportsPageState extends State<reportsPage> {
                                           textStyle: const TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.normal),
-                                          // shape: RoundedRectangleBorder(
-                                          //     borderRadius:
-                                          //         BorderRadius.circular(20))
                                         ),
-
-                                        // radius: 35,
-
-                                        // child: IconButton(
-                                        //   icon: Icon(
-                                        //     isPlaying
-                                        //         ? Icons.pause
-                                        //         : Icons.play_arrow,
-                                        //   ),
-                                        //   iconSize: 50,
                                         onPressed: () async {
                                           setState(() {
                                             _filePath = data['audioRecording'];
                                           });
-
-                                          // await Future.delayed(
-                                          //     Duration(milliseconds: 300));
-
                                           _onPlayButtonPressed();
                                           print(_filePath);
-                                          // if (isPlaying) {
-                                          //   await audioPlayer.pause();
-                                          // } else {
-                                          //   // await audioPlayer.resume();
-                                          //   // String url = data['audioRecording'];
-                                          //   await audioPlayer
-                                          //       .play(data['audioRecording']);
-                                          //   // print(data['audioRecording']);
-                                          // }
                                         },
                                       ),
                                     ),
@@ -446,51 +365,13 @@ class _reportsPageState extends State<reportsPage> {
                   },
                 ),
               ),
-              //--------------------------------------------------
-
-              // Column(
-              //   children: [
-              //     Container(
-              //       padding: EdgeInsets.only(
-              //           left: 30, right: 30, top: 22, bottom: 22),
-              //       margin: EdgeInsets.only(top: 220, left: 90),
-              //       decoration: BoxDecoration(
-              //         color: Color.fromRGBO(255, 255, 255, 1),
-              //         // boxShadow: shadowList,
-              //         borderRadius: BorderRadius.circular(10),
-              //         boxShadow: [
-              //           BoxShadow(
-              //             color: Color.fromARGB(170, 188, 188, 188)
-              //                 .withOpacity(0.5),
-              //             spreadRadius: 5,
-              //             blurRadius: 7,
-              //             offset: Offset(0, 0), // changes position of shadow
-              //           ),
-              //         ],
-              //       ),
-              //       child: Text('${caseInfo.getCaseNumber}',
-              //           style: TextStyle(
-              //               fontSize: 30,
-              //               fontWeight: FontWeight.bold,
-              //               color: Color(0xFF6666FF))),
-              //     ),
-              //     SizedBox(
-              //       height: 15,
-              //     ),
-              //     Text('Emergency \nContacts.',
-              //         textAlign: TextAlign.center,
-              //         style: TextStyle(
-              //             fontSize: 12,
-              //             color: Colors.black,
-              //             fontWeight: FontWeight.w500)),
-              //   ],
-              // ),
             ],
           )),
     );
   }
 }
 
+// the logout function
 Future<void> logout(BuildContext context) async {
   await FirebaseAuth.instance.signOut();
   Navigator.of(context)

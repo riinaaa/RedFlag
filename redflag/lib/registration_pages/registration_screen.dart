@@ -9,10 +9,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 //created multiple formkeys because each step in the stepper require validation
 List<GlobalKey<FormState>> formKeys = [
-  GlobalKey<FormState>(),
-  GlobalKey<FormState>(),
-  GlobalKey<FormState>(),
-  GlobalKey<FormState>()
+  GlobalKey<FormState>(), //step 1
+  GlobalKey<FormState>(), // step 2
+  GlobalKey<FormState>(), //step 3
+  GlobalKey<FormState>() // for the buttons
 ];
 
 class RegistrationScreen extends StatefulWidget {
@@ -45,10 +45,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //first name field
+    // --------------------- first name field ---------------------
     final firstNameField = TextFormField(
-        key: Key('firstNameTextField_registPage'),
-        autofocus: false,
+        autofocus: true,
         controller: firstNameEditingController,
         keyboardType: TextInputType.name,
         validator: (value) {
@@ -74,9 +73,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //second name field
+    //---------------------second name field---------------------
     final secondNameField = TextFormField(
-        key: Key('secondNameTextField_registPage'),
         autofocus: false,
         controller: secondNameEditingController,
         keyboardType: TextInputType.name,
@@ -99,9 +97,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //user email field
+    //---------------------user email field---------------------
     final emailField = TextFormField(
-        key: Key('userEmailTextField_registPage'),
         autofocus: false,
         controller: emailEditingController,
         keyboardType: TextInputType.emailAddress,
@@ -129,12 +126,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //password field
+    //---------------------password field---------------------
     final passwordField = TextFormField(
-        key: Key('passwordTextField_registPage'),
         autofocus: false,
         controller: passwordEditingController,
-        obscureText: true, // ****
+        obscureText: true, // to hide the password
         validator: (value) {
           RegExp regex = new RegExp(r'^.{6,}$');
           if (value!.isEmpty) {
@@ -157,9 +153,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //confirm password field
+    //---------------------confirm password field---------------------
     final confirmPasswordField = TextFormField(
-        key: Key('confirmPasswordTextField_registPage'),
         autofocus: false,
         controller: confirmPasswordEditingController,
         obscureText: true,
@@ -183,11 +178,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //PIN field
+    //---------------------PIN field---------------------
     final pinField = TextFormField(
-        key: Key('registerdPinTextField_registPage'),
         maxLength: 4,
-        maxLengthEnforced: true,
         autofocus: false,
         controller: confirmPinEditingController,
         validator: (value) {
@@ -212,10 +205,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //keyword field
+    //---------------------keyword field---------------------
     final keywordField = TextFormField(
-        key: Key('keywordTextField_registPage'),
-        autofocus: false,
+        autofocus: true,
         controller: keywordEditingController,
         validator: (value) {
           RegExp regex = new RegExp(r'^.{2,}$');
@@ -239,9 +231,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //confirm keyword field
+    //---------------------confirm keyword field---------------------
     final confirmKeywordField = TextFormField(
-        key: Key('confirmKeywordTextField_registPage'),
         autofocus: false,
         controller: confirmKeywordEditingController,
         validator: (value) {
@@ -264,10 +255,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //emergency contact name field
+    //---------------------emergency contact name field---------------------
     final emergencyContactNameField = TextFormField(
-        key: Key('ecNameTextField_registPage'),
-        autofocus: false,
+        autofocus: true,
         controller: emergencyContactNameEditingController,
         keyboardType: TextInputType.name,
         validator: (value) {
@@ -293,9 +283,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //emergency contact email field
+    //---------------------emergency contact email field---------------------
     final emergencyContactEmailField = TextFormField(
-        key: Key('ecEmailTextField_registPage'),
         autofocus: false,
         controller: emergencyContactEmailEditingController,
         keyboardType: TextInputType.emailAddress,
@@ -323,14 +312,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           ),
         ));
 
-    //signup button
+    //---------------------signup button---------------------
     final signUpButton = ElevatedButton(
-        key: Key('RegisterButton_registPage'),
         style: ElevatedButton.styleFrom(
           primary: Color.fromARGB(255, 108, 82, 255), // background
           onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
         ),
         onPressed: () {
+          // to sign up the use using Firebase Auth
           signUp(emailEditingController.text, passwordEditingController.text);
         },
         child: Text(
@@ -338,22 +327,24 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           textAlign: TextAlign.center,
         ));
 
+    //--------------------- The Sign up page UI ---------------------
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          elevation: 0,
+          elevation: 0, //cancel the app bar defult shadow
           leading: IconButton(
             icon: Icon(Icons.arrow_back,
                 color: Color.fromARGB(255, 108, 82, 255)),
             onPressed: () {
-              // passing this to our root
+              // passing this to our root => Landing Page
               Navigator.of(context).pop();
             },
           ),
         ),
         body: SingleChildScrollView(
+          //make the page scrollable
           child: Column(children: <Widget>[
             SizedBox(
                 height: 150,
@@ -370,7 +361,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             // stepper for multistep registration
             Stepper(
                 steps: [
-                  //STEP INFO which contains firstNameField secondNameField emailField passwordField pinField
+                  //--------------------- 1) Step One ---------------------
+                  //STEP INFO which contains:
+                  //firstNameField secondNameField emailField passwordField pinField
                   Step(
                     title: new Text('Personal Info'),
                     content: Form(
@@ -397,7 +390,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         ],
                       ),
                     ),
-                    isActive: currentStep >= 1,
+                    isActive:
+                        currentStep >= 1, // to know which step the use is at
                     state: currentStep == 1
                         ? StepState.editing
                         : currentStep < 1
@@ -405,6 +399,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             : StepState.complete,
                   ),
 
+                  //--------------------- 2) Step Two ---------------------
                   //STEP KEYWORD which takes the keyword from the user
                   Step(
                     title: new Text('Keyword'),
@@ -429,6 +424,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             ? StepState.disabled
                             : StepState.complete,
                   ),
+
+                  //--------------------- 3) Step Three ---------------------
                   //STEP Emergency Contact to take emergency contact information, email and name
                   Step(
                     title: new Text("Emergency Contact"),
@@ -462,7 +459,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                 // Stepper info
                 type: StepperType.vertical,
-                physics: ScrollPhysics(),
+                physics: ScrollPhysics(), // schroll for the steper
                 currentStep: currentStep,
                 onStepTapped: (int step) {
                   setState(() {
@@ -477,19 +474,19 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 // it will first validate then take it to the next step if there wasnt an error in the step
                 onStepContinue: () {
                   if (formKeys[currentStep].currentState!.validate()) {
+                    // will only continue if the textfields are validated
                     currentStep < 2 ? setState(() => currentStep += 1) : null;
                   }
                 },
 
                 //-----CONTROL THE STEPPER BUTTONS------
-                controlsBuilder:
+                controlsBuilder: // so we can controll the shape of the buttons
                     (BuildContext context, ControlsDetails controls) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Row(children: [
                       if (currentStep < 2)
                         ElevatedButton(
-                          key: Key('nextButton_registPage'),
                           style: ElevatedButton.styleFrom(
                             primary:
                                 Color.fromARGB(255, 108, 82, 255), // background
@@ -517,6 +514,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         ));
   }
 
+//--------------------- Sign Up Methods (Firebase Auth)---------------------
 // to signup we useed  firebase auth to register the user email and password
   void signUp(String email, String password) async {
     try {
@@ -556,13 +554,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
+// --------------------- Insert user info into Firestore ---------------------
 // to signup after we created the firebase auth for the email and password
 // we also need to store the rest of the user information
   postDetailsToFirestore() async {
     // calling our firestore
-    // calling our user model
-    // sedning these values
-
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
     // create object to get the current user from firebase auth
@@ -588,14 +584,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     //add to the emergencycontact array in the user object
     userModel.emergencyContacts.add(emergencyContactModel);
 
-//firestore add user information
+    // ----------------- firestore add user information -----------------
     await firebaseFirestore
         .collection("users")
         .doc(currentUser.uid)
         // sending user infromation to the firestore from our users class
         .set(userModel.toMap());
 
-//firestore add emergency contact information
+    //----------------- firestore add emergency contact information -----------------
     await firebaseFirestore
         .collection("emergencyContacts")
         .doc()
@@ -604,23 +600,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     Fluttertoast.showToast(msg: "Account created successfully :) ");
 
-    //----------------------------------------
-    // Send an email to the emergency contact
+    //************************************************************************
+    // -----------------Send an email to the emergency contact-----------------
     Emergency mail = new Emergency();
     String subject =
         'You have been added as an Emergency Contact :: Redflag Team';
     String ecName = emergencyContactNameEditingController.text;
     String userFirstName = firstNameEditingController.text;
     String userLastName = secondNameEditingController.text;
-    // String recipients = emergencyContactEmailEditingController.text;
     final recipients = <dynamic>[emergencyContactEmailEditingController.text];
-
     String msg =
         '<h1>Hello, $ecName </h1>\n<p><strong>$userFirstName $userLastName </strong>has added you as an emergency contact.\n</p><p>If there is an emergency, the Redflag team will send you the location of <strong>$userFirstName</strong>.</p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
     mail.sendMail(recipients, subject, msg);
 
     //----------------------------------------
-
     Navigator.pushAndRemoveUntil((context),
         MaterialPageRoute(builder: (context) => NavScreen()), (route) => false);
   }

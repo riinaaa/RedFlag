@@ -13,11 +13,13 @@ class cemrgencyCases extends StatefulWidget {
 }
 
 class _cemrgencyCasesState extends State<cemrgencyCases> {
+  // Firebase Auth
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
 
   void initState() {
     super.initState();
+    // -------------- to retrive the name and email of the user.--------------
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -56,6 +58,8 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                   children: [
                     //child 1 --> avatar
                     CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          "https://hostpapasupport.com/knowledgebase/wp-content/uploads/2018/04/1-13.png"),
                       radius: 30.0,
                       backgroundColor: Color.fromARGB(255, 255, 255, 255),
                     ),
@@ -100,7 +104,7 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                 ),
               ),
 
-//------------------------------------ Dispaly the number of Emergency Contacts for the user ----------------------------------------
+//------------------------------------ The Body----------------------------------------
 
               SizedBox(
                 height: 50,
@@ -118,7 +122,8 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                       height: 100,
                     ),
 
-//------------------------------------ Current Emergency Contacts List ----------------------------------------
+//------------------------------------ Current Emergency Cases List ----------------------------------------
+                    // The header
                     Row(
                       children: [
                         Container(
@@ -134,12 +139,15 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                         ),
                       ],
                     ),
-                    // View all emergency contacts in a listView
+                    // View all emergency Cases in a listView
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: SizedBox(
                             height: 300.0,
+                            // --------------- Retriving Emergency Cases ---------------
+                            //StreamBuilder<QuerySnapshot> => we used it to retrive it as Listview
+                            // and to be apply to retrive multiple documents from the Firestore
                             child: StreamBuilder<QuerySnapshot>(
                               stream: FirebaseFirestore.instance
                                   .collection('emergencyCase')
@@ -155,6 +163,8 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                                     ConnectionState.waiting) {
                                   return Text("Loading");
                                 }
+                                // -------------- The UI of the Listview --------------
+
                                 return ListView(
                                   children: snapshot.data!.docs
                                       .map((DocumentSnapshot document) {
@@ -163,7 +173,6 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                                     return Container(
                                       margin: EdgeInsets.only(
                                           top: 5, left: 30, right: 30),
-                                      // padding: EdgeInsets.only(top: 20, bottom: 20),
                                       decoration: BoxDecoration(
                                         color: Color(0xFF6666FF),
                                         borderRadius: BorderRadius.circular(10),
@@ -184,7 +193,6 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                                                 fontWeight: FontWeight.bold,
                                                 color: Color.fromARGB(
                                                     255, 236, 236, 238))),
-
                                         subtitle: Text(data['caseNumber'],
                                             style: TextStyle(
                                                 fontSize: 15,
@@ -215,11 +223,8 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                                             );
                                           },
                                         ),
-                                        // subtitle: Text(data['ecEmail']),
                                       ),
                                     );
-                                    //   ],
-                                    // );
                                   }).toList(),
                                 );
                               },

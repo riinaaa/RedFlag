@@ -15,8 +15,6 @@ class activationPage extends StatefulWidget {
 }
 
 class _activationPageState extends State<activationPage> {
-  double? lat;
-  double? lng;
   RingerModeStatus _soundMode = RingerModeStatus.unknown;
 
   @override
@@ -27,13 +25,13 @@ class _activationPageState extends State<activationPage> {
 
   // to make sure all permissions and accesses are granted
   void permissionsInit() async {
-    await Permission.microphone.request();
-    await Permission.storage.request();
-    await Permission.manageExternalStorage.request();
-    await Permission.accessNotificationPolicy.request();
-    // await Permission.location.request();
+    await Permission.microphone.request(); // to access mic
+    await Permission.storage
+        .request(); // to mange audio recording in the temp file (delete,..etc)
+    await Permission.manageExternalStorage
+        .request(); // to store audio recording in a temp file
+    await Permission.accessNotificationPolicy.request(); // for the mute
     //////////////////////////////////////////////////////////
-
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -66,7 +64,7 @@ class _activationPageState extends State<activationPage> {
     }
 
     //////////////////////////////////////////////////////////
-
+    //------------------- Mute Permission -------------------
     //this checks if the user granted the do not disturb permission
     bool? isGranted = await PermissionHandler.permissionsGranted;
     if (!isGranted!) {
@@ -75,7 +73,7 @@ class _activationPageState extends State<activationPage> {
     }
   }
 
-// to set the sound mode to silent
+// ------------------------- to set the sound mode to silent -------------------------
   Future<void> _setSilentMode() async {
     RingerModeStatus status;
 
@@ -90,6 +88,7 @@ class _activationPageState extends State<activationPage> {
     }
   }
 
+// ------------------------- The activation page UI -------------------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(

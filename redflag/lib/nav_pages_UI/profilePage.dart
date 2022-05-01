@@ -14,31 +14,27 @@ class profilePage extends StatefulWidget {
 }
 
 class _profilePageState extends State<profilePage> {
+  // To Retrive the user info
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
-  EmergencyContacts emergencyContactModel = EmergencyContacts();
-
   int? ecNum;
 
   @override
   void initState() {
     super.initState();
 
-// to retrive the length of emergency contact based on the UID.
+// -------------- to retrive the length of emergency contact based on the UID.--------------
     FirebaseFirestore.instance
         .collection('emergencyContacts')
         .where('user', isEqualTo: user!.uid)
         .get()
         .then((value) {
-      value.docs.length;
-      print(value.docs.length);
-
       setState(() {
         ecNum = value.docs.length;
       });
     });
 
-// to retrive the name and email of the user.
+// -------------- to retrive the name and email of the user.--------------
     FirebaseFirestore.instance
         .collection("users")
         .doc(user!.uid)
@@ -49,6 +45,7 @@ class _profilePageState extends State<profilePage> {
     });
   }
 
+// ------------------------------ The profile page UI ------------------------------
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -77,6 +74,8 @@ class _profilePageState extends State<profilePage> {
                   children: [
                     //child 1 --> avatar
                     CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          "https://hostpapasupport.com/knowledgebase/wp-content/uploads/2018/04/1-13.png"),
                       radius: 30.0,
                       backgroundColor: Color.fromARGB(255, 255, 255, 255),
                     ),
@@ -120,8 +119,7 @@ class _profilePageState extends State<profilePage> {
                 ),
               ),
 
-//------------------------------------ Dispaly the number of Emergency Contacts for the user ----------------------------------------
-
+// --------------------------------- The Body ----------------------------------
               SizedBox(
                 height: 50,
               ),
@@ -133,6 +131,8 @@ class _profilePageState extends State<profilePage> {
                     SizedBox(
                       height: 210,
                     ),
+
+//------------------------------------ Dispaly the number of Emergency Contacts for the user ----------------------------------------
 
                     Container(
                       padding: EdgeInsets.only(
@@ -172,27 +172,29 @@ class _profilePageState extends State<profilePage> {
                     ),
 
 //------------------------------------ Current Emergency Contacts List ----------------------------------------
-                    Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.only(left: 35),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Current Emergency Contacts ',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Color(0xFF4E4EF7),
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                        ),
-                      ],
+
+                    // Header
+                    Container(
+                      padding: EdgeInsets.only(left: 35),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Current Emergency Contacts ',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Color(0xFF4E4EF7),
+                                fontWeight: FontWeight.bold)),
+                      ),
                     ),
+
                     // View all emergency contacts in a listView
                     Row(
                       children: <Widget>[
                         Expanded(
                           child: SizedBox(
                             height: 300.0,
+                            // --------------- Retriving Emergency contacts ---------------
+                            //StreamBuilder<QuerySnapshot> => we used it to retrive it as Listview
+                            // and to be apply to retrive multiple documents from the Firestore
                             child: StreamBuilder<QuerySnapshot>(
                               stream: FirebaseFirestore.instance
                                   .collection('emergencyContacts')
@@ -215,7 +217,7 @@ class _profilePageState extends State<profilePage> {
                                       .map((DocumentSnapshot document) {
                                     Map<String, dynamic> data = document.data()!
                                         as Map<String, dynamic>;
-
+                                    // -------------- The UI of the Listview --------------
                                     return Container(
                                       margin: EdgeInsets.only(
                                           top: 5, left: 30, right: 30),
@@ -245,6 +247,8 @@ class _profilePageState extends State<profilePage> {
                                                 fontSize: 15,
                                                 color: Color.fromARGB(
                                                     255, 236, 236, 238))),
+                                        // -------------- Delete Button --------------
+                                        // deleteEmergencyContact(String email) => will delete the EC from Forestore
                                         trailing: IconButton(
                                           key: Key('deleteButton'),
                                           icon: Icon(
@@ -275,14 +279,15 @@ class _profilePageState extends State<profilePage> {
     );
   }
 
-  // the logout function
+  //-------------------------- the logout function ----------------------
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
-//delete emergency contact
+//---------------------------delete emergency contact-------------------
+// deleteEmergencyContact(String email) => will delete the EC from Forestore
   Future<void> deleteEmergencyContact(String email) async {
     var collection = FirebaseFirestore.instance.collection('emergencyContacts');
     var snapshot = await collection
