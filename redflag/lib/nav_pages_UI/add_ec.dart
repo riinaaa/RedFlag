@@ -84,8 +84,6 @@ class _addState extends State<add> {
       //----------------------------------------
       clearData();
     }
-
-    // setState(() {});
   }
 
   // ---------------------In clearData() the textfields will be cleared.---------------------
