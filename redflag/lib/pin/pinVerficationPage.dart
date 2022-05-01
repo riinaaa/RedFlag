@@ -82,10 +82,6 @@ class _VerificatoinState extends State<Verificatoin> {
     });
   }
 
-  //----------------------timer for the recording-----------------------
-  Timer scheduleTimeout([int milliseconds = 10000]) =>
-      Timer(Duration(milliseconds: milliseconds), stopRecord);
-
   // ---------- Check if the 4 digit the user enter equal the one in Firestore ----------
   verify() {
     //----------------- Display an error message when user enter less than 4 digits------------------
@@ -217,7 +213,11 @@ class _VerificatoinState extends State<Verificatoin> {
     return await _myRecorder.stopRecorder();
   }
 
-  //----------upload recording file to firebase ----------
+  //----------------------timer to stop the recording-----------------------
+  Timer scheduleTimeout([int milliseconds = 10000]) =>
+      Timer(Duration(milliseconds: milliseconds), stopRecord);
+
+  //----------upload emergency case detailes to firebase ----------
   // to get the download url to add it to firestore
   Future uploadRecording(String ecaseID) async {
     File recording = File(filePath);
