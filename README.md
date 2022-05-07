@@ -19,3 +19,4 @@ The goal of this project is to develop and implement a dependable system for pre
 
 ---
 ## User Guide
+![This is an image](https://github.com/riinaaa/RedFlag/blob/master/User_Guide.jpg)
