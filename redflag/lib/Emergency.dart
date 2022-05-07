@@ -61,7 +61,6 @@ class Emergency {
     String username = 'redflagapp.8@gmail.com';
     String password = 'Redflag123';
 
-    String f = recipients.join(', ');
     final smtpServer = gmail(username, password);
     final message = Message()
       ..from = Address(username)
