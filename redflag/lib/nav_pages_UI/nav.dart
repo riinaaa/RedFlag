@@ -29,6 +29,7 @@ class _NavScreenState extends State<NavScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // to pass the lat and lng to the google map
     return FutureProvider(
       create: (BuildContext context) => locationService.getLocation(),
       initialData: null,

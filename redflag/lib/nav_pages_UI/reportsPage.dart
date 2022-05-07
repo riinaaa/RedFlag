@@ -177,7 +177,6 @@ class _reportsPageState extends State<reportsPage> {
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
-                      // return Text("Loading --> waiting");
                     }
 
                     // -------------- The UI of the Listview --------------

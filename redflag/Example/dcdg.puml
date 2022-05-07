@@ -67,6 +67,8 @@ class "redflag::registration_pages::registration_screen.dart::_RegistrationScree
   +TextEditingController confirmKeywordEditingController
   +TextEditingController emergencyContactNameEditingController
   +TextEditingController emergencyContactEmailEditingController
+  +Users userModel
+  +EmergencyContacts emergencyContactModel
   +Widget build()
   +void signUp()
   +dynamic postDetailsToFirestore()
@@ -74,6 +76,8 @@ class "redflag::registration_pages::registration_screen.dart::_RegistrationScree
 
 "redflag::registration_pages::registration_screen.dart::_RegistrationScreenState" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
 "redflag::registration_pages::registration_screen.dart::_RegistrationScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"redflag::registration_pages::registration_screen.dart::_RegistrationScreenState" o-- "redflag::Users.dart::Users"
+"redflag::registration_pages::registration_screen.dart::_RegistrationScreenState" o-- "redflag::EmergencyContacts.dart::EmergencyContacts"
 "flutter::src::widgets::framework.dart::State" <|-- "redflag::registration_pages::registration_screen.dart::_RegistrationScreenState"
 
 class "redflag::registration_pages::login_screen.dart::LoginScreen" {

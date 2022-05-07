@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.2.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 5962.9 3224.8" style="enable-background:new 0 0 5962.9 3224.8;" xml:space="preserve">
+<style type="text/css">
+	.st0{filter:url(#fdifrr5sjwxqs);}
+	.st1{fill:#F2F2F2;}
+	.st2{fill:none;stroke:#4F528C;stroke-width:1.5;}
+	.st3{fill:none;}
+	.st4{enable-background:new    ;}
+	.st5{font-family:'Helvetica';}
+	.st6{font-size:12px;}
+	.st7{fill:none;stroke:#4E49F2;}
+	.st8{font-size:11px;}
+	.st9{letter-spacing:9;}
+	.st10{letter-spacing:8;}
+	.st11{letter-spacing:5;}
+	.st12{letter-spacing:6;}
+	.st13{letter-spacing:24;}
+	.st14{fill:#F27777;stroke:#4E49F2;}
+	.st15{letter-spacing:7;}
+	.st16{fill:none;stroke:#6D6FA0;}
+	.st17{letter-spacing:13;}
+	.st18{letter-spacing:11;}
+	.st19{fill:#8E90B5;stroke:#6D6FA0;}
+	.st20{letter-spacing:15;}
+	.st21{letter-spacing:28;}
+	.st22{letter-spacing:17;}
+	.st23{letter-spacing:12;}
+	.st24{letter-spacing:18;}
+	.st25{letter-spacing:10;}
+	.st26{letter-spacing:4;}
+	.st27{fill:#FFFFFF;}
+	.st28{fill:none;stroke:#000000;stroke-width:1.5;}
+	.st29{font-family:'Helvetica-Bold';}
+	.st30{font-size:14px;}
+	.st31{letter-spacing:14;}
+	.st32{letter-spacing:3;}
+	.st33{letter-spacing:16;}
+	.st34{letter-spacing:21;}
+	.st35{fill:#FFFFFF;stroke:#4F528C;}
+	.st36{fill:none;stroke:#4F528C;}
+	.st37{letter-spacing:25;}
+	.st38{letter-spacing:32;}
+	.st39{letter-spacing:29;}
+	.st40{letter-spacing:27;}
+	.st41{letter-spacing:33;}
+</style>
+<filter  height="300%" id="fdifrr5sjwxqs" width="300%" x="-1" y="-1">
+	<feGaussianBlur  result="blurOut" stdDeviation="2.0"></feGaussianBlur>
+	<feColorMatrix  in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"></feColorMatrix>
+	<feOffset  dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"></feOffset>
+	<feBlend  in="SourceGraphic" in2="blurOut3" mode="normal"></feBlend>
+</filter>
+<g>
+	<g id="redflag::Users.dart::Users" class="st0">
+		<rect x="2038" y="624" class="st1" width="280" height="154.9"/>
+		<rect x="2038" y="624" class="st2" width="280" height="154.9"/>
+	</g>
+	<rect x="2178.2" y="634.2" class="st3" width="32" height="16.1"/>
+	<text transform="matrix(1 0 0 1 2178.25 644.5352)" class="st4"><tspan x="0" y="0" class="st5 st6">User</tspan><tspan x="26" y="0" class="st5 st6">s</tspan></text>
+	<line class="st2" x1="2039" y1="656" x2="2317" y2="656"/>
+	<ellipse class="st7" cx="2049" cy="667" rx="3" ry="3"/>
+	<rect x="2058" y="661.2" class="st3" width="126" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2058 670.6348)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st9"> </tspan><tspan x="53.9" y="0" class="st5 st8">userFirstName</tspan></text>
+	<ellipse class="st7" cx="2049" cy="680" rx="3" ry="3"/>
+	<rect x="2058" y="674.1" class="st3" width="124" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2058 683.5898)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st10"> </tspan><tspan x="52.5" y="0" class="st5 st8">userLastName</tspan></text>
+	<ellipse class="st7" cx="2049" cy="692.9" rx="3" ry="3"/>
+	<rect x="2058" y="687.1" class="st3" width="76" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2058 696.5449)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st11"> </tspan><tspan x="49.7" y="0" class="st5 st8">email</tspan></text>
+	<ellipse class="st7" cx="2049" cy="705.9" rx="3" ry="3"/>
+	<rect x="2058" y="700.1" class="st3" width="93" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2058 709.5)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st10"> </tspan><tspan x="52" y="0" class="st5 st8">keyword</tspan></text>
+	<ellipse class="st7" cx="2049" cy="718.8" rx="3" ry="3"/>
+	<rect x="2058" y="713" class="st3" width="65" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2058 722.4551)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st12"> </tspan><tspan x="50.3" y="0" class="st5 st8">pin</tspan></text>
+	<ellipse class="st7" cx="2049" cy="731.8" rx="3" ry="3"/>
+	<rect x="2058" y="726" class="st3" width="254" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2058 735.4102)" class="st4"><tspan x="0" y="0" class="st5 st8">List&lt;EmergencyContacts&gt;</tspan><tspan x="129" y="0" class="st5 st8 st13"> </tspan><tspan x="156.2" y="0" class="st5 st8">emergencyContacts</tspan></text>
+	<line class="st2" x1="2039" y1="747.5" x2="2317" y2="747.5"/>
+	<ellipse class="st14" cx="2049" cy="759.5" rx="3" ry="3"/>
+	<rect x="2058" y="753.7" class="st3" width="167" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2058 763.167)" class="st4"><tspan x="0" y="0" class="st5 st8">Map&lt;String,</tspan><tspan x="59.6" y="0" class="st5 st8 st15"> </tspan><tspan x="70.7" y="0" class="st5 st8">dynamic&gt;</tspan><tspan x="118" y="0" class="st5 st8 st15"> </tspan><tspan x="129.1" y="0" class="st5 st8">toMap()</tspan></text>
+</g>
+<g>
+	<g id="redflag::registration_pages::login_screen.dart::_LoginScreenState" class="st0">
+		<rect x="1902.5" y="222.7" class="st1" width="252" height="138.7"/>
+		<rect x="1902.5" y="222.7" class="st2" width="252" height="138.7"/>
+	</g>
+	<text transform="matrix(1 0 0 1 1993.75 243.2471)" class="st5 st6">_LoginScreenState</text>
+	<line class="st2" x1="1903.5" y1="254.7" x2="2153.5" y2="254.7"/>
+	<rect x="1910.5" y="262.7" class="st16" width="6" height="6"/>
+	<rect x="1922.5" y="259.9" class="st3" width="179" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1922.5 269.3467)" class="st4"><tspan x="0" y="0" class="st5 st8">GlobalKey&lt;FormState&gt;</tspan><tspan x="114.9" y="0" class="st5 st8 st17"> </tspan><tspan x="131.9" y="0" class="st5 st8">_formKey</tspan></text>
+	<rect x="1910.5" y="277.6" class="st16" width="6" height="6"/>
+	<rect x="1922.5" y="274.8" class="st3" width="104" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1922.5 284.2119)" class="st4"><tspan x="0" y="0" class="st5 st8">FirebaseAuth</tspan><tspan x="65.4" y="0" class="st5 st8 st15"> </tspan><tspan x="76.5" y="0" class="st5 st8">_auth</tspan></text>
+	<ellipse class="st7" cx="1913.5" cy="293.5" rx="3" ry="3"/>
+	<rect x="1922.5" y="287.7" class="st3" width="114" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1922.5 297.167)" class="st4"><tspan x="0" y="0" class="st5 st8">String?</tspan><tspan x="34.9" y="0" class="st5 st8 st10"> </tspan><tspan x="46.1" y="0" class="st5 st8">errorMessage</tspan></text>
+	<line class="st2" x1="1903.5" y1="307.5" x2="2153.5" y2="307.5"/>
+	<g>
+		<ellipse class="st14" cx="1913.5" cy="318.5" rx="3" ry="3"/>
+		<rect x="1922.5" y="312.7" class="st3" width="74" height="14.7"/>
+		<text transform="matrix(1 0 0 1 1922.5 322.1221)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+		<ellipse class="st14" cx="1913.5" cy="331.4" rx="3" ry="3"/>
+		<rect x="1922.5" y="325.6" class="st3" width="67" height="14.7"/>
+		<text transform="matrix(1 0 0 1 1922.5 335.0772)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st15"> </tspan><tspan x="30.3" y="0" class="st5 st8">signIn()</tspan></text>
+	</g>
+</g>
+<g>
+	<g id="redflag::nav_pages_UI::activatePage.dart::_activationPageState" class="st0">
+		<rect x="3991.5" y="407.8" class="st1" width="195" height="112.8"/>
+		<rect x="3991.5" y="407.8" class="st2" width="195" height="112.8"/>
+	</g>
+	<rect x="4031" y="418" class="st3" width="116" height="16.1"/>
+	<text transform="matrix(1 0 0 1 4030.9995 428.294)" class="st4"><tspan x="0" y="0" class="st5 st6">_activationPageStat</tspan><tspan x="109.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="3992.5" y1="439.8" x2="4185.5" y2="439.8"/>
+	<rect x="3999.5" y="447.8" class="st16" width="6" height="6"/>
+	<rect x="4011.5" y="444.9" class="st3" width="169" height="14.7"/>
+	<text transform="matrix(1 0 0 1 4011.5 454.3936)" class="st4"><tspan x="0" y="0" class="st5 st8">RingerModeStatus</tspan><tspan x="91.1" y="0" class="st5 st8 st18"> </tspan><tspan x="105.4" y="0" class="st5 st8">_soundMode</tspan></text>
+	<line class="st2" x1="3992.5" y1="460.7" x2="4185.5" y2="460.7"/>
+	<ellipse class="st14" cx="4002.5" cy="471.7" rx="3" ry="3"/>
+	<rect x="4011.5" y="465.9" class="st3" width="77" height="14.7"/>
+	<text transform="matrix(1 0 0 1 4011.5 475.3487)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st12"> </tspan><tspan x="29.9" y="0" class="st5 st8">initState()</tspan></text>
+	<ellipse class="st14" cx="4002.5" cy="484.7" rx="3" ry="3"/>
+	<rect x="4011.5" y="478.9" class="st3" width="117" height="14.7"/>
+	<text transform="matrix(1 0 0 1 4011.5 488.3037)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st17"> </tspan><tspan x="36.3" y="0" class="st5 st8">permissionsInit()</tspan></text>
+	<rect x="3999.5" y="494.6" class="st19" width="6" height="6"/>
+	<rect x="4011.5" y="491.8" class="st3" width="167" height="14.7"/>
+	<text transform="matrix(1 0 0 1 4011.5 501.2588)" class="st4"><tspan x="0" y="0" class="st5 st8">Future&lt;void&gt;</tspan><tspan x="64.8" y="0" class="st5 st8 st20"> </tspan><tspan x="83.9" y="0" class="st5 st8">_setSilentMode()</tspan></text>
+	<ellipse class="st14" cx="4002.5" cy="510.6" rx="3" ry="3"/>
+	<rect x="4011.5" y="504.8" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 4011.5 514.2139)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+</g>
+<g>
+	<g id="redflag::nav_pages_UI::termination::termenationPage.dart::_terminationPageState" class="st0">
+		<rect x="4042.5" y="208.5" class="st1" width="159" height="73.9"/>
+		<rect x="4042.5" y="208.5" class="st2" width="159" height="73.9"/>
+	</g>
+	<rect x="4058.5" y="219.1" class="st3" width="127" height="16.1"/>
+	<text transform="matrix(1 0 0 1 4058.5 229.3657)" class="st4"><tspan x="0" y="0" class="st5 st6">_terminationPageStat</tspan><tspan x="120.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="4043.5" y1="240.5" x2="4200.5" y2="240.5"/>
+	<line class="st2" x1="4043.5" y1="248.5" x2="4200.5" y2="248.5"/>
+	<ellipse class="st14" cx="4053.5" cy="259.5" rx="3" ry="3"/>
+	<rect x="4062.5" y="253.7" class="st3" width="77" height="14.7"/>
+	<text transform="matrix(1 0 0 1 4062.5 263.166)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st12"> </tspan><tspan x="29.9" y="0" class="st5 st8">initState()</tspan></text>
+	<ellipse class="st14" cx="4053.5" cy="272.5" rx="3" ry="3"/>
+	<rect x="4062.5" y="266.7" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 4062.5 276.1211)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+</g>
+<g>
+	<g id="redflag::nav_pages_UI::mapPage.dart::_mapPageState" class="st0">
+		<rect x="2701.2" y="1169.9" class="st1" width="277" height="112.8"/>
+		<rect x="2701.2" y="1169.9" class="st2" width="277" height="112.8"/>
+	</g>
+	<rect x="2794.4" y="1180.1" class="st3" width="88" height="16.1"/>
+	<text transform="matrix(1 0 0 1 2794.4131 1190.4512)" class="st4"><tspan x="0" y="0" class="st5 st6">_mapPageStat</tspan><tspan x="81.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="2702.2" y1="1201.9" x2="2977.2" y2="1201.9"/>
+	<rect x="2709.2" y="1209.9" class="st16" width="6" height="6"/>
+	<rect x="2721.2" y="1207.1" class="st3" width="251" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2721.207 1216.5508)" class="st4"><tspan x="0" y="0" class="st5 st8">Completer&lt;GoogleMapController&gt;</tspan><tspan x="168.1" y="0" class="st5 st8 st21"> </tspan><tspan x="199.6" y="0" class="st5 st8">_controller</tspan></text>
+	<ellipse class="st7" cx="2712.2" cy="1225.9" rx="3" ry="3"/>
+	<rect x="2721.2" y="1220.1" class="st3" width="156" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2721.207 1229.5059)" class="st4"><tspan x="0" y="0" class="st5 st8">List&lt;MarkerId&gt;</tspan><tspan x="73.4" y="0" class="st5 st8 st22"> </tspan><tspan x="93.7" y="0" class="st5 st8">listMarkerIds</tspan></text>
+	<ellipse class="st7" cx="2712.2" cy="1238.8" rx="3" ry="3"/>
+	<rect x="2721.2" y="1233" class="st3" width="177" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2721.207 1242.4609)" class="st4"><tspan x="0" y="0" class="st5 st8">Map&lt;MarkerId,</tspan><tspan x="74.3" y="0" class="st5 st8 st10"> </tspan><tspan x="85.5" y="0" class="st5 st8">Marker&gt;</tspan><tspan x="126.1" y="0" class="st5 st8 st10"> </tspan><tspan x="137.3" y="0" class="st5 st8">markers</tspan></text>
+	<line class="st2" x1="2702.2" y1="1248.8" x2="2977.2" y2="1248.8"/>
+	<ellipse class="st14" cx="2712.2" cy="1259.8" rx="3" ry="3"/>
+	<rect x="2721.2" y="1254" class="st3" width="77" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2721.207 1263.416)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st12"> </tspan><tspan x="29.9" y="0" class="st5 st8">initState()</tspan></text>
+	<ellipse class="st14" cx="2712.2" cy="1272.7" rx="3" ry="3"/>
+	<rect x="2721.2" y="1266.9" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2721.207 1276.3711)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+</g>
+<g>
+	<g id="redflag::nav_pages_UI::nav.dart::_NavScreenState" class="st0">
+		<rect x="3257.7" y="1176.4" class="st1" width="210" height="99.8"/>
+		<rect x="3257.7" y="1176.4" class="st2" width="210" height="99.8"/>
+	</g>
+	<text transform="matrix(1 0 0 1 3314.707 1196.2227)" class="st5 st6">_NavScreenState</text>
+	<line class="st2" x1="3258.7" y1="1208.4" x2="3466.7" y2="1208.4"/>
+	<ellipse class="st7" cx="3268.7" cy="1219.4" rx="3" ry="3"/>
+	<rect x="3277.7" y="1213.6" class="st3" width="184" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3277.707 1223.0508)" class="st4"><tspan x="0" y="0" class="st5 st8">GeoLocatorService</tspan><tspan x="94.2" y="0" class="st5 st8 st23"> </tspan><tspan x="109.4" y="0" class="st5 st8">locationService</tspan></text>
+	<ellipse class="st7" cx="3268.7" cy="1232.4" rx="3" ry="3"/>
+	<rect x="3277.7" y="1226.6" class="st3" width="87" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3277.707 1236.0059)" class="st4"><tspan x="0" y="0" class="st5 st8">int</tspan><tspan x="11.6" y="0" class="st5 st8 st18"> </tspan><tspan x="25.9" y="0" class="st5 st8">currentIndex</tspan></text>
+	<ellipse class="st7" cx="3268.7" cy="1245.3" rx="3" ry="3"/>
+	<rect x="3277.7" y="1239.5" class="st3" width="117" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3277.707 1248.9609)" class="st4"><tspan x="0" y="0" class="st5 st8">List&lt;dynamic&gt;</tspan><tspan x="70.9" y="0" class="st5 st8 st17"> </tspan><tspan x="87" y="0" class="st5 st8">pages</tspan></text>
+	<line class="st2" x1="3258.7" y1="1255.3" x2="3466.7" y2="1255.3"/>
+	<ellipse class="st14" cx="3268.7" cy="1266.3" rx="3" ry="3"/>
+	<rect x="3277.7" y="1260.5" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3277.707 1269.916)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+</g>
+<g>
+	<g id="redflag::locations::location_service.dart::GeoLocatorService" class="st0">
+		<rect x="3264.7" y="1610.4" class="st1" width="196" height="61"/>
+		<rect x="3264.7" y="1610.4" class="st2" width="196" height="61"/>
+	</g>
+	<rect x="3312" y="1620.6" class="st3" width="105" height="16.1"/>
+	<text transform="matrix(1 0 0 1 3312.04 1630.9512)" class="st4"><tspan x="0" y="0" class="st5 st6">GeoLocatorServic</tspan><tspan x="98.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="3265.7" y1="1642.4" x2="3459.7" y2="1642.4"/>
+	<line class="st2" x1="3265.7" y1="1650.4" x2="3459.7" y2="1650.4"/>
+	<ellipse class="st14" cx="3275.7" cy="1661.4" rx="3" ry="3"/>
+	<rect x="3284.7" y="1655.6" class="st3" width="170" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3284.707 1665.0508)" class="st4"><tspan x="0" y="0" class="st5 st8">Future&lt;Position&gt;</tspan><tspan x="83.8" y="0" class="st5 st8 st24"> </tspan><tspan x="105.8" y="0" class="st5 st8">getLocation()</tspan></text>
+</g>
+<g>
+	<g id="redflag::locations::user_location.dart::UserLocation" class="st0">
+		<rect x="3775.2" y="1189.4" class="st1" width="145" height="73.9"/>
+		<rect x="3775.2" y="1189.4" class="st2" width="145" height="73.9"/>
+	</g>
+	<rect x="3811.2" y="1202.1" class="st3" width="73" height="16.1"/>
+	<text transform="matrix(1 0 0 1 3811.207 1212.4453)" class="st4"><tspan x="0" y="0" class="st5 st6">UserLocatio</tspan><tspan x="66.3" y="0" class="st5 st6">n</tspan></text>
+	<line class="st2" x1="3776.2" y1="1221.4" x2="3919.2" y2="1221.4"/>
+	<line class="st2" x1="3776.2" y1="1229.4" x2="3919.2" y2="1229.4"/>
+	<ellipse class="st14" cx="3786.2" cy="1240.4" rx="3" ry="3"/>
+	<rect x="3795.2" y="1234.6" class="st3" width="119" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3795.207 1244.0508)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st25"> </tspan><tspan x="54.8" y="0" class="st5 st8">getLocation()</tspan></text>
+	<ellipse class="st14" cx="3786.2" cy="1253.4" rx="3" ry="3"/>
+	<rect x="3795.2" y="1247.6" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3795.207 1257.0059)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+</g>
+<g>
+	<g id="redflag::Emergency.dart::Emergency" class="st0">
+		<rect x="3860.5" y="656.5" class="st1" width="193" height="132.8"/>
+		<rect x="3860.5" y="656.5" class="st2" width="193" height="132.8"/>
+	</g>
+	<rect x="3924.5" y="666.7" class="st3" width="63" height="16.1"/>
+	<text transform="matrix(1 0 0 1 3924.5 677.0352)" class="st4"><tspan x="0" y="0" class="st5 st6">Emergenc</tspan><tspan x="57" y="0" class="st5 st6">y</tspan></text>
+	<line class="st2" x1="3861.5" y1="688.5" x2="4052.5" y2="688.5"/>
+	<ellipse class="st7" cx="3871.5" cy="699.5" rx="3" ry="3"/>
+	<rect x="3880.5" y="693.7" class="st3" width="115" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3880.5 703.1348)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st10"> </tspan><tspan x="52.6" y="0" class="st5 st8">caseNumber</tspan></text>
+	<ellipse class="st7" cx="3871.5" cy="712.5" rx="3" ry="3"/>
+	<rect x="3880.5" y="706.6" class="st3" width="94" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3880.5 716.0898)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st15"> </tspan><tspan x="51.2" y="0" class="st5 st8">endTime</tspan></text>
+	<ellipse class="st7" cx="3871.5" cy="725.4" rx="3" ry="3"/>
+	<rect x="3880.5" y="719.6" class="st3" width="118" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3880.5 729.0449)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st25"> </tspan><tspan x="55" y="0" class="st5 st8">userLocation</tspan></text>
+	<ellipse class="st7" cx="3871.5" cy="738.4" rx="3" ry="3"/>
+	<rect x="3880.5" y="732.6" class="st3" width="133" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3880.5 742)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st18"> </tspan><tspan x="55.9" y="0" class="st5 st8">audioRecording</tspan></text>
+	<line class="st2" x1="3861.5" y1="752" x2="4052.5" y2="752"/>
+	<g>
+		<ellipse class="st14" cx="3871.5" cy="763" rx="3" ry="3"/>
+		<rect x="3880.5" y="757.2" class="st3" width="167" height="14.7"/>
+		<text transform="matrix(1 0 0 1 3880.5 766.5957)" class="st4"><tspan x="0" y="0" class="st5 st8">Map&lt;String,</tspan><tspan x="59.6" y="0" class="st5 st8 st15"> </tspan><tspan x="70.7" y="0" class="st5 st8">dynamic&gt;</tspan><tspan x="118" y="0" class="st5 st8 st15"> </tspan><tspan x="129.1" y="0" class="st5 st8">toMap()</tspan></text>
+		<ellipse class="st14" cx="3871.5" cy="775.9" rx="3" ry="3"/>
+		<rect x="3880.5" y="770.1" class="st3" width="103" height="14.7"/>
+		<text transform="matrix(1 0 0 1 3880.5 779.5508)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st15"> </tspan><tspan x="51.7" y="0" class="st5 st8">sendMail()</tspan></text>
+	</g>
+</g>
+<g>
+	<g id="redflag::EmergencyContacts.dart::EmergencyContacts" class="st0">
+		<rect x="2410.5" y="701.5" class="st1" width="193" height="94.6"/>
+		<rect x="2410.5" y="701.5" class="st2" width="193" height="94.6"/>
+	</g>
+	<rect x="2466.4" y="711.7" class="st3" width="112" height="16.1"/>
+	<text transform="matrix(1 0 0 1 2466.4502 722.0352)" class="st4"><tspan x="0" y="0" class="st5 st6">EmergencyContact</tspan><tspan x="106" y="0" class="st5 st6">s</tspan></text>
+	<line class="st2" x1="2411.5" y1="733.5" x2="2602.5" y2="733.5"/>
+	<ellipse class="st7" cx="2421.5" cy="744.5" rx="3" ry="3"/>
+	<rect x="2430.5" y="738.7" class="st3" width="103" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2430.5 748.1348)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st11"> </tspan><tspan x="49.8" y="0" class="st5 st8">eFullName</tspan></text>
+	<ellipse class="st7" cx="2421.5" cy="757.5" rx="3" ry="3"/>
+	<rect x="2430.5" y="751.6" class="st3" width="88" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2430.5 761.0898)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st26"> </tspan><tspan x="48.9" y="0" class="st5 st8">ecEmail</tspan></text>
+	<line class="st2" x1="2411.5" y1="769.2" x2="2602.5" y2="769.2"/>
+	<g>
+		<ellipse class="st14" cx="2421.5" cy="780.2" rx="3" ry="3"/>
+		<rect x="2430.5" y="774.4" class="st3" width="167" height="14.7"/>
+		<text transform="matrix(1 0 0 1 2430.5 783.8652)" class="st4"><tspan x="0" y="0" class="st5 st8">Map&lt;String,</tspan><tspan x="59.6" y="0" class="st5 st8 st15"> </tspan><tspan x="70.7" y="0" class="st5 st8">dynamic&gt;</tspan><tspan x="118" y="0" class="st5 st8 st15"> </tspan><tspan x="129.1" y="0" class="st5 st8">toMap()</tspan></text>
+	</g>
+</g>
+<g>
+	<g class="st0">
+		<polygon class="st27" points="3358,129 3618,129 3625,151.5 3910,151.5 3910,565 3358,565 		"/>
+		<polygon class="st28" points="3358,129 3618,129 3625,151.5 3910,151.5 3910,565 3358,565 		"/>
+	</g>
+	<line class="st28" x1="3358" y1="151.5" x2="3625" y2="151.5"/>
+	<rect x="3362" y="132.5" class="st3" width="254" height="18.8"/>
+	<text transform="matrix(1 0 0 1 3362 144.5352)" class="st4"><tspan x="0" y="0" class="st29 st30">redflag::pin::pinVerficationPage.dar</tspan><tspan x="249.3" y="0" class="st29 st30">t</tspan></text>
+	<g id="redflag::pin::pinVerficationPage.dart::Verificatoin" class="st0">
+		<rect x="3704.5" y="319.5" class="st1" width="189" height="73.9"/>
+		<rect x="3704.5" y="319.5" class="st2" width="189" height="73.9"/>
+	</g>
+	<rect x="3763.8" y="329.7" class="st3" width="64" height="16.1"/>
+	<text transform="matrix(1 0 0 1 3763.7524 340.0352)" class="st4"><tspan x="0" y="0" class="st5 st6">Verificatoi</tspan><tspan x="57.3" y="0" class="st5 st6">n</tspan></text>
+	<line class="st2" x1="3705.5" y1="351.5" x2="3892.5" y2="351.5"/>
+	<ellipse class="st7" cx="3715.5" cy="362.5" rx="3" ry="3"/>
+	<rect x="3724.5" y="356.7" class="st3" width="68" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3724.5 366.1348)" class="st4"><tspan x="0" y="0" class="st5 st8">String</tspan><tspan x="28.7" y="0" class="st5 st8 st12"> </tspan><tspan x="38.7" y="0" class="st5 st8">status</tspan></text>
+	<line class="st2" x1="3705.5" y1="372.5" x2="3892.5" y2="372.5"/>
+	<ellipse class="st14" cx="3715.5" cy="383.5" rx="3" ry="3"/>
+	<rect x="3724.5" y="377.6" class="st3" width="163" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3724.5 387.0898)" class="st4"><tspan x="0" y="0" class="st5 st8">_VerificatoinState</tspan><tspan x="86.2" y="0" class="st5 st8 st25"> </tspan><tspan x="99.4" y="0" class="st5 st8">createState()</tspan></text>
+	<g id="redflag::pin::pinVerficationPage.dart::_VerificatoinState" class="st0">
+		<rect x="3374.5" y="164" class="st1" width="295" height="384.8"/>
+		<rect x="3374.5" y="164" class="st2" width="295" height="384.8"/>
+	</g>
+	<rect x="3467.7" y="174.8" class="st3" width="98" height="16.1"/>
+	<text transform="matrix(1 0 0 1 3467.71 185.0825)" class="st4"><tspan x="0" y="0" class="st5 st6">_VerificatoinStat</tspan><tspan x="91.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="3375.5" y1="196" x2="3668.5" y2="196"/>
+	<ellipse class="st7" cx="3385.5" cy="207" rx="3" ry="3"/>
+	<rect x="3382.5" y="217" class="st16" width="6" height="6"/>
+	<rect x="3394.5" y="214.1" class="st3" width="87" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 223.5898)" class="st4"><tspan x="0" y="0" class="st5 st8">bool</tspan><tspan x="20.8" y="0" class="st5 st8 st10"> </tspan><tspan x="32.6" y="0" class="st5 st8">_pinLength</tspan></text>
+	<rect x="3382.5" y="229.9" class="st16" width="6" height="6"/>
+	<rect x="3394.5" y="227.1" class="st3" width="73" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 236.5449)" class="st4"><tspan x="0" y="0" class="st5 st8">Timer?</tspan><tspan x="34.2" y="0" class="st5 st8 st11"> </tspan><tspan x="42.4" y="0" class="st5 st8">_timer</tspan></text>
+	<rect x="3382.5" y="242.9" class="st16" width="6" height="6"/>
+	<rect x="3394.5" y="240.1" class="st3" width="192" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 249.5)" class="st4"><tspan x="0" y="0" class="st5 st8">FlutterSoundRecorder</tspan><tspan x="108.2" y="0" class="st5 st8 st31"> </tspan><tspan x="126" y="0" class="st5 st8">_myRecorder</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="258.8" rx="3" ry="3"/>
+	<rect x="3394.5" y="253" class="st3" width="165" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 262.4551)" class="st4"><tspan x="0" y="0" class="st5 st8">AssetsAudioPlayer</tspan><tspan x="92.3" y="0" class="st5 st8 st18"> </tspan><tspan x="106.9" y="0" class="st5 st8">audioPlayer</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="271.8" rx="3" ry="3"/>
+	<rect x="3394.5" y="266" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 275.4102)" class="st4"><tspan x="0" y="0" class="st5 st8">String</tspan><tspan x="28.7" y="0" class="st5 st8 st11"> </tspan><tspan x="37.3" y="0" class="st5 st8">filePath</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="284.7" rx="3" ry="3"/>
+	<rect x="3394.5" y="278.9" class="st3" width="117" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 288.3652)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st9"> </tspan><tspan x="53.4" y="0" class="st5 st8">emergencyId</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="297.7" rx="3" ry="3"/>
+	<rect x="3394.5" y="291.9" class="st3" width="92" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 301.3203)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st12"> </tspan><tspan x="50.4" y="0" class="st5 st8">endDate</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="310.6" rx="3" ry="3"/>
+	<rect x="3394.5" y="304.8" class="st3" width="57" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 314.2754)" class="st4"><tspan x="0" y="0" class="st5 st8">User?</tspan><tspan x="29.3" y="0" class="st5 st8 st32"> </tspan><tspan x="35.6" y="0" class="st5 st8">user</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="323.6" rx="3" ry="3"/>
+	<rect x="3394.5" y="317.8" class="st3" width="106" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 327.2305)" class="st4"><tspan x="0" y="0" class="st5 st8">Users</tspan><tspan x="28.7" y="0" class="st5 st8 st10"> </tspan><tspan x="40.6" y="0" class="st5 st8">loggedInUser</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="336.6" rx="3" ry="3"/>
+	<rect x="3394.5" y="330.7" class="st3" width="243" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 340.1855)" class="st4"><tspan x="0" y="0" class="st5 st8">EmergencyContacts</tspan><tspan x="99" y="0" class="st5 st8 st24"> </tspan><tspan x="120.7" y="0" class="st5 st8">emergencyContactModel</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="349.5" rx="3" ry="3"/>
+	<rect x="3394.5" y="343.7" class="st3" width="138" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 353.1406)" class="st4"><tspan x="0" y="0" class="st5 st8">List&lt;dynamic&gt;</tspan><tspan x="70.9" y="0" class="st5 st8 st33"> </tspan><tspan x="90.9" y="0" class="st5 st8">recipients</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="362.5" rx="3" ry="3"/>
+	<rect x="3394.5" y="356.7" class="st3" width="118" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 366.0957)" class="st4"><tspan x="0" y="0" class="st5 st8">String?</tspan><tspan x="34.9" y="0" class="st5 st8 st15"> </tspan><tspan x="45.9" y="0" class="st5 st8">userFirstName</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="375.4" rx="3" ry="3"/>
+	<rect x="3394.5" y="369.6" class="st3" width="116" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 379.0508)" class="st4"><tspan x="0" y="0" class="st5 st8">String?</tspan><tspan x="34.9" y="0" class="st5 st8 st12"> </tspan><tspan x="44.5" y="0" class="st5 st8">userLastName</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="388.4" rx="3" ry="3"/>
+	<rect x="3394.5" y="382.6" class="st3" width="147" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 392.0059)" class="st4"><tspan x="0" y="0" class="st5 st8">Emergency</tspan><tspan x="55.6" y="0" class="st5 st8 st10"> </tspan><tspan x="66.9" y="0" class="st5 st8">emergencyCase</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="401.3" rx="3" ry="3"/>
+	<rect x="3394.5" y="395.5" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 404.9609)" class="st4"><tspan x="0" y="0" class="st5 st8">String</tspan><tspan x="28.7" y="0" class="st5 st8 st15"> </tspan><tspan x="39.1" y="0" class="st5 st8">subject</tspan></text>
+	<ellipse class="st7" cx="3385.5" cy="414.3" rx="3" ry="3"/>
+	<rect x="3394.5" y="408.5" class="st3" width="108" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 417.916)" class="st4"><tspan x="0" y="0" class="st5 st8">String?</tspan><tspan x="34.9" y="0" class="st5 st8 st10"> </tspan><tspan x="46.9" y="0" class="st5 st8">downloadUrl</tspan></text>
+	<line class="st2" x1="3375.5" y1="424.2" x2="3668.5" y2="424.2"/>
+	<ellipse class="st14" cx="3385.5" cy="435.2" rx="3" ry="3"/>
+	<rect x="3394.5" y="429.4" class="st3" width="77" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 438.8711)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st12"> </tspan><tspan x="29.9" y="0" class="st5 st8">initState()</tspan></text>
+	<ellipse class="st14" cx="3385.5" cy="448.2" rx="3" ry="3"/>
+	<rect x="3394.5" y="442.4" class="st3" width="86" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 451.8262)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st10"> </tspan><tspan x="52.4" y="0" class="st5 st8">verify()</tspan></text>
+	<ellipse class="st14" cx="3385.5" cy="461.1" rx="3" ry="3"/>
+	<rect x="3394.5" y="455.3" class="st3" width="66" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 464.7812)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st15"> </tspan><tspan x="31.2" y="0" class="st5 st8">startIt()</tspan></text>
+	<ellipse class="st14" cx="3385.5" cy="474.1" rx="3" ry="3"/>
+	<rect x="3394.5" y="468.3" class="st3" width="123" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 477.7363)" class="st4"><tspan x="0" y="0" class="st5 st8">Future&lt;void&gt;</tspan><tspan x="64.8" y="0" class="st5 st8 st33"> </tspan><tspan x="84.5" y="0" class="st5 st8">record()</tspan></text>
+	<ellipse class="st14" cx="3385.5" cy="487.1" rx="3" ry="3"/>
+	<rect x="3394.5" y="481.2" class="st3" width="163" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 490.6914)" class="st4"><tspan x="0" y="0" class="st5 st8">Future&lt;String?&gt;</tspan><tspan x="79.5" y="0" class="st5 st8 st33"> </tspan><tspan x="99.4" y="0" class="st5 st8">stopRecord()</tspan></text>
+	<ellipse class="st14" cx="3385.5" cy="500" rx="3" ry="3"/>
+	<rect x="3394.5" y="494.2" class="st3" width="134" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 503.6465)" class="st4"><tspan x="0" y="0" class="st5 st8">Timer</tspan><tspan x="28.1" y="0" class="st5 st8 st18"> </tspan><tspan x="42.9" y="0" class="st5 st8">scheduleTimeout()</tspan></text>
+	<ellipse class="st14" cx="3385.5" cy="513" rx="3" ry="3"/>
+	<rect x="3394.5" y="507.2" class="st3" width="201" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 516.6016)" class="st4"><tspan x="0" y="0" class="st5 st8">Future&lt;dynamic&gt;</tspan><tspan x="85.6" y="0" class="st5 st8 st34"> </tspan><tspan x="110.5" y="0" class="st5 st8">uploadRecording()</tspan></text>
+	<ellipse class="st14" cx="3385.5" cy="525.9" rx="3" ry="3"/>
+	<rect x="3394.5" y="520.1" class="st3" width="90" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 529.5566)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st9"> </tspan><tspan x="33.2" y="0" class="st5 st8">startTimer()</tspan></text>
+	<ellipse class="st14" cx="3385.5" cy="538.9" rx="3" ry="3"/>
+	<rect x="3394.5" y="533.1" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3394.5 542.5117)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+</g>
+<polygon class="st35" points="3374.6,549 3367.4,549.1 3364.8,555.8 3372,555.7 "/>
+<polygon class="st35" points="3374.3,549.2 3367.1,549.3 3364.4,556 3371.6,555.9 "/>
+<path id="redflag::pin::pinVerficationPage.dart::_VerificatoinState-backto-redflag::Users.dart::Users" class="st36" d="
+	M3363.4,556.7c-9.4,6.2-19.2,11.7-29.4,16.3c-47.4,21.8-891.2-10.6-940,8c-26.9,10.2-52.6,25.5-76.4,42.9"/>
+<polygon class="st35" points="3374.3,549.2 3367.1,549.3 3364.4,556 3371.6,555.9 "/>
+<polygon class="st35" points="3374.2,549 3367,549.1 3364.4,555.8 3371.6,555.7 "/>
+<path id="redflag::pin::pinVerficationPage.dart::_VerificatoinState-backto-redflag::Emergency.dart::Emergency" class="st36" d="
+	M3672.8,558.6c4.7,4.9,9.5,9.7,14.2,14.4c52.6,51.4,119.3,100.2,173.2,136.4"/>
+<polygon class="st35" points="3663.7,549 3664.9,556.1 3671.9,557.7 3670.8,550.6 "/>
+<path id="redflag::pin::pinVerficationPage.dart::_VerificatoinState-backto-redflag::EmergencyContacts.dart::EmergencyContacts" class="st36" d="
+	M3363.3,556.5c-9.4,6.2-19.2,11.7-29.3,16.5c-21.5,10-403.9,2.6-427,8c-109.6,25.7-224.7,83.8-303.2,128.9"/>
+<g>
+	<g class="st0">
+		<polygon class="st27" points="2194,181 2567,181 2574,203.5 2859,203.5 2859,513 2194,513 		"/>
+		<polygon class="st28" points="2194,181 2567,181 2574,203.5 2859,203.5 2859,513 2194,513 		"/>
+	</g>
+	<line class="st28" x1="2194" y1="203.5" x2="2574" y2="203.5"/>
+	<rect x="2198" y="184.5" class="st3" width="367" height="18.8"/>
+	<text transform="matrix(1 0 0 1 2198 196.5352)" class="st4"><tspan x="0" y="0" class="st29 st30">redflag::registration_pages::registration_screen.dar</tspan><tspan x="362.3" y="0" class="st29 st30">t</tspan></text>
+	<g id="redflag::registration_pages::registration_screen.dart::RegistrationScreen" class="st0">
+		<rect x="2613.5" y="326" class="st1" width="229" height="61"/>
+		<rect x="2613.5" y="326" class="st2" width="229" height="61"/>
+	</g>
+	<rect x="2691.2" y="336.2" class="st3" width="106" height="16.1"/>
+	<text transform="matrix(1 0 0 1 2691.25 346.5352)" class="st4"><tspan x="0" y="0" class="st5 st6">RegistrationScree</tspan><tspan x="99.3" y="0" class="st5 st6">n</tspan></text>
+	<line class="st2" x1="2614.5" y1="358" x2="2841.5" y2="358"/>
+	<line class="st2" x1="2614.5" y1="366" x2="2841.5" y2="366"/>
+	<ellipse class="st14" cx="2624.5" cy="377" rx="3" ry="3"/>
+	<rect x="2633.5" y="371.2" class="st3" width="203" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2633.5 380.6348)" class="st4"><tspan x="0" y="0" class="st5 st8">_RegistrationScreenState</tspan><tspan x="125.3" y="0" class="st5 st8 st18"> </tspan><tspan x="139.4" y="0" class="st5 st8">createState()</tspan></text>
+	<g id="redflag::registration_pages::registration_screen.dart::_RegistrationScreenState" class="st0">
+		<rect x="2210" y="216" class="st1" width="368" height="281.2"/>
+		<rect x="2210" y="216" class="st2" width="368" height="281.2"/>
+	</g>
+	<rect x="2340.2" y="226.2" class="st3" width="140" height="16.1"/>
+	<text transform="matrix(1 0 0 1 2340.25 236.5352)" class="st4"><tspan x="0" y="0" class="st5 st6">_RegistrationScreenStat</tspan><tspan x="133.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="2211" y1="248" x2="2577" y2="248"/>
+	<rect x="2218" y="256" class="st16" width="6" height="6"/>
+	<rect x="2230" y="253.2" class="st3" width="104" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 262.6348)" class="st4"><tspan x="0" y="0" class="st5 st8">FirebaseAuth</tspan><tspan x="65.4" y="0" class="st5 st8 st15"> </tspan><tspan x="76.5" y="0" class="st5 st8">_auth</tspan></text>
+	<ellipse class="st7" cx="2221" cy="272" rx="3" ry="3"/>
+	<rect x="2230" y="266.1" class="st3" width="114" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 275.5898)" class="st4"><tspan x="0" y="0" class="st5 st8">String?</tspan><tspan x="34.9" y="0" class="st5 st8 st10"> </tspan><tspan x="46.1" y="0" class="st5 st8">errorMessage</tspan></text>
+	<ellipse class="st7" cx="2221" cy="284.9" rx="3" ry="3"/>
+	<rect x="2230" y="279.1" class="st3" width="80" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 288.5449)" class="st4"><tspan x="0" y="0" class="st5 st8">int</tspan><tspan x="11.6" y="0" class="st5 st8 st10"> </tspan><tspan x="23.1" y="0" class="st5 st8">currentStep</tspan></text>
+	<ellipse class="st7" cx="2221" cy="297.9" rx="3" ry="3"/>
+	<rect x="2230" y="292.1" class="st3" width="263" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 301.5)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st21"> </tspan><tspan x="134.6" y="0" class="st5 st8">firstNameEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="310.8" rx="3" ry="3"/>
+	<rect x="2230" y="305" class="st3" width="280" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 314.4551)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st21"> </tspan><tspan x="133.9" y="0" class="st5 st8">secondNameEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="323.8" rx="3" ry="3"/>
+	<rect x="2230" y="318" class="st3" width="239" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 327.4102)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st37"> </tspan><tspan x="131.4" y="0" class="st5 st8">emailEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="336.7" rx="3" ry="3"/>
+	<rect x="2230" y="330.9" class="st3" width="263" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 340.3652)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st21"> </tspan><tspan x="134.6" y="0" class="st5 st8">passwordEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="349.7" rx="3" ry="3"/>
+	<rect x="2230" y="343.9" class="st3" width="304" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 353.3203)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st38"> </tspan><tspan x="138.3" y="0" class="st5 st8">confirmPasswordEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="362.6" rx="3" ry="3"/>
+	<rect x="2230" y="356.8" class="st3" width="269" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 366.2754)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st39"> </tspan><tspan x="135.7" y="0" class="st5 st8">confirmPinEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="375.6" rx="3" ry="3"/>
+	<rect x="2230" y="369.8" class="st3" width="256" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 379.2305)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st40"> </tspan><tspan x="133.7" y="0" class="st5 st8">keywordEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="388.6" rx="3" ry="3"/>
+	<rect x="2230" y="382.7" class="st3" width="299" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 392.1855)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st41"> </tspan><tspan x="138.8" y="0" class="st5 st8">confirmKeywordEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="401.5" rx="3" ry="3"/>
+	<rect x="2230" y="395.7" class="st3" width="342" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 405.1406)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st41"> </tspan><tspan x="139" y="0" class="st5 st8">emergencyContactNameEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="414.5" rx="3" ry="3"/>
+	<rect x="2230" y="408.7" class="st3" width="340" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 418.0957)" class="st4"><tspan x="0" y="0" class="st5 st8">TextEditingController</tspan><tspan x="102.7" y="0" class="st5 st8 st41"> </tspan><tspan x="138.8" y="0" class="st5 st8">emergencyContactEmailEditingController</tspan></text>
+	<ellipse class="st7" cx="2221" cy="427.4" rx="3" ry="3"/>
+	<rect x="2230" y="421.6" class="st3" width="90" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 431.0508)" class="st4"><tspan x="0" y="0" class="st5 st8">Users</tspan><tspan x="28.7" y="0" class="st5 st8 st12"> </tspan><tspan x="38.6" y="0" class="st5 st8">userModel</tspan></text>
+	<ellipse class="st7" cx="2221" cy="440.4" rx="3" ry="3"/>
+	<rect x="2230" y="434.6" class="st3" width="243" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 444.0059)" class="st4"><tspan x="0" y="0" class="st5 st8">EmergencyContacts</tspan><tspan x="99" y="0" class="st5 st8 st24"> </tspan><tspan x="120.7" y="0" class="st5 st8">emergencyContactModel</tspan></text>
+	<line class="st2" x1="2211" y1="450.3" x2="2577" y2="450.3"/>
+	<ellipse class="st14" cx="2221" cy="461.3" rx="3" ry="3"/>
+	<rect x="2230" y="455.5" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 464.9609)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+	<ellipse class="st14" cx="2221" cy="474.3" rx="3" ry="3"/>
+	<rect x="2230" y="468.5" class="st3" width="72" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 477.916)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st15"> </tspan><tspan x="30.4" y="0" class="st5 st8">signUp()</tspan></text>
+	<ellipse class="st14" cx="2221" cy="487.2" rx="3" ry="3"/>
+	<rect x="2230" y="481.4" class="st3" width="178" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2230 490.8711)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st33"> </tspan><tspan x="60" y="0" class="st5 st8">postDetailsToFirestore()</tspan></text>
+</g>
+<path id="redflag::registration_pages::registration_screen.dart::_RegistrationScreenState-backto-redflag::Users.dart::Users" class="st36" d="
+	M2314.8,508.7c-19.7,37.6-40.7,77.8-60.3,115.1"/>
+<polygon class="st35" points="2320.9,497.1 2314.5,500.6 2315.3,507.8 2321.6,504.3 "/>
+<path id="redflag::registration_pages::registration_screen.dart::_RegistrationScreenState-backto-redflag::EmergencyContacts.dart::EmergencyContacts" class="st36" d="
+	M2435.7,509.8c18,65.8,38.2,139.5,52.5,191.6"/>
+<polygon class="st35" points="2432.3,497.1 2430,504 2435.4,508.7 2437.7,501.9 "/>
+<g>
+	<g id="redflag::nav_pages_UI::profilePage.dart::_profilePageState" class="st0">
+		<rect x="1188" y="287" class="st1" width="246" height="138.7"/>
+		<rect x="1188" y="287" class="st2" width="246" height="138.7"/>
+	</g>
+	<rect x="1277.8" y="297.2" class="st3" width="99" height="16.1"/>
+	<text transform="matrix(1 0 0 1 1277.75 307.5352)" class="st4"><tspan x="0" y="0" class="st5 st6">_profilePageStat</tspan><tspan x="92.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="1189" y1="319" x2="1433" y2="319"/>
+	<ellipse class="st7" cx="1199" cy="330" rx="3" ry="3"/>
+	<rect x="1208" y="324.2" class="st3" width="57" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1208 333.6348)" class="st4"><tspan x="0" y="0" class="st5 st8">User?</tspan><tspan x="29.3" y="0" class="st5 st8 st32"> </tspan><tspan x="35.6" y="0" class="st5 st8">user</tspan></text>
+	<ellipse class="st7" cx="1199" cy="343" rx="3" ry="3"/>
+	<rect x="1208" y="337.1" class="st3" width="106" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1208 346.5898)" class="st4"><tspan x="0" y="0" class="st5 st8">Users</tspan><tspan x="28.7" y="0" class="st5 st8 st10"> </tspan><tspan x="40.6" y="0" class="st5 st8">loggedInUser</tspan></text>
+	<ellipse class="st7" cx="1199" cy="355.9" rx="3" ry="3"/>
+	<rect x="1208" y="350.1" class="st3" width="59" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1208 359.5449)" class="st4"><tspan x="0" y="0" class="st5 st8">int?</tspan><tspan x="17.7" y="0" class="st5 st8 st32"> </tspan><tspan x="24.2" y="0" class="st5 st8">ecNum</tspan></text>
+	<line class="st2" x1="1189" y1="365.9" x2="1433" y2="365.9"/>
+	<ellipse class="st14" cx="1199" cy="376.9" rx="3" ry="3"/>
+	<rect x="1208" y="371.1" class="st3" width="77" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1208 380.5)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st12"> </tspan><tspan x="29.9" y="0" class="st5 st8">initState()</tspan></text>
+	<ellipse class="st14" cx="1199" cy="389.8" rx="3" ry="3"/>
+	<rect x="1208" y="384" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1208 393.4551)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+	<ellipse class="st14" cx="1199" cy="402.8" rx="3" ry="3"/>
+	<rect x="1208" y="397" class="st3" width="122" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1208 406.4102)" class="st4"><tspan x="0" y="0" class="st5 st8">Future&lt;void&gt;</tspan><tspan x="64.8" y="0" class="st5 st8 st33"> </tspan><tspan x="84.7" y="0" class="st5 st8">logout()</tspan></text>
+	<ellipse class="st14" cx="1199" cy="415.7" rx="3" ry="3"/>
+	<rect x="1208" y="409.9" class="st3" width="220" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1208 419.3652)" class="st4"><tspan x="0" y="0" class="st5 st8">Future&lt;void&gt;</tspan><tspan x="64.8" y="0" class="st5 st8 st34"> </tspan><tspan x="89.2" y="0" class="st5 st8">deleteEmergencyContact()</tspan></text>
+</g>
+<polygon class="st35" points="1335.6,426.1 1334.4,433.2 1340.5,437 1341.7,429.9 "/>
+<path id="redflag::nav_pages_UI::profilePage.dart::_profilePageState-backto-redflag::Users.dart::Users" class="st36" d="
+	M1341,438.3c22.6,48.3,58.7,105.8,111,134.7c19.4,10.7,377.6,2,399,8c65.4,18.2,131.3,52.6,186.7,87.1"/>
+<polygon class="st35" points="1335.6,426.2 1334.4,433.3 1340.5,437.1 1341.7,430 "/>
+<g>
+	<g class="st0">
+		<polygon class="st27" points="2883,232.5 3166,232.5 3173,255 3334,255 3334,461.5 2883,461.5 		"/>
+		<polygon class="st28" points="2883,232.5 3166,232.5 3173,255 3334,255 3334,461.5 2883,461.5 		"/>
+	</g>
+	<line class="st28" x1="2883" y1="255" x2="3173" y2="255"/>
+	<rect x="2887" y="236" class="st3" width="277" height="18.8"/>
+	<text transform="matrix(1 0 0 1 2887 248.0352)" class="st4"><tspan x="0" y="0" class="st29 st30">redflag::nav_pages_UI::reportsPage.dar</tspan><tspan x="272.3" y="0" class="st29 st30">t</tspan></text>
+	<g id="redflag::nav_pages_UI::reportsPage.dart::reportsPage" class="st0">
+		<rect x="3112.5" y="319.5" class="st1" width="205" height="73.9"/>
+		<rect x="3112.5" y="319.5" class="st2" width="205" height="73.9"/>
+	</g>
+	<rect x="3182.5" y="329.9" class="st3" width="70" height="16.1"/>
+	<text transform="matrix(1 0 0 1 3182.5 340.2338)" class="st4"><tspan x="0" y="0" class="st5 st6">reportsPag</tspan><tspan x="63.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="3113.5" y1="351.5" x2="3316.5" y2="351.5"/>
+	<ellipse class="st7" cx="3123.5" cy="362.5" rx="3" ry="3"/>
+	<rect x="3132.5" y="356.7" class="st3" width="91" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3132.5 366.1348)" class="st4"><tspan x="0" y="0" class="st5 st8">String</tspan><tspan x="28.7" y="0" class="st5 st8 st12"> </tspan><tspan x="38.4" y="0" class="st5 st8">caseNumb</tspan></text>
+	<line class="st2" x1="3113.5" y1="372.5" x2="3316.5" y2="372.5"/>
+	<ellipse class="st14" cx="3123.5" cy="383.5" rx="3" ry="3"/>
+	<rect x="3132.5" y="377.6" class="st3" width="179" height="14.7"/>
+	<text transform="matrix(1 0 0 1 3132.5 387.0898)" class="st4"><tspan x="0" y="0" class="st5 st8">State&lt;reportsPage&gt;</tspan><tspan x="98.5" y="0" class="st5 st8 st17"> </tspan><tspan x="115.4" y="0" class="st5 st8">createState()</tspan></text>
+	<g id="redflag::nav_pages_UI::reportsPage.dart::_reportsPageState" class="st0">
+		<rect x="2899" y="267.5" class="st1" width="178" height="177.6"/>
+		<rect x="2899" y="267.5" class="st2" width="178" height="177.6"/>
+	</g>
+	<rect x="2931.5" y="276.7" class="st3" width="104" height="16.1"/>
+	<text transform="matrix(1 0 0 1 2931.4995 286.9966)" class="st4"><tspan x="0" y="0" class="st5 st6">_reportsPageStat</tspan><tspan x="97.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="2900" y1="299.5" x2="3076" y2="299.5"/>
+	<ellipse class="st7" cx="2910" cy="310.5" rx="3" ry="3"/>
+	<rect x="2919" y="304.7" class="st3" width="57" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 314.1348)" class="st4"><tspan x="0" y="0" class="st5 st8">User?</tspan><tspan x="29.3" y="0" class="st5 st8 st32"> </tspan><tspan x="35.6" y="0" class="st5 st8">user</tspan></text>
+	<ellipse class="st7" cx="2910" cy="323.5" rx="3" ry="3"/>
+	<rect x="2919" y="317.6" class="st3" width="106" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 327.0898)" class="st4"><tspan x="0" y="0" class="st5 st8">Users</tspan><tspan x="28.7" y="0" class="st5 st8 st10"> </tspan><tspan x="40.6" y="0" class="st5 st8">loggedInUser</tspan></text>
+	<ellipse class="st7" cx="2910" cy="336.4" rx="3" ry="3"/>
+	<rect x="2919" y="330.6" class="st3" width="129" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 340.0449)" class="st4"><tspan x="0" y="0" class="st5 st8">AudioPlayer</tspan><tspan x="59.3" y="0" class="st5 st8 st10"> </tspan><tspan x="70.9" y="0" class="st5 st8">audioPlayer</tspan></text>
+	<ellipse class="st7" cx="2910" cy="349.4" rx="3" ry="3"/>
+	<rect x="2919" y="343.6" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 353)" class="st4"><tspan x="0" y="0" class="st5 st8">bool</tspan><tspan x="20.8" y="0" class="st5 st8 st12"> </tspan><tspan x="30" y="0" class="st5 st8">isPlaying</tspan></text>
+	<rect x="2907" y="359.3" class="st16" width="6" height="6"/>
+	<rect x="2919" y="356.5" class="st3" width="80" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 365.9551)" class="st4"><tspan x="0" y="0" class="st5 st8">String</tspan><tspan x="28.7" y="0" class="st5 st8 st11"> </tspan><tspan x="37.2" y="0" class="st5 st8">_filePath</tspan></text>
+	<ellipse class="st7" cx="2910" cy="375.3" rx="3" ry="3"/>
+	<rect x="2919" y="369.5" class="st3" width="100" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 378.9102)" class="st4"><tspan x="0" y="0" class="st5 st8">String</tspan><tspan x="28.7" y="0" class="st5 st8 st25"> </tspan><tspan x="41.9" y="0" class="st5 st8">locationLink</tspan></text>
+	<line class="st2" x1="2900" y1="385.2" x2="3076" y2="385.2"/>
+	<ellipse class="st14" cx="2910" cy="396.2" rx="3" ry="3"/>
+	<rect x="2919" y="390.4" class="st3" width="76" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 399.8652)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st15"> </tspan><tspan x="30.8" y="0" class="st5 st8">dispose()</tspan></text>
+	<ellipse class="st14" cx="2910" cy="409.2" rx="3" ry="3"/>
+	<rect x="2919" y="403.4" class="st3" width="77" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 412.8203)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st12"> </tspan><tspan x="29.9" y="0" class="st5 st8">initState()</tspan></text>
+	<rect x="2907" y="419.1" class="st19" width="6" height="6"/>
+	<rect x="2919" y="416.3" class="st3" width="152" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 425.7754)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st9"> </tspan><tspan x="32.8" y="0" class="st5 st8">_onPlayButtonPressed()</tspan></text>
+	<ellipse class="st14" cx="2910" cy="435.1" rx="3" ry="3"/>
+	<rect x="2919" y="429.3" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 2919 438.7305)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+</g>
+<polygon class="st35" points="2959.3,445.5 2953.2,449.4 2954.4,456.5 2960.5,452.6 "/>
+<path id="redflag::nav_pages_UI::reportsPage.dart::_reportsPageState-backto-redflag::Users.dart::Users" class="st36" d="
+	M2953.8,457.5c-20.4,43.5-51,90.1-94.8,115.5c-22.4,12.9-440.9-1.3-465,8c-26.7,10.3-52.4,25.5-76,42.9"/>
+<polygon class="st35" points="2959.1,445.7 2953,449.5 2954.2,456.6 2960.3,452.8 "/>
+<path id="redflag::nav_pages_UI::nav.dart::_NavScreenState-backto-redflag::locations::location_service.dart::GeoLocatorService" class="st36" d="
+	M3362.7,1289.8c0,90.2,0,253.8,0,320.5"/>
+<polygon class="st35" points="3362.7,1276.8 3358.7,1282.8 3362.7,1288.8 3366.7,1282.8 "/>
+<g>
+	<g id="redflag::nav_pages_UI::add_ec.dart::_addState" class="st0">
+		<rect x="569" y="392.3" class="st1" width="273.5" height="190.5"/>
+		<rect x="569" y="392.3" class="st2" width="273.5" height="190.5"/>
+	</g>
+	<rect x="680.8" y="402.6" class="st3" width="57" height="16.1"/>
+	<text transform="matrix(1 0 0 1 680.75 412.8711)" class="st4"><tspan x="0" y="0" class="st5 st6">_addStat</tspan><tspan x="50.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="569.7" y1="424.3" x2="841.8" y2="424.3"/>
+	<g>
+		<ellipse class="st7" cx="580" cy="467.2" rx="3" ry="3"/>
+		<g>
+			<ellipse class="st7" cx="580" cy="441.2" rx="3" ry="3"/>
+			<rect x="589" y="435.4" class="st3" width="69" height="14.7"/>
+			<text transform="matrix(1 0 0 1 589 444.8808)" class="st4"><tspan x="0" y="0" class="st5 st8">String?</tspan><tspan x="34.9" y="0" class="st5 st8 st32"> </tspan><tspan x="41.5" y="0" class="st5 st8">name</tspan></text>
+			<ellipse class="st7" cx="580" cy="454.2" rx="3" ry="3"/>
+			<rect x="589" y="448.4" class="st3" width="68" height="14.7"/>
+			<text transform="matrix(1 0 0 1 589 457.8359)" class="st4"><tspan x="0" y="0" class="st5 st8">String?</tspan><tspan x="34.9" y="0" class="st5 st8 st32"> </tspan><tspan x="41.7" y="0" class="st5 st8">email</tspan></text>
+			<rect x="589" y="461.3" class="st3" width="57" height="14.7"/>
+			<text transform="matrix(1 0 0 1 589 470.791)" class="st4"><tspan x="0" y="0" class="st5 st8">User?</tspan><tspan x="29.3" y="0" class="st5 st8 st32"> </tspan><tspan x="35.6" y="0" class="st5 st8">user</tspan></text>
+			<ellipse class="st7" cx="580" cy="480.1" rx="3" ry="3"/>
+			<rect x="589" y="474.3" class="st3" width="106" height="14.7"/>
+			<text transform="matrix(1 0 0 1 589 483.7461)" class="st4"><tspan x="0" y="0" class="st5 st8">Users</tspan><tspan x="28.7" y="0" class="st5 st8 st10"> </tspan><tspan x="40.6" y="0" class="st5 st8">loggedInUser</tspan></text>
+		</g>
+	</g>
+	<line class="st2" x1="569.7" y1="490.1" x2="841.8" y2="490.1"/>
+	<ellipse class="st14" cx="580" cy="501.1" rx="3" ry="3"/>
+	<rect x="589" y="495.3" class="st3" width="77" height="14.7"/>
+	<text transform="matrix(1 0 0 1 589 504.7011)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st12"> </tspan><tspan x="29.9" y="0" class="st5 st8">initState()</tspan></text>
+	<ellipse class="st14" cx="580" cy="514" rx="3" ry="3"/>
+	<rect x="589" y="508.2" class="st3" width="117" height="14.7"/>
+	<text transform="matrix(1 0 0 1 589 517.6562)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st25"> </tspan><tspan x="54" y="0" class="st5 st8">submitData()</tspan></text>
+	<ellipse class="st14" cx="580" cy="527" rx="3" ry="3"/>
+	<rect x="589" y="521.2" class="st3" width="106" height="14.7"/>
+	<text transform="matrix(1 0 0 1 589 530.6113)" class="st4"><tspan x="0" y="0" class="st5 st8">dynamic</tspan><tspan x="41" y="0" class="st5 st8 st15"> </tspan><tspan x="51.6" y="0" class="st5 st8">clearData()</tspan></text>
+	<ellipse class="st14" cx="580" cy="539.9" rx="3" ry="3"/>
+	<rect x="589" y="534.1" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 589 543.5664)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+	<ellipse class="st14" cx="580" cy="552.9" rx="3" ry="3"/>
+	<rect x="589" y="547.1" class="st3" width="122" height="14.7"/>
+	<text transform="matrix(1 0 0 1 589 556.5215)" class="st4"><tspan x="0" y="0" class="st5 st8">Future&lt;void&gt;</tspan><tspan x="64.8" y="0" class="st5 st8 st33"> </tspan><tspan x="84.7" y="0" class="st5 st8">logout()</tspan></text>
+</g>
+<polygon class="st35" points="813.6,583.5 814.2,590.7 821,592.9 820.5,585.7 "/>
+<path id="redflag::nav_pages_UI::add_ec.dart::_addState-backto-redflag::Users.dart::Users" class="st36" d="M819.1,568.1
+	c34.1,42.6,79.4,87.1,132.2,110.4c22.8,10,873,1.4,897,8c65.5,17.9,131.4,52.2,186.8,86.7"/>
+<polygon class="st35" points="813.6,583.5 814.2,590.7 821,592.9 820.4,585.8 "/>
+<g>
+	<g id="redflag::nav_pages_UI::reports::emergencyCasesList.dart::_cemrgencyCasesState" class="st0">
+		<rect x="1725" y="306.5" class="st1" width="162" height="99.8"/>
+		<rect x="1725" y="306.5" class="st2" width="162" height="99.8"/>
+	</g>
+	<rect x="1754" y="316.7" class="st3" width="130" height="16.1"/>
+	<text transform="matrix(1 0 0 1 1754 327.0352)" class="st4"><tspan x="0" y="0" class="st5 st6">_cemrgencyCasesStat</tspan><tspan x="123.3" y="0" class="st5 st6">e</tspan></text>
+	<line class="st2" x1="1726" y1="338.5" x2="1886" y2="338.5"/>
+	<ellipse class="st7" cx="1736" cy="349.5" rx="3" ry="3"/>
+	<rect x="1745" y="343.7" class="st3" width="57" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1745 353.1348)" class="st4"><tspan x="0" y="0" class="st5 st8">User?</tspan><tspan x="29.3" y="0" class="st5 st8 st32"> </tspan><tspan x="35.6" y="0" class="st5 st8">user</tspan></text>
+	<ellipse class="st7" cx="1736" cy="362.5" rx="3" ry="3"/>
+	<rect x="1745" y="356.6" class="st3" width="106" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1745 366.0898)" class="st4"><tspan x="0" y="0" class="st5 st8">Users</tspan><tspan x="28.7" y="0" class="st5 st8 st10"> </tspan><tspan x="40.6" y="0" class="st5 st8">loggedInUser</tspan></text>
+	<line class="st2" x1="1726" y1="372.4" x2="1886" y2="372.4"/>
+	<ellipse class="st14" cx="1736" cy="383.4" rx="3" ry="3"/>
+	<rect x="1745" y="377.6" class="st3" width="77" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1745 387.0449)" class="st4"><tspan x="0" y="0" class="st5 st8">void</tspan><tspan x="20.2" y="0" class="st5 st8 st12"> </tspan><tspan x="29.9" y="0" class="st5 st8">initState()</tspan></text>
+	<ellipse class="st14" cx="1736" cy="396.4" rx="3" ry="3"/>
+	<rect x="1745" y="390.6" class="st3" width="74" height="14.7"/>
+	<text transform="matrix(1 0 0 1 1745 400)" class="st4"><tspan x="0" y="0" class="st5 st8">Widget</tspan><tspan x="34.2" y="0" class="st5 st8 st12"> </tspan><tspan x="43.4" y="0" class="st5 st8">build()</tspan></text>
+</g>
+<path id="redflag::nav_pages_UI::reports::emergencyCasesList.dart::_cemrgencyCasesState-backto-redflag::Users.dart::Users" class="st36" d="
+	M1824.8,419.3c16.1,45.8,42.7,108,80.2,153.7c36.8,44.8,86.2,84.5,132.7,116.3"/>
+<polygon class="st35" points="1820.6,406.9 1818.7,413.8 1824.4,418.2 1826.3,411.2 "/>
+</svg>

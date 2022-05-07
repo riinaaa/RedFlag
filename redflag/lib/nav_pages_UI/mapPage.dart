@@ -16,7 +16,7 @@ class _mapPageState extends State<mapPage> {
   // manage the camera functions, zoom and animations, etc.
   Completer<GoogleMapController> _controller = Completer();
 
-  // store each marker ID so we cas use it in ( markers list ) to refrence the marker.
+  // store each marker ID so we cas use it in ( markers list ) to refrence the
   List<MarkerId> listMarkerIds = List<MarkerId>.empty(growable: true);
 
   // we will store the markers in here then will use it to set it on the map

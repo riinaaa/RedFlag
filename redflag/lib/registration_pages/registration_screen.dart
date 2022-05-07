@@ -43,6 +43,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final emergencyContactNameEditingController = new TextEditingController();
   final emergencyContactEmailEditingController = new TextEditingController();
 
+  // object from our users class to create the user
+  Users userModel = Users();
+  EmergencyContacts emergencyContactModel = EmergencyContacts();
+
   @override
   Widget build(BuildContext context) {
     // --------------------- first name field ---------------------
@@ -563,10 +567,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     // create object to get the current user from firebase auth
     User? currentUser = _auth.currentUser;
-
-    // object from our users class to create the user
-    Users userModel = Users();
-    EmergencyContacts emergencyContactModel = EmergencyContacts();
 
     // writing all the values
     //user
