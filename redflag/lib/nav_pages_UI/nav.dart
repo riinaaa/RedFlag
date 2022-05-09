@@ -65,8 +65,8 @@ class _NavScreenState extends State<NavScreen> {
                 activeColor: Color(0xFF6666FF),
                 inactiveColor: Colors.black),
             BottomNavyBarItem(
-                icon: Icon(Icons.insert_drive_file_rounded),
-                title: Text('Report'),
+                icon: Icon(Icons.folder_rounded),
+                title: Text('Repository'),
                 activeColor: Color(0xFF6666FF),
                 inactiveColor: Colors.black)
           ],

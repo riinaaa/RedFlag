@@ -48,6 +48,8 @@ class _VerificatoinState extends State<Verificatoin> {
   Emergency emergencyCase = new Emergency();
   String subject = 'There is an emergency ::🔴:: Redflag Team';
   String? downloadUrl;
+  String? locLink;
+  String? recoURL;
 
   @override
   void initState() {
@@ -133,6 +135,43 @@ class _VerificatoinState extends State<Verificatoin> {
           // 3
           //UPLOAD AUDIO TO FIREBASE STORAGE
           uploadRecording(emergencyId);
+
+          // // //************************************************************************
+          // // // -----------------Send an email to the emergency contact-----------------
+          // Emergency mail = new Emergency();
+          // String subject =
+          //     'Detailes of The Emergency Case $emergencyId :: Redflag Team';
+          // // String ecName = emergencyContactNameEditingController.text;
+          // // String userFirstName = firstNameEditingController.text;
+          // // String audio = emergencyCase.getAudioRecording;
+
+          // final recipients = <dynamic>[loggedInUser.getEmail];
+          // String msg =
+          //     '<h1>Hello, This is the detailes of the emergency case $emergencyId  </h1>\n<p> The recording download link : $recoURL\n</p><p>The Location link: $locLink </p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
+          // mail.sendMail(recipients, subject, msg);
+
+          // // ----------------------------------------
+        }
+        if (widget.status == 'emergency') {
+          // Message
+          final snackBar = SnackBar(
+            content: const Text(
+                'Yor Deactivated Seccussfully.\n Note: NO feature has been activated.'),
+            backgroundColor: Color.fromARGB(255, 95, 231, 129),
+            // Inner padding for SnackBar content.
+            padding: const EdgeInsets.only(
+              top: 20,
+              bottom: 20,
+              left: 30,
+            ),
+            margin: EdgeInsets.only(left: 40, right: 40),
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          );
+
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
 
         Navigator.push(
@@ -233,6 +272,9 @@ class _VerificatoinState extends State<Verificatoin> {
     downloadUrl = await ref.getDownloadURL();
     print("recording url...");
     print(downloadUrl);
+    setState(() {
+      recoURL = emergencyCase.audioRecording;
+    });
 
     emergencyCase.caseNumber = ecaseID;
     emergencyCase.audioRecording = downloadUrl;
@@ -242,6 +284,40 @@ class _VerificatoinState extends State<Verificatoin> {
         .collection("emergencyCase")
         .doc()
         .set(emergencyCase.toMap(user!.uid));
+
+    // //************************************************************************
+    // // -----------------Send an email to the emergency contact-----------------
+    // Emergency mail = new Emergency();
+    // String subject = 'Detailes of The Emergency Case $ecaseID :: Redflag Team';
+    // // String ecName = emergencyContactNameEditingController.text;
+    // // String userFirstName = firstNameEditingController.text;
+    // // String userLastName = secondNameEditingController.text;
+    // // final recipients = <dynamic>[emergencyContactEmailEditingController.text];
+    // String msg =
+    //     '<h1>Hello, This is the detailes of the emergency case $ecaseID  </h1>\n<p> The recording download link : $downloadUrl\n</p><p>The Location link: $locLink </p>\n<br>\<br>\n<br>\n<br>\n<br>\n<hr>\n<p style="color:#6c63ff; font-family:Arial, Helvetica, sans-serif; font-size:18px;";><strong>Atheer Alghamdi</strong></p>\<p style="font-family:Arial, Helvetica, sans-serif; font-size:15px;"><strong>Redflag Developer | IT Department </strong></p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Email: redflagapp.8@gmail.com</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Adress: King Abdulaziz University | FCIT</p>\n<p style="font-family:Arial, Helvetica, sans-serif; font-size:12px;">Websit: <a href="https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php">https://fcitweb.kau.edu.sa/fcitwebsite/itdepartment.php</a></p>\n<br>\n<br>';
+    // mail.sendMail(loggedInUser.getEmail, subject, msg);
+
+    //----------------------------------------
+
+    // // Message
+    // final snackBar = SnackBar(
+    //   content: const Text(
+    //       'Your emergency case detailes is \nsaved in the Repository.'),
+    //   backgroundColor: Color.fromARGB(255, 107, 255, 139),
+    //   // Inner padding for SnackBar content.
+    //   padding: const EdgeInsets.only(
+    //     top: 20,
+    //     bottom: 20,
+    //     left: 30,
+    //   ),
+    //   margin: EdgeInsets.only(left: 40, right: 40),
+    //   behavior: SnackBarBehavior.floating,
+    //   shape: RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.circular(5),
+    //   ),
+    // );
+
+    // ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   void startTimer() {
@@ -252,6 +328,9 @@ class _VerificatoinState extends State<Verificatoin> {
       //set the user location link in the emergency case object
       //to store the link in firestore
       emergencyCase.userLocation = value;
+      setState(() {
+        locLink = value;
+      });
 
       // the email content
       String msg2 =

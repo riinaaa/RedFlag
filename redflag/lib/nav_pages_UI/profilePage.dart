@@ -18,6 +18,7 @@ class _profilePageState extends State<profilePage> {
   User? user = FirebaseAuth.instance.currentUser;
   Users loggedInUser = Users();
   int? ecNum;
+  late String ecemail;
 
   @override
   void initState() {
@@ -48,6 +49,49 @@ class _profilePageState extends State<profilePage> {
 // ------------------------------ The profile page UI ------------------------------
   @override
   Widget build(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true)
+            .pop(false); // dismisses only the dialog and returns false
+      },
+    );
+    Widget deleteButton = ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Color.fromARGB(255, 108, 82, 255), // background
+          onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
+        ),
+        onPressed: () async {
+          deleteEmergencyContact(ecemail);
+          Navigator.of(context, rootNavigator: true)
+              .pop(true); // dismisses only the dialog and returns true
+        },
+        child: Text(
+          "Delete",
+          textAlign: TextAlign.center,
+        ));
+
+    // Widget deleteButton = TextButton(
+    //   child: Text("Delete"),
+    //   onPressed: () {
+    //     deleteEmergencyContact(ecemail);
+    //     Navigator.of(context, rootNavigator: true)
+    //         .pop(true); // dismisses only the dialog and returns true
+    //   },
+    // );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Wait", textAlign: TextAlign.center),
+      content:
+          Text("Are you sure that you want to delete this emergency contact?"),
+      actions: [
+        deleteButton,
+        cancelButton,
+      ],
+    );
+
     return Container(
       child: Scaffold(
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -218,6 +262,7 @@ class _profilePageState extends State<profilePage> {
                                     Map<String, dynamic> data = document.data()!
                                         as Map<String, dynamic>;
                                     // -------------- The UI of the Listview --------------
+
                                     return Container(
                                       margin: EdgeInsets.only(
                                           top: 5, left: 30, right: 30),
@@ -247,6 +292,7 @@ class _profilePageState extends State<profilePage> {
                                                 fontSize: 15,
                                                 color: Color.fromARGB(
                                                     255, 236, 236, 238))),
+
                                         // -------------- Delete Button --------------
                                         // deleteEmergencyContact(String email) => will delete the EC from Forestore
                                         trailing: IconButton(
@@ -257,8 +303,18 @@ class _profilePageState extends State<profilePage> {
                                                 255, 240, 240, 240),
                                           ),
                                           onPressed: () {
-                                            deleteEmergencyContact(
-                                                data['ecEmail']);
+                                            setState(() {
+                                              ecemail = data['ecEmail'];
+                                            });
+                                            // deleteEmergencyContact(
+                                            //     data['ecEmail']);
+                                            // show the dialog
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return alert;
+                                              },
+                                            );
                                           },
                                         ),
                                       ),
