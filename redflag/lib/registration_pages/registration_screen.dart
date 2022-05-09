@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_siri_suggestions/flutter_siri_suggestions.dart';
 import 'package:redflag/Emergency.dart';
 import 'package:redflag/EmergencyContacts.dart';
 import '/nav_pages_UI/nav.dart';
@@ -46,6 +47,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // object from our users class to create the user
   Users userModel = Users();
   EmergencyContacts emergencyContactModel = EmergencyContacts();
+
+  late String keyWord;
 
   @override
   Widget build(BuildContext context) {
@@ -322,12 +325,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           primary: Color.fromARGB(255, 108, 82, 255), // background
           onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
         ),
-        onPressed: () {
+        onPressed: () async {
           // to sign up the use using Firebase Auth
           signUp(emailEditingController.text, passwordEditingController.text);
         },
         child: Text(
           "Register",
+          textAlign: TextAlign.center,
+        ));
+
+    final shortcutButton = ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Color.fromARGB(255, 108, 82, 255), // background
+          onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
+        ),
+        onPressed: () async {
+          setState(() {
+            keyWord = confirmKeywordEditingController.text;
+          });
+
+          await FlutterSiriSuggestions.instance
+              .registerActivity(FlutterSiriActivity(
+            "$keyWord",
+            keyWord,
+            isEligibleForSearch: true,
+            isEligibleForPrediction: true,
+            contentDescription: "Activate Redflag ",
+            suggestedInvocationPhrase: "Redflag",
+          ));
+          print('Done');
+        },
+        child: Text(
+          "Add to shortcut",
           textAlign: TextAlign.center,
         ));
 
@@ -501,6 +530,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           onPressed: controls.onStepContinue,
                         ),
                       if (currentStep == 2) signUpButton,
+                      if (currentStep == 1) shortcutButton,
                       if (currentStep != 0)
                         TextButton(
                           onPressed: controls.onStepCancel,
@@ -598,8 +628,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         // sending emergcency contact infromation to the firestore from our emergcency contact class
         .set(emergencyContactModel.toMap(currentUser.uid));
 
-    Fluttertoast.showToast(msg: "Account created successfully :) ");
-
     //************************************************************************
     // -----------------Send an email to the emergency contact-----------------
     Emergency mail = new Emergency();
@@ -614,7 +642,50 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     mail.sendMail(recipients, subject, msg);
 
     //----------------------------------------
+
     Navigator.pushAndRemoveUntil((context),
         MaterialPageRoute(builder: (context) => NavScreen()), (route) => false);
+
+    // //************************************************************************
+    // // -----------------Shortcut-----------------
+    // setState(() {
+    //   keyWord = confirmKeywordEditingController.text;
+    // });
+
+    // await FlutterSiriSuggestions.instance.registerActivity(FlutterSiriActivity(
+    //   "$keyWord",
+    //   keyWord,
+    //   isEligibleForSearch: true,
+    //   isEligibleForPrediction: true,
+    //   contentDescription: "Activate Redflag ",
+    //   suggestedInvocationPhrase: "Redflag",
+    // ));
+    // showAlertDialog(BuildContext context) {
+    //   // set up the button
+    //   Widget okButton = TextButton(
+    //     child: Text("OK"),
+    //     onPressed: () {},
+    //   );
+
+    //   // set up the AlertDialog
+    //   AlertDialog alert = AlertDialog(
+    //     title: Text("Account created successfully :"),
+    //     content: Text(
+    //         "Go to\n Shortcut app --> Gallory\n to activate your keyword."),
+    //     actions: [
+    //       okButton,
+    //     ],
+    //   );
+
+    //   // show the dialog
+    //   showDialog(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return alert;
+    //     },
+    //   );
+    // }
+
+    // Fluttertoast.showToast(msg: "Account created successfully :) ");
   }
 }
