@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:redflag/Emergency.dart';
 import 'package:redflag/Users.dart';
+import 'package:redflag/nav_pages_UI/profilePage.dart';
 import 'package:redflag/registration_pages/login_screen.dart';
 import 'package:redflag/EmergencyContacts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -64,7 +65,25 @@ class _addState extends State<add> {
           .doc()
           .set(emergencyContactModel.toMap(user!.uid));
 
-      Fluttertoast.showToast(msg: "Emergency contact added successfully :) ");
+      //3) display message to user
+      // // Message
+      final snackBar = SnackBar(
+        content: Text("Emergency contact added successfully."),
+        backgroundColor: Colors.teal,
+        // Inner padding for SnackBar content.
+        padding: const EdgeInsets.only(
+          top: 20,
+          bottom: 20,
+          left: 30,
+        ),
+        margin: EdgeInsets.only(left: 40, right: 40),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
       //********************************************************************************
       // ---------------------Send an email to the emergency contact---------------------
@@ -118,7 +137,7 @@ class _addState extends State<add> {
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.account_circle),
           contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-          hintText: "Emergency Contact Name",
+          hintText: "Name",
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
           ),

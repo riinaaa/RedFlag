@@ -59,7 +59,7 @@ class _profilePageState extends State<profilePage> {
     );
     Widget deleteButton = ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Color.fromARGB(255, 108, 82, 255), // background
+          primary: Color.fromARGB(255, 255, 82, 82), // background
           onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
         ),
         onPressed: () async {
@@ -71,15 +71,6 @@ class _profilePageState extends State<profilePage> {
           "Delete",
           textAlign: TextAlign.center,
         ));
-
-    // Widget deleteButton = TextButton(
-    //   child: Text("Delete"),
-    //   onPressed: () {
-    //     deleteEmergencyContact(ecemail);
-    //     Navigator.of(context, rootNavigator: true)
-    //         .pop(true); // dismisses only the dialog and returns true
-    //   },
-    // );
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
@@ -235,7 +226,7 @@ class _profilePageState extends State<profilePage> {
                       children: <Widget>[
                         Expanded(
                           child: SizedBox(
-                            height: 300.0,
+                            height: 350.0,
                             // --------------- Retriving Emergency contacts ---------------
                             //StreamBuilder<QuerySnapshot> => we used it to retrive it as Listview
                             // and to be apply to retrive multiple documents from the Firestore
@@ -306,8 +297,6 @@ class _profilePageState extends State<profilePage> {
                                             setState(() {
                                               ecemail = data['ecEmail'];
                                             });
-                                            // deleteEmergencyContact(
-                                            //     data['ecEmail']);
                                             // show the dialog
                                             showDialog(
                                               context: context,
@@ -351,6 +340,25 @@ class _profilePageState extends State<profilePage> {
         .where('user', isEqualTo: user!.uid)
         .get();
     await snapshot.docs.first.reference.delete();
-    Fluttertoast.showToast(msg: "Emergency contact deleted successfully :) ");
+
+    //3) display message to user
+    // // Message
+    final snackBar = SnackBar(
+      content: Text("Emergency contact deleted successfully."),
+      backgroundColor: Colors.teal,
+      // Inner padding for SnackBar content.
+      padding: const EdgeInsets.only(
+        top: 20,
+        bottom: 20,
+        left: 30,
+      ),
+      margin: EdgeInsets.only(left: 40, right: 40),
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
+      ),
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

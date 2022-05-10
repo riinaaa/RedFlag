@@ -202,7 +202,22 @@ class _LoginScreenState extends State<LoginScreen> {
             .signInWithEmailAndPassword(email: email, password: password)
             .then((uid) => {
                   // Display the success mesg to the user
-                  Fluttertoast.showToast(msg: "You've Logged in Successfully"),
+
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("You've Logged in Successfully"),
+                    backgroundColor: Colors.teal,
+                    // Inner padding for SnackBar content.
+                    padding: const EdgeInsets.only(
+                      top: 20,
+                      bottom: 20,
+                      left: 30,
+                    ),
+                    margin: EdgeInsets.only(left: 40, right: 40),
+                    behavior: SnackBarBehavior.floating,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  )),
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => NavScreen())),
                   //****Note****

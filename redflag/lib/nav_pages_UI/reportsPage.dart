@@ -130,6 +130,7 @@ class _reportsPageState extends State<reportsPage> {
                 child: IconButton(
                   key: Key('returnButton_reportPage'),
                   icon: Icon(Icons.arrow_back_rounded),
+                  color: Colors.white,
                   onPressed: () {
                     Navigator.pop(
                       context,

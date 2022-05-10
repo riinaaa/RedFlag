@@ -645,47 +645,5 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
     Navigator.pushAndRemoveUntil((context),
         MaterialPageRoute(builder: (context) => NavScreen()), (route) => false);
-
-    // //************************************************************************
-    // // -----------------Shortcut-----------------
-    // setState(() {
-    //   keyWord = confirmKeywordEditingController.text;
-    // });
-
-    // await FlutterSiriSuggestions.instance.registerActivity(FlutterSiriActivity(
-    //   "$keyWord",
-    //   keyWord,
-    //   isEligibleForSearch: true,
-    //   isEligibleForPrediction: true,
-    //   contentDescription: "Activate Redflag ",
-    //   suggestedInvocationPhrase: "Redflag",
-    // ));
-    // showAlertDialog(BuildContext context) {
-    //   // set up the button
-    //   Widget okButton = TextButton(
-    //     child: Text("OK"),
-    //     onPressed: () {},
-    //   );
-
-    //   // set up the AlertDialog
-    //   AlertDialog alert = AlertDialog(
-    //     title: Text("Account created successfully :"),
-    //     content: Text(
-    //         "Go to\n Shortcut app --> Gallory\n to activate your keyword."),
-    //     actions: [
-    //       okButton,
-    //     ],
-    //   );
-
-    //   // show the dialog
-    //   showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return alert;
-    //     },
-    //   );
-    // }
-
-    // Fluttertoast.showToast(msg: "Account created successfully :) ");
   }
 }
