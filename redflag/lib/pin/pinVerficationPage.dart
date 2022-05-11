@@ -140,9 +140,8 @@ class _VerificatoinState extends State<Verificatoin> {
           // Message
           final snackBar = SnackBar(
             content: const Text(
-                'Yor Deactivated Seccussfully.\n Note: NO feature has been activated.'),
-            backgroundColor: Color.fromARGB(255, 95, 231, 129),
-            // Inner padding for SnackBar content.
+                'Deactivated Seccussfully.\n Note: NO feature has been activated.'),
+            backgroundColor: Colors.teal, // Inner padding for SnackBar content.
             padding: const EdgeInsets.only(
               top: 20,
               bottom: 20,
