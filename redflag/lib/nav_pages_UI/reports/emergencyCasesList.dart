@@ -187,7 +187,7 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                       children: <Widget>[
                         Expanded(
                           child: SizedBox(
-                            height: 400.0,
+                            height: 300.0,
                             // --------------- Retriving Emergency Cases ---------------
                             //StreamBuilder<QuerySnapshot> => we used it to retrive it as Listview
                             // and to be apply to retrive multiple documents from the Firestore
@@ -221,6 +221,7 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                                     //   endTime = data['endTime'];
                                     // });
                                     return Container(
+                                      key: Key('openReport_emergencyCasesPage'),
                                       margin: EdgeInsets.only(
                                           top: 5, left: 30, right: 30),
                                       decoration: BoxDecoration(

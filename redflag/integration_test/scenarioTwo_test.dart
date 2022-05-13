@@ -28,109 +28,7 @@ void main() {
   }
 
   group('Integration test', () {
-    // final email = 'maha@gmail.com';
-    // final password = '123456';
-
-    // //------------ Sign Up Testing ------------
-    // testWidgets('Sign Up Testing', (WidgetTester tester) async {
-
-    //   //--------------Run the app-----------------
-    //   //add Firebase Initialization Here
-    //   await Firebase
-    //       .initializeApp(); //This code ensures your app is ready to use Firebase services.
-    //   await tester.pumpWidget(MyApp());
-    //   await tester.pumpAndSettle();
-
-    //   //--------------Open the Sign up screen-----------------
-    //   expect(find.byKey(const Key('homeSignUpButton')), findsOneWidget);
-    //   await addDelay(3000); //5 seconds.
-    //   await tester.pumpAndSettle(); //waits for all the animations to complete.
-    //   await tester.tap(find.byKey(const ValueKey('homeSignUpButton')));
-    //   await tester.pumpAndSettle();
-
-    //   //--------------Enter in the TextFields (Frame 1)-----------------
-    //   expect(find.byKey(const Key('firstNameTextField_registPage')),
-    //       findsOneWidget);
-    //   expect(find.byKey(const Key('secondNameTextField_registPage')),
-    //       findsOneWidget);
-    //   expect(find.byKey(const Key('userEmailTextField_registPage')),
-    //       findsOneWidget);
-    //   expect(find.byKey(const Key('passwordTextField_registPage')),
-    //       findsOneWidget);
-    //   expect(find.byKey(const Key('confirmPasswordTextField_registPage')),
-    //       findsOneWidget);
-    //   expect(find.byKey(const Key('registerdPinTextField_registPage')),
-    //       findsOneWidget);
-    //   // expect(find.byKey(const Key('nextButton_registPage')), findsOneWidget);
-
-    //   await addDelay(3000); //5 seconds.
-    //   await tester.pumpAndSettle(); //waits for all the animations to complete.
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('firstNameTextField_registPage')), 'Nora');
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('secondNameTextField_registPage')),
-    //       'Alghamdi');
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('userEmailTextField_registPage')),
-    //       'nora@gmail.com');
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('passwordTextField_registPage')), '123456');
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('confirmPasswordTextField_registPage')),
-    //       '123456');
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('registerdPinTextField_registPage')),
-    //       '1234');
-
-    //   await addDelay(3000); //3 seconds.
-    //   await tester.pumpAndSettle();
-    //   await tester.tap(find.text('Next'));
-    //   await addDelay(5000); //5 seconds.
-    //   await tester.pumpAndSettle();
-
-    //   //--------------Enter in the TextFields (Frame 2)-----------------
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('keywordTextField_registPage')), 'No');
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('confirmKeywordTextField_registPage')),
-    //       'No');
-
-    //   await addDelay(3000); //3 seconds.
-    //   await tester.pumpAndSettle();
-    //   await tester.tap(find.text('Next'));
-    //   await addDelay(5000); //5 seconds.
-    //   await tester.pumpAndSettle();
-
-    //   //--------------Enter in the TextFields (Frame 3)-----------------
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('ecNameTextField_registPage')), 'Rina');
-
-    //   await tester.enterText(
-    //       find.byKey(const ValueKey('ecEmailTextField_registPage')),
-    //       'RinaAlfarsi@gmail.com');
-
-    //   await addDelay(3000); //3 seconds.
-    //   await tester.pumpAndSettle();
-    //   await tester.tap(find.byKey(const ValueKey('RegisterButton_registPage')));
-    //   await addDelay(5000); //5 seconds.
-    //   await tester.pumpAndSettle();
-
-    //   //--------------Check again if the Activation button in the current screen-----------------
-    //   expect(find.byKey(const Key('ActivationButton')), findsOneWidget);
-    //   await addDelay(5000); //5 seconds.
-    //   await tester.pumpAndSettle(); //waits for all the animations to complete.
-    // });
-
-    final email = 'futoon@gmail.com';
+    final email = 'rinaalfarsi@gmail.com';
     final password = '123456';
 
     //------------ Login + Activation Testing ------------
@@ -169,9 +67,9 @@ void main() {
       await tester.pumpAndSettle(); //waits for all the animations to complete.
 
       //--------------Check if the verify pin button in the current screen-----------------
-      expect(find.byKey(const Key('verifyPinButton_pinPage')), findsOneWidget);
-      await addDelay(3000); //3 seconds.
-      await tester.pumpAndSettle(); //waits for all the animations to complete.
+      // expect(find.byKey(const Key('verifyPinButton_pinPage')), findsOneWidget);
+      // await addDelay(3000); //3 seconds.
+      // await tester.pumpAndSettle(); //waits for all the animations to complete.
 
       await tester.enterText(
           find.byKey(const ValueKey('pinTextField_pinPage')), '1234');
@@ -211,8 +109,10 @@ void main() {
       await addDelay(3000); //3 seconds.
       await tester.pumpAndSettle(); //waits for all the animations to complete.
 
-      expect(find.byKey(const Key('currentEmergencyContactsList_profilePage')),
-          findsNothing);
+      await tester
+          .tap(find.byKey(const ValueKey('PopupDeleteButton_profilePage')));
+      await addDelay(3000); //3 seconds.
+      await tester.pumpAndSettle(); //waits for all the animations to complete.
     });
 
     //------------ Report Page Testing------------
@@ -228,8 +128,8 @@ void main() {
       await addDelay(10000); //10 seconds.
       await tester.pumpAndSettle(); //waits for all the animations to complete.
 
-      expect(find.byKey(const Key('caseNumberButton_emergencyCasesPage')),
-          findsNothing);
+      expect(find.byKey(const Key('openReport_emergencyCasesPage')),
+          findsOneWidget);
       await addDelay(3000); //3 seconds.
       await tester.pumpAndSettle(); //waits for all the animations to complete.
 

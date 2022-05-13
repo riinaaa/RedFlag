@@ -277,9 +277,6 @@ class _VerificatoinState extends State<Verificatoin> {
       //set the user location link in the emergency case object
       //to store the link in firestore
       emergencyCase.userLocation = value;
-      setState(() {
-        locLink = value;
-      });
 
       // the email content
       String msg2 =

@@ -28,7 +28,7 @@ void main() {
   }
 
   group('Integration test', () {
-    final email = 'maha@gmail.com';
+    final email = 'rinaalfarsi@gmail.com';
     final password = '123456';
 
     //------------ Login + Activation Testing ------------
@@ -165,23 +165,23 @@ void main() {
       await tester.pumpAndSettle(); //waits for all the animations to complete.
     });
 
-    //------------ Map Page Testing------------
+    // //------------ Map Page Testing------------
 
-    // testWidgets('Map Page Testing', (WidgetTester tester) async {
-    //   //TODO: add Firebase Initialization Here
-    //   await Firebase
-    //       .initializeApp(); //This code ensures your app is ready to use Firebase services.
-    //   await tester.pumpWidget(MaterialApp(home: mapPage()));
-    //   await tester.pumpAndSettle();
+    // // testWidgets('Map Page Testing', (WidgetTester tester) async {
+    // //   //TODO: add Firebase Initialization Here
+    // //   await Firebase
+    // //       .initializeApp(); //This code ensures your app is ready to use Firebase services.
+    // //   await tester.pumpWidget(MaterialApp(home: mapPage()));
+    // //   await tester.pumpAndSettle();
 
-    //   await addDelay(10000); //adds a delay of 20 seconds.
-    //   await tester.pumpAndSettle(); //waits for all the animations to complete.
+    // //   await addDelay(10000); //adds a delay of 20 seconds.
+    // //   await tester.pumpAndSettle(); //waits for all the animations to complete.
 
-    //   expect(find.byKey(const Key('GoogleMap_mapPage')), findsOneWidget);
+    // //   expect(find.byKey(const Key('GoogleMap_mapPage')), findsOneWidget);
 
-    //   await addDelay(5000); //adds a delay of 5 seconds.
-    //   await tester.pumpAndSettle(); //waits for all the animations to complete.
-    // });
+    // //   await addDelay(5000); //adds a delay of 5 seconds.
+    // //   await tester.pumpAndSettle(); //waits for all the animations to complete.
+    // // });
 
     //------------ Report Page Testing------------
 
@@ -197,12 +197,12 @@ void main() {
       await tester.pumpAndSettle(); //waits for all the animations to complete.
 
       //--------------Open the  report screen, where the case detailes are displaed-----------------
-      expect(find.byKey(const Key('caseNumberButton_emergencyCasesPage')),
+      expect(find.byKey(const Key('openReport_emergencyCasesPage')),
           findsOneWidget);
       await addDelay(5000); //5 seconds.
       await tester.pumpAndSettle(); //waits for all the animations to complete.
-      await tester.tap(
-          find.byKey(const ValueKey('caseNumberButton_emergencyCasesPage')));
+      await tester
+          .tap(find.byKey(const ValueKey('openReport_emergencyCasesPage')));
       await addDelay(10000); //10 seconds.
       await tester.pumpAndSettle(); //waits for all the animations to complete.
 

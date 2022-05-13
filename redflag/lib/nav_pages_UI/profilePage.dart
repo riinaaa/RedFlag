@@ -58,6 +58,7 @@ class _profilePageState extends State<profilePage> {
       },
     );
     Widget deleteButton = ElevatedButton(
+        key: Key('PopupDeleteButton_profilePage'),
         style: ElevatedButton.styleFrom(
           primary: Color.fromARGB(255, 255, 82, 82), // background
           onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
@@ -226,7 +227,7 @@ class _profilePageState extends State<profilePage> {
                       children: <Widget>[
                         Expanded(
                           child: SizedBox(
-                            height: 350.0,
+                            height: 300.0,
                             // --------------- Retriving Emergency contacts ---------------
                             //StreamBuilder<QuerySnapshot> => we used it to retrive it as Listview
                             // and to be apply to retrive multiple documents from the Firestore

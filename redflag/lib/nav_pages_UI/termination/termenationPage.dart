@@ -20,7 +20,6 @@ class _terminationPageState extends State<terminationPage> {
     return Scaffold(
         body: Center(
       child: Container(
-          key: Key('TerminationButton'),
           alignment: Alignment.center,
           margin: const EdgeInsets.only(top: 130.0, bottom: 20.0),
           padding: EdgeInsets.all(50),
@@ -42,6 +41,7 @@ class _terminationPageState extends State<terminationPage> {
                             )
                       ]),
                   child: ElevatedButton(
+                    key: Key('TerminationButton'),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.transparent,
                       onSurface: Colors.transparent,

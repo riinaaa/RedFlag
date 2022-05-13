@@ -334,32 +334,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           textAlign: TextAlign.center,
         ));
 
-    final shortcutButton = ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Color.fromARGB(255, 108, 82, 255), // background
-          onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
-        ),
-        onPressed: () async {
-          setState(() {
-            keyWord = confirmKeywordEditingController.text;
-          });
-
-          await FlutterSiriSuggestions.instance
-              .registerActivity(FlutterSiriActivity(
-            "$keyWord",
-            keyWord,
-            isEligibleForSearch: true,
-            isEligibleForPrediction: true,
-            contentDescription: "Activate Redflag ",
-            suggestedInvocationPhrase: "Redflag",
-          ));
-          print('Done');
-        },
-        child: Text(
-          "Add to shortcut",
-          textAlign: TextAlign.center,
-        ));
-
     //--------------------- The Sign up page UI ---------------------
     return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -530,7 +504,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           onPressed: controls.onStepContinue,
                         ),
                       if (currentStep == 2) signUpButton,
-                      if (currentStep == 1) shortcutButton,
                       if (currentStep != 0)
                         TextButton(
                           onPressed: controls.onStepCancel,
