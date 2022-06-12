@@ -16,10 +16,7 @@ class _mapPageState extends State<mapPage> {
   // manage the camera functions, zoom and animations, etc.
   Completer<GoogleMapController> _controller = Completer();
 
-  // store each marker ID so we cas use it in ( markers list ) to refrence the
-  List<MarkerId> listMarkerIds = List<MarkerId>.empty(growable: true);
-
-  // we will store the markers in here then will use it to set it on the map
+  // we will store the markers ID in here, then will use it to set it on the map
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{};
 
   @override
@@ -29,9 +26,10 @@ class _mapPageState extends State<mapPage> {
 
   @override
   Widget build(BuildContext context) {
-    // we passed the lat and lng from the location_service.dart using a FutureProvider.
+    // we passed the lat and lng from the location_service.dart using a FutureProvider in the nav page.
     final currentPosition = Provider.of<Position?>(context);
     return Scaffold(
+      // if statment
       body: (currentPosition != null)
           ? Column(
               children: [
@@ -54,8 +52,7 @@ class _mapPageState extends State<mapPage> {
                         .values), // set the markers that is in the markers list
 
                     onMapCreated: (GoogleMapController controller) {
-                      _controller.complete(controller);
-
+                      // create marker ID
                       MarkerId markerId0 = MarkerId("0");
                       MarkerId markerId1 = MarkerId("1");
                       MarkerId markerId2 = MarkerId("2");
@@ -67,18 +64,6 @@ class _mapPageState extends State<mapPage> {
                       MarkerId markerId8 = MarkerId("8");
                       MarkerId markerId9 = MarkerId("9");
                       MarkerId markerId10 = MarkerId("10");
-
-                      listMarkerIds.add(markerId0);
-                      listMarkerIds.add(markerId1);
-                      listMarkerIds.add(markerId2);
-                      listMarkerIds.add(markerId3);
-                      listMarkerIds.add(markerId4);
-                      listMarkerIds.add(markerId5);
-                      listMarkerIds.add(markerId6);
-                      listMarkerIds.add(markerId7);
-                      listMarkerIds.add(markerId8);
-                      listMarkerIds.add(markerId9);
-                      listMarkerIds.add(markerId10);
 
                       // MARKER 0 --> User current location
                       Marker marker0 = Marker(

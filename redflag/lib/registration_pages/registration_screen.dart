@@ -526,23 +526,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void signUp(String email, String password) async {
     try {
       await _auth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => {postDetailsToFirestore()})
-          .catchError((e) {
-        Fluttertoast.showToast(msg: e!.message);
-      });
+              .createUserWithEmailAndPassword(email: email, password: password)
+              .then((value) => {postDetailsToFirestore()})
+          //     .catchError((e) {
+          //   Fluttertoast.showToast(msg: e!.message);
+          // })
+          ;
     }
     //firebase login errors
     on FirebaseAuthException catch (error) {
       switch (error.code) {
         case "invalid-email":
-          errorMessage = "Your email address appears to be malformed.";
           break;
         case "wrong-password":
           errorMessage = "Your password is wrong.";
           break;
-        case "user-not-found":
-          errorMessage = "User with this email doesn't exist.";
+        case "email-already-in-use":
+          errorMessage = "The email you entered is already in use.";
           break;
         case "user-disabled":
           errorMessage = "User with this email has been disabled.";
@@ -553,10 +553,27 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         case "operation-not-allowed":
           errorMessage = "Signing in with Email and Password is not enabled.";
           break;
+
         default:
           errorMessage = "An undefined Error happened.";
       }
-      Fluttertoast.showToast(msg: errorMessage!);
+      final snackBar = SnackBar(
+        content: Text(errorMessage!),
+        backgroundColor: Color.fromARGB(255, 255, 117, 107),
+        // Inner padding for SnackBar content.
+        padding: const EdgeInsets.only(
+          top: 20,
+          bottom: 20,
+          left: 30,
+        ),
+        margin: EdgeInsets.only(left: 40, right: 40),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+        ),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
       print(error.code);
     }
   }

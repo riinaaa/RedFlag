@@ -121,7 +121,7 @@ void main() {
   // 	----------------------Retrive PIN----------------------
 
 // Retrive PIN + check it
-  test('Success retriving the pin.', () async {
+  test('Retriving the pin.', () async {
     final instance = FakeFirebaseFirestore();
     await instance.collection('users').doc(uid).set({
       "firstName": "Atheer",
@@ -132,7 +132,8 @@ void main() {
     });
 
     final snapshot1 = await instance.collection('users').doc(uid).get();
-    expect(snapshot1.data()!['pin'], "1234");
+    final expectedResult = '1234';
+    expect(snapshot1.data()!['pin'], expectedResult);
   });
 
   // 	----------------------Insert Emergency case detailes then retrive it to check it existing----------------------

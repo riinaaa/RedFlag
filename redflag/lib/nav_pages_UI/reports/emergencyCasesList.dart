@@ -40,41 +40,6 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
 
   @override
   Widget build(BuildContext context) {
-    // // set up the buttons
-    // Widget cancelButton = TextButton(
-    //   child: Text("Cancel"),
-    //   onPressed: () {
-    //     Navigator.of(context, rootNavigator: true)
-    //         .pop(false); // dismisses only the dialog and returns false
-    //   },
-    // );
-    // Widget deleteButton = ElevatedButton(
-    //     style: ElevatedButton.styleFrom(
-    //       primary: Color.fromARGB(255, 255, 82, 82), // background
-    //       onPrimary: Color.fromARGB(255, 255, 255, 255), // foreground
-    //     ),
-    //     onPressed: () async {
-    //       deleteandSendEmergencyCase(
-    //           caseNumber, audioRecording, userLocation, endTime);
-    //       Navigator.of(context, rootNavigator: true)
-    //           .pop(true); // dismisses only the dialog and returns true
-    //     },
-    //     child: Text(
-    //       "Delete",
-    //       textAlign: TextAlign.center,
-    //     ));
-
-    // // set up the AlertDialog
-    // AlertDialog alert = AlertDialog(
-    //   title: Text("Wait", textAlign: TextAlign.center),
-    //   content: Text(
-    //       "Are you sure that you want to delete $caseNumber emergency case?"),
-    //   actions: [
-    //     deleteButton,
-    //     cancelButton,
-    //   ],
-    // );
-
     return Container(
       child: Scaffold(
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -214,12 +179,6 @@ class _cemrgencyCasesState extends State<cemrgencyCases> {
                                       .map((DocumentSnapshot document) {
                                     Map<String, dynamic> data = document.data()!
                                         as Map<String, dynamic>;
-                                    // setState(() {
-                                    //   caseNumber = data['caseNumber'];
-                                    //   audioRecording = data['audioRecording'];
-                                    //   userLocation = data['userLocation'];
-                                    //   endTime = data['endTime'];
-                                    // });
                                     return Container(
                                       key: Key('openReport_emergencyCasesPage'),
                                       margin: EdgeInsets.only(

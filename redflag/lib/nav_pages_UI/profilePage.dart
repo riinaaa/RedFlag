@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:redflag/Users.dart';
 import 'package:redflag/EmergencyContacts.dart';
 import 'package:redflag/registration_pages/login_screen.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({Key? key}) : super(key: key);

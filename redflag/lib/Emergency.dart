@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
@@ -58,26 +60,35 @@ class Emergency {
   }
 
   sendMail(List<dynamic> recipients, String subject, String msg) async {
-    String username = 'redflagapp.8@gmail.com';
-    String password = 'Redflag123';
-
-    final smtpServer = gmail(username, password);
-    final message = Message()
-      ..from = Address(username)
-      ..ccRecipients.addAll(recipients)
-      ..subject = '$subject :::: ${DateTime.now()}'
-      ..html = '$msg';
-
     try {
+      // from where the email will be sent
+      String username = 'redflagapp.8@gmail.com';
+      String password = 'Redflag123';
+
+      final smtpServer = gmail(username, password);
+
+      // content of the email
+      final message = Message()
+        ..from = Address(username)
+        ..ccRecipients.addAll(recipients)
+        ..subject = '$subject :::: ${DateTime.now()}'
+        ..html = '$msg';
+
+      // send the email
       final sendReport = await send(message, smtpServer);
       print('Message sent: ' + sendReport.toString());
       print(recipients);
-    } on MailerException catch (e) {
-      print('Message not sent.');
-      print(e.toString());
-      for (var p in e.problems) {
-        print('Problem: ${p.code}: ${p.msg}');
-      }
+    } on SmtpClientAuthenticationException catch (e) {
+      // This exception is thrown when the username and password is incorrect.
+      Fluttertoast.showToast(
+          msg:
+              'The Notifying message has been not sent.\nThrer is somthing wrong with the email or the password of the sender.\nContact Redflag team on redflagapp.8@gmail.com', // message
+          gravity: ToastGravity.CENTER, // location
+          timeInSecForIosWeb: 5
+          // duration
+          );
+      print(
+          'The Notifying message has been not sent.\nThrer is somthing wrong with the email or the password of the sender.\nContact Redflag team on redflagapp.8@gmail.com');
     }
   }
 }

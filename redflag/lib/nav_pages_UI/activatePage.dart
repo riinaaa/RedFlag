@@ -23,7 +23,7 @@ class _activationPageState extends State<activationPage> {
     permissionsInit();
   }
 
-  // to make sure all permissions and accesses are granted
+  //--------------------to make sure all permissions and accesses are granted----------------------
   void permissionsInit() async {
     await Permission.microphone.request(); // to access mic
     await Permission.storage
@@ -31,11 +31,13 @@ class _activationPageState extends State<activationPage> {
     await Permission.manageExternalStorage
         .request(); // to store audio recording in a temp file
     await Permission.accessNotificationPolicy.request(); // for the mute
+
     //////////////////////////////////////////////////////////
+    //------------------ Location access --------------------
     bool serviceEnabled;
     LocationPermission permission;
 
-    // Test if location services are enabled.
+    // Test if location services(GPS) are enabled .
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       // Location services are not enabled don't continue
@@ -44,15 +46,11 @@ class _activationPageState extends State<activationPage> {
       return Future.error('Location services are disabled.');
     }
 
+    // first it's going to check the permission statues if its denied then request user permision
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        // Permissions are denied, next time you could try
-        // requesting permissions again (this is also where
-        // Android's shouldShowRequestPermissionRationale
-        // returned true. According to Android guidelines
-        // your App should show an explanatory UI now.
         return Future.error('Location permissions are denied');
       }
     }

@@ -68,9 +68,7 @@ class _VerificatoinState extends State<Verificatoin> {
         emergencyContactModel.eFullName = doc['eFullName'];
         emergencyContactModel.ecEmail = doc['ecEmail'];
         loggedInUser.emergencyContacts.add(emergencyContactModel);
-        for (var i = 0; i < 1; i++) {
-          recipients.add(loggedInUser.emergencyContacts[i].ecEmail);
-        }
+        recipients.add(loggedInUser.emergencyContacts[0].ecEmail);
       });
     });
 // -------------- to retrive the length of emergency contact based on the UID.--------------
@@ -314,7 +312,7 @@ class _VerificatoinState extends State<Verificatoin> {
 
   @override
   Widget build(BuildContext context) {
-    // The timer will start ince the user enter the pin page
+    // The timer will start once the user enter the pin page
     startTimer();
 
     // ---------------------- PIN page UI ----------------------
