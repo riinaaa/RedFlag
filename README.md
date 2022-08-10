@@ -1,5 +1,6 @@
 # RedFlag Safety Application
 
+### **Main Issue**
 Women's and children's safety is becoming increasingly crucial in Saudi Arabia and other countries.
 
 The main issue with dealing with these cases is not knowing where the crime is taking place or whether it is taking place at all, 
